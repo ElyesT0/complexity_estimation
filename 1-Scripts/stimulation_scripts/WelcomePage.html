@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="user-scalable=no,width=device-width, initial-scale=1.0"
+    />
+    <link href="style_welcome.css" rel="stylesheet" />
+    <script src="resources/save-data.js"></script>
+ <title>Bienvenue</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="el el--1">
+        <div class="instruction-title">MemoCrush</div>
+        <div class="experimenters">
+          <p>Expérimentateur: Elyès TABBANE et Fosca AL ROUMI</p>
+          <p>Supervision: Stanislas DEHAENE</p>
+          <p>Merci à Elsa, Thomas, Imane, Alena, Madison et Charlotte pour cette nouvelle expérience !</p>
+        </div>
+      </div>
+      <div class="el el--2">
+        <text class="instruction-text">
+          <p>
+            <strong
+              >Bienvenue dans cette expérience et merci de participer à nos travaux de recherche.</strong
+            >
+          </p>
+          <p>
+            Dans un instant, vous serez confronté à un jeu de mémoire. Veuillez répondre avec votre <strong>index</strong>.
+          </p>
+          <p>
+            Mettez votre mémoire au défi avec des séquences lumineuses. Mémorisez les, et reproduisez les le plus vite possible. Mais d'abord, veuillez
+            <strong
+              >lire et signer notre formulaire de consentement en cliquant sur le bouton ci-dessous. 
+            </strong>
+          </p>
+        </text>
+      </div>
+      <div class="el el--3">
+        <button class="btn btn--consent">Consentement</button>
+        <form action="survey_page.html">
+          <button class="btn btn--survey hidden">Questionnaire</button>
+        </form>
+        <!-- <a class="btn btn--training hidden" href="training_sequence.html"
+          >Start training</a
+        > -->
+    </div>
+    <div class="modal hidden">
+      <button class="close-modal">&times;</button>
+      <h1 class="consent-title">Formulaire de Consentement</h1>
+      <div class="text-consent-1">
+        <p><strong>Veuillez ne pas participer si vous êtes mineurs.</strong></p>
+        <p>
+          Vous allez participer à un court questionnaire démographique, suivi d'une expérience de sciences cognitives.
+          <p>
+            Sachez que l'expérience dure environ 10 minutes.
+            </p>
+            <p>Essayez de la passer d'un seul bloc, seul.e, dans un endroit calme, en restant bien concentré.e. Votre collaboration est essentielle pour que les données soient interprétables. Votre participation est libre, et vous pouvez arrêter à tout moment, en quittant cette page.
+              </p>
+              <p>
+                Cependant, si vous arrêtez avant la fin, les données ne seront pas utilisables et aucune donnée ne sera conservée.
+          </p>
+          Seuls vos réponses et vos temps de réponse seront analysés et conservés. Les résultats de cette expérience sont susceptibles d'être utilisés lors de publications ou de présentations scientifiques. Cette étude ne comporte aucun risque ou inconfort autre que ceux de la vie quotidienne.
+
+        </p>
+        <p>
+        </p>
+      </div>
+      <div class="consentbox">
+        <button class="btn--consentChoice btn-consent-agree">Accepter</button>
+        <button class="btn--consentChoice btn-consent-disagree">
+          Refuser
+        </button>
+      </div>
+    </div>
+    <!-- TODO add "Agree" and "Disagree" button on the modal + save to variable choice -->
+    <div class="overlay hidden"></div>
+    <script src="script_welcome.js"></script>
+      </body>
+</html>

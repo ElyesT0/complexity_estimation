@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="survey_style.css" />
+    <title>Survey</title>
+  </head>
+  <body>
+    <!-- Cover the whole page -->
+    <div class="survey--body">
+      <!-- Frame that contains the survey -->
+      <div class="survey--container">
+        <!-- Smaller frame with the elements of the survey. Needs padding-->
+        <div class="survey--core">
+          <div class="survey--items">
+            <!-- First: title of the survey -->
+            <h3>Survey</h3>
+            <!-- sub paragraph -->
+            <p>
+              Please take the time to answer these few demographic questions
+              demographic questions, necessary to know the sample studied:
+            </p>
+            <!-- the form that contains the dropdown list questions -->
+            <form class="questions">
+              <!-- first question -->
+              <div class="dropdown--list">
+                <select id="age">
+                  <option selected disable value="">Age</option>
+                  <option value="18_25">18-25</option>
+                  <option value="25_40">25-40</option>
+                  <option value="40_60">40-60</option>
+                  <option value="60_">>60</option>
+                </select>
+              </div>
+
+              <!-- Second question -->
+              <div class="dropdown--list">
+                <select id="diplome">
+                  <option selected disable value="">
+                    Highest Degree obtained
+                  </option>
+                  <option value="no_diplome">Primary School</option>
+                  <option value="brevet">Middle School</option>
+                  <option value="BAC">High School</option>
+                  <option value="BAC_3">Bachelor</option>
+                  <option value="BAC_5">Master</option>
+                  <option value="BAC_7">PhD</option>
+                </select>
+              </div>
+
+              <!-- Third question -->
+              <!-- ex: autodidacte <1an, autodidacte>1an, conservatoire<1an, 
+                conservatoire 1-3ans, conservatoire 3ans<, professionnel de la musique -->
+              <div class="dropdown--list">
+                <select id="musicExp">
+                  <option selected disable value="">
+                    Describe your Musical experience
+                  </option>
+                  <option value="noExp">No experience</option>
+                  <option value="auto_1anMoins">
+                    Self-learning for less than 1 year
+                  </option>
+                  <option value="auto_1anPlus">
+                    Self-learning for more than 1 year
+                  </option>
+                  <option value="cvt_1anMoins">
+                    Took classes for less than 1 year
+                  </option>
+                  <option value="cvt_1an3an">
+                    Took classes for 1 to 3 years
+                  </option>
+                  <option value="cvt_3anPlus">
+                    Took classes for more than 3 years
+                  </option>
+                  <option value="pro">Professional musician</option>
+                </select>
+              </div>
+
+              <!-- Fourth question -->
+              <!-- ex: quand avez-vous arrêté votre apprentissage des mathématiques ? -->
+              <div class="dropdown--list">
+                <select id="mathExp">
+                  <option selected disable value="">
+                    Last Math lessons received
+                  </option>
+                  <option value="lycee">Highschool</option>
+                  <option value="BAC_2/3">Bachelor</option>
+                  <option value="BAC_5">Master</option>
+                  <option value="BAC_5plus">>PhD</option>
+                </select>
+              </div>
+              <p id="errorMess" class="hidden">
+                Please fill in all the fields.
+              </p>
+            </form>
+            <div class="btn--area">
+              <button id="submit" class="btn btn--survey">Send</button>
+              <form action="animation_sequence.html">
+                <button id="goToTraining" class="btn btn--survey hidden">
+                  Training
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="survey_script.js"></script>
+  </body>
+</html>

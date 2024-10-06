@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="user-scalable=no,width=device-width, initial-scale=1.0"
+    />
+    <link href="style_welcome.css" rel="stylesheet" />
+    <title>Welcome</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="el el--1">
+      <div class="el instruction-title">MemoCrush</div>
+      <div class="experimenters">
+          <p>Experimenters: Elyès TABBANE & Fosca AL ROUMI</p>
+          <p>Supervision: Stanislas DEHAENE</p>
+          <p>Special Thanks to Elsa, Thomas, Imane, Alena, Madison and Charlotte for this new experiment !</p>
+
+        </div>
+      </div>
+      <div class="el el--2">
+        <text class="instruction-text">
+          <p>
+            <strong
+              >Welcome to this experiment and thank you for participating in our
+              research work.</strong
+            >
+          </p>
+          <p>
+            In a moment you will be faced with a memory game. Please answer with your <strong>index finger</strong>.
+          </p>
+          <p>
+            Challenge your memory with sequences of lights. Memorize them, and reproduce them as fast as possible! But first, please <strong
+              >read and sign our consent form by clicking the button bellow.
+            </strong>
+          </p>
+        </text>
+      </div>
+      <div class="el el--3">
+        <button class="btn btn--consent">Consent</button>
+        <form action="survey_page_EN.html">
+          <button class="btn btn--survey hidden">Survey</button>
+        </form>
+        <!-- <a class="btn btn--training hidden" href="training_sequence.html"
+          >Start training</a
+        > -->
+    </div>
+    <div class="modal hidden">
+      <button class="close-modal">&times;</button>
+      <h1 class="consent-title">Consent Form</h1>
+      <div class="text-consent-1">
+        <p><strong>Please do not participate if you are a minor.</strong></p>
+        <p>You will participate in a short demographic questionnaire, followed by a cognitive science experiment.
+          <p>
+            Be aware that the experiment takes about 10 minutes. 
+            </p>
+            <p>Try to do it as a single block, alone, in a quiet place, staying focused.</p>Your cooperation is essential for the data to be interpretable. Your participation is free, and you can stop at any time, by leaving this page. 
+              </p>
+              <p>
+                However, if you stop before the end, the data will not be usable and no data will be kept.
+          </p>
+          Only your responses and response times will be analyzed and stored. The results of this experiment may be used in publications or scientific presentations. There are no risks or discomforts associated with this study other than those of daily life.
+
+      </div>
+      <div class="consentbox">
+        <button class="btn--consentChoice btn-consent-agree">Agree</button>
+        <button class="btn--consentChoice btn-consent-disagree">
+          Disagree
+        </button>
+      </div>
+    </div>
+    <!-- TODO add "Agree" and "Disagree" button on the modal + save to variable choice -->
+    <div class="overlay hidden"></div>
+    <script src="script_welcome.js"></script>
+  </body>
+</html>

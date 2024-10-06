@@ -1,0 +1,282 @@
+/* 
+=========== General Settings ===========
+*/
+
+@import url("https://fonts.googleapis.com/css?family=Bungee");
+
+* {
+  margin: 0;
+  padding: 0;
+  touch-action: manipulation; /* double-tap on smartphone does not zoom  */
+}
+
+body {
+  color: #212121;
+  font-family: sans-serif;
+  font-size: 16px;
+}
+
+p {
+  margin-bottom: 10px;
+}
+
+/* 
+=========== Containers ===========
+*/
+.container {
+  background-color: #ddd;
+  /* height: 800px;
+  width: 800px; */
+  margin: 12px 6px;
+  /* css Grid */
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  grid-template-columns: 1fr;
+  column-gap: 20px;
+  row-gap: 30px;
+  justify-content: start;
+  align-content: start;
+  background-color: whitesmoke;
+  border: 5px solid black;
+}
+
+.container--confidence {
+  display: grid;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: center;
+  row-gap: 10px;
+  column-gap: 10px;
+  position: absolute;
+  bottom: 5vh;
+  transform: translate(5px);
+  margin-bottom: 5px;
+}
+
+/* 
+=========== elements =========== 
+*/
+.title--language {
+  align-self: center;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.el {
+  font-family: sans-serif;
+  font-size: 16px;
+  min-width: 0;
+}
+.experimenters {
+  margin-top: 40px;
+}
+
+.instruction-title {
+  font-weight: bold;
+  text-align: center;
+  margin-top: 12px;
+  font-size: 30px;
+  font-family: "Bungee", sans-serif;
+}
+.el--1 {
+  margin: 0% 2%;
+  align-self: center;
+  grid-row: 1/2;
+}
+
+.el--2 {
+  margin: 0% 2%;
+  align-self: center;
+  grid-row: 2/4;
+}
+
+.el--3 {
+  grid-row: 4/5;
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+  padding: 50px;
+}
+
+.el--4 {
+  position: absolute;
+  left: 23%;
+  bottom: 0px;
+  gap: 50px;
+  justify-content: center;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+/* 
+=========== buttons =========== 
+*/
+.btn {
+  flex-grow: 0;
+  font-size: 20px;
+  background-color: #b3b3b3;
+  text-align: center;
+  border: none;
+  border-radius: 4px;
+  width: 300px;
+  padding: 10px;
+  font-family: "Bungee", sans-serif;
+}
+
+.btn--survey {
+  display: inline-block;
+  height: 50px;
+  width: 200px;
+  /* border-radius: 50%; */
+  text-align: center;
+  /* line-height: 200px; */
+  background-color: #15803d;
+  color: #fff;
+}
+.btn--survey:link,
+.btn--survey:visited {
+  color: #fff;
+  text-decoration: none;
+}
+
+.btn:active {
+  background-color: #fff;
+  border: 3px solid #15803d;
+  color: black;
+  cursor: pointer;
+  transform: scale(0.95, 0.85);
+}
+.lan {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  width: 250px;
+  /* border-radius: 50%; */
+  text-align: center;
+  align-self: center;
+  justify-self: center;
+}
+
+#frImg {
+  width: 50px;
+  height: 50px;
+}
+
+#languageEng {
+  grid-row: 2/3;
+}
+
+#languageFr {
+  grid-row: 3/4;
+}
+/* 
+=========== Classes to make the modal window work ===========
+*/
+
+.close-modal {
+  position: absolute;
+  right: 7rem;
+  font-size: 3rem;
+  color: #333;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  z-index: 5;
+}
+
+.modal {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  width: 80%;
+  height: 100%;
+
+  background-color: whitesmoke;
+  padding: 1rem 6rem;
+  border-radius: 5px;
+  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+  z-index: 10;
+
+  display: grid;
+  grid-template-rows: 0.2fr 2fr 2fr 1fr;
+  row-gap: 10px;
+}
+
+.consent-title {
+  grid-row: 1/2;
+  text-align: center;
+}
+.text-consent-1 {
+  grid-row: 2/4;
+  padding-left: 10px;
+  padding-right: 5px;
+}
+
+.consentbox {
+  grid-row: 4/5;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 100px;
+  margin-right: 15px;
+  margin-left: 15px;
+  row-gap: 10px;
+  column-gap: 50px;
+  font-size: 15px;
+  text-align: center;
+  justify-content: space-between;
+}
+
+.btn--consent {
+  transform: translate(20px, 10px);
+}
+
+.btn--consentChoice {
+  border-radius: 12px;
+  border: none;
+  font-size: 20px;
+  color: white;
+  height: 35px;
+}
+
+.btn-consent-agree {
+  background-color: #15803d;
+}
+
+.btn-consent-agree:active {
+  background-color: #22c55e;
+}
+
+.btn-consent-disagree {
+  background-color: #991b1b;
+}
+
+.btn-consent-disagree:active {
+  background-color: #dc2626;
+}
+
+.btn--green {
+  background-color: #15803d;
+  color: white;
+}
+
+.btn--red {
+  background-color: #991b1b;
+  color: white;
+}
+
+.hidden {
+  display: none;
+}

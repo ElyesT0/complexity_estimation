@@ -1,0 +1,16 @@
+{
+  "name": "memocrush_extension",
+  "version": "1.0.0",
+  "default": "index.htmlnpm",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "build": "parcel build *.html --dist-dir ./dist"
+  },
+  "author": "Elyès Tabbane",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "parcel": "^2.12.0"
+  }
+}

@@ -1,2 +1,0 @@
-var e;const t=window.screen.width,n=window.innerHeight,c=document.getElementById("languageFr"),i=document.getElementById("languageEng");document.querySelector(".container").style.height=`${n-40}px`,document.querySelector(".container").style.width=`${t-35}px`,c.addEventListener("click",function(){e="Fr",sessionStorage.setItem("lan_selected",e)}),i.addEventListener("click",function(){e="Eng",sessionStorage.setItem("lan_selected",e)});
-//# sourceMappingURL=index.1d0b7749.js.map

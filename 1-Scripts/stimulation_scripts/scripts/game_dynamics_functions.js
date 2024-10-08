@@ -10,7 +10,7 @@ const init = function (element_selectors) {
     } else {
       const { btn_ok, txt_container } = element_selectors;
       hideElements(btn_ok, txt_container);
-      runTrial();
+      runBlock();
     }
   });
 };
@@ -18,11 +18,19 @@ const init = function (element_selectors) {
 // -------------------------------------------------------------------------------------------
 
 const runBlock = function () {
-  // 0 - Check if the experiment is continuing: start a new block or end the experiment
-  // 1 - Generate the participant's Object
-  // 2 - Loop through trials
-  // __ 2.a - Wait for trigger 'end of trial'
-  // __ 2.b - Check if the block is continuing: start a new trial or end the block
+  // 0 - Hide instructions related elements
+  hideElements(instruction_elements, element_selectors);
+
+  // 1 - Generate the participant's Object if it's the first time running a block
+  if (block_counter == 0) {
+    
+    block_counter += 1;
+  } else {
+    // 0 - Check if the experiment is continuing: start a new block or end the experiment
+    // 2 - Loop through trials
+    // __ 2.a - Wait for trigger 'end of trial'
+    // __ 2.b - Check if the block is continuing: start a new trial or end the block
+  }
 };
 
 // -------------------------------------------------------------------------------------------

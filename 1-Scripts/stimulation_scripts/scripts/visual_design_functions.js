@@ -227,17 +227,10 @@ const draw_figure = function () {
 
 // -------------------------------------------------------------------------------------------
 
-const hideElements = function (my_elements) {
-  /**
-   * Hides the specified elements by adding the 'hidden' class to each.
-   *
-   * @param {Object} my_elements - An object containing DOM elements or arrays of DOM elements to hide.
-   *                               The values can be single elements or arrays of elements.
-   * @returns {void}
-   */
-
-  for (let i = 0; i < Object.keys(my_elements).length; i++) {
-    const elements = Object.values(my_elements)[i];
+const hideElements = function (my_elements, element_selectors) {
+  for (let i = 0; i < my_elements.length; i++) {
+    const my_key = my_elements[i];
+    const elements = element_selectors[my_key];
     //check if elements is an array or a single element
     if (Array.isArray(elements)) {
       elements.forEach((element) => element.classList.add('hidden'));
@@ -250,19 +243,9 @@ const hideElements = function (my_elements) {
 // -------------------------------------------------------------------------------------------
 
 const revealElements = function (my_elements, element_selectors) {
-  /**
-   * Reveals the specified elements by removing the 'hidden' class from each.
-   *
-   * @param {Object} my_elements - An object containing DOM elements or arrays of DOM elements to reveal.
-   *                               The values can be single elements or arrays of elements.
-   * @returns {void}
-   */
-
   for (let i = 0; i < my_elements.length; i++) {
     const my_key = my_elements[i];
-    const elements = Object.values(element_selectors[my_key]);
-
-
+    const elements = element_selectors[my_key];
     //check if elements is an array or a single element
     if (Array.isArray(elements)) {
       elements.forEach((element) => element.classList.remove('hidden'));
@@ -270,16 +253,6 @@ const revealElements = function (my_elements, element_selectors) {
       elements.classList.remove('hidden');
     }
   }
-  // for (let i = 0; i < Object.keys(my_elements).length; i++) {
-  //   const elements = Object.values(my_elements)[i];
-  //   console.log(elements);
-  //   //check if elements is an array or a single element
-  //   if (Array.isArray(elements)) {
-  //     elements.forEach((element) => element.classList.remove('hidden'));
-  //   } else {
-  //     elements.classList.remove('hidden');
-  //   }
-  // }
 };
 
 // -------------------------------------------------------------------------------------------

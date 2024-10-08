@@ -19,6 +19,7 @@ const keyEvent = 'touchend'; //'touchend' (smartphone) or 'click' (computer) dep
 ============================================================
 */
 
+const instruction_elements = ['btn_ok', 'txt_container']; // Elements to be displayed to read the instructions.
 const experimental_elements = ['circles', 'fixation']; // Elements to be displayed all throughout presentation and response phase.
 const presentation_phase_elements = []; // Elements that needs to be displayed during the presentation phase.
 const response_phase_elements = [
@@ -27,6 +28,15 @@ const response_phase_elements = [
   'prompt',
 ]; // Elements that needs to be displayed during the response phase.
 var counter_presentation = 0;
+var block_counter = 0;
+
+/* 
+============================================================
++++++++++++++++++ Participant Data Variables +++++++++++++++
+============================================================
+*/
+
+var participantData = new ParticipantCl();
 
 /* 
 ============================================================

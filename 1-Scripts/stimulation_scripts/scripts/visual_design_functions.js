@@ -139,7 +139,7 @@ const draw_figure = function () {
   // -- Create estimation_complexity buttons and add them to the array of selectors
   for (let i = 1; i < range_estimation_complexity + 1; i++) {
     var div = document.createElement('div');
-    div.id = `conf-${i}`;
+    div.id = `complexity-${i}`;
     div.classList.add('btn-estimation_complexity', 'no--zoom');
     div.textContent = `${i}`;
     container_estimation_complexity.appendChild(div);
@@ -230,6 +230,8 @@ const draw_figure = function () {
 const hideElements = function (my_elements, element_selectors) {
   for (let i = 0; i < my_elements.length; i++) {
     const my_key = my_elements[i];
+    console.log('Hiding: ', my_key);
+
     const elements = element_selectors[my_key];
     //check if elements is an array or a single element
     if (Array.isArray(elements)) {
@@ -240,11 +242,30 @@ const hideElements = function (my_elements, element_selectors) {
   }
 };
 
+// const clearScreen = function () {
+//   for (let i = 0; i < Object.keys(element_selectors).length; i++) {
+//     const my_key = Object.keys(element_selectors)[i];
+//     const elements = element_selectors[my_key];
+//     //check if elements is an array or a single element
+//     if (Array.isArray(elements)) {
+//       elements.forEach((element) => element.classList.add('hidden'));
+//     } else {
+//       elements.classList.add('hidden');
+//     }
+//   }
+// };
+
+function clearScreen() {
+  hideElements(Object.keys(element_selectors), element_selectors);
+}
+
 // -------------------------------------------------------------------------------------------
 
 const revealElements = function (my_elements, element_selectors) {
   for (let i = 0; i < my_elements.length; i++) {
     const my_key = my_elements[i];
+    console.log('revealing: ', my_key);
+
     const elements = element_selectors[my_key];
     //check if elements is an array or a single element
     if (Array.isArray(elements)) {

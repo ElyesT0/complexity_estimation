@@ -6,7 +6,7 @@ class ParticipantCl {
     this.sequences_shown = 'toFill';
 
     this.participant_id = 'toFill';
-    this.participant_response = 'toFill';
+    this.participant_response = [];
     this.participant_timings = 'toFill';
     this.participant_startTime = 'toFill';
     this.participant_screenWidth = 'toFill';

@@ -21,7 +21,7 @@ const keyEvent = 'touchend'; //'touchend' (smartphone) or 'click' (computer) dep
 
 const instruction_elements = ['btn_ok', 'txt_container']; // Elements to be displayed to read the instructions.
 const experimental_elements = ['circles', 'fixation']; // Elements to be displayed all throughout presentation and response phase.
-const presentation_phase_elements = []; // Elements that needs to be displayed during the presentation phase.
+const page_next_elements = ['txt_container', 'btn_next']; // Elements that needs to be displayed during the presentation phase.
 const response_phase_elements = [
   'container_estimation_complexity',
   'progression_bar',
@@ -48,6 +48,7 @@ const SOA = 400;
 const blink = 300; //actual visual duration of the stimuli in ms
 const nb_repetition = 2; // number of times the series of sequences are presented
 const range_estimation_complexity = 8; // number of complexity buttons
+const set_delay = 750; //Short delay after end of presentation
 var presentation_time = false; // Tracks if a sequence is currently being presented
 var txt_counter = 0;
 

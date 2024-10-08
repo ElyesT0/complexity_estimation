@@ -230,8 +230,6 @@ const draw_figure = function () {
 const hideElements = function (my_elements, element_selectors) {
   for (let i = 0; i < my_elements.length; i++) {
     const my_key = my_elements[i];
-    console.log('Hiding: ', my_key);
-
     const elements = element_selectors[my_key];
     //check if elements is an array or a single element
     if (Array.isArray(elements)) {
@@ -264,14 +262,22 @@ function clearScreen() {
 const revealElements = function (my_elements, element_selectors) {
   for (let i = 0; i < my_elements.length; i++) {
     const my_key = my_elements[i];
-    console.log('revealing: ', my_key);
-
     const elements = element_selectors[my_key];
-    //check if elements is an array or a single element
+
+    // Helper function to reveal child elements recursively
+    const revealWithChildren = (element) => {
+      element.classList.remove('hidden'); // Reveal the current element
+
+      // Check and reveal all children recursively
+      const childElements = element.querySelectorAll('*'); // Select all child elements
+      childElements.forEach((child) => child.classList.remove('hidden'));
+    };
+
+    // Check if 'elements' is an array or a single element
     if (Array.isArray(elements)) {
-      elements.forEach((element) => element.classList.remove('hidden'));
+      elements.forEach((element) => revealWithChildren(element)); // Apply to each element in the array
     } else {
-      elements.classList.remove('hidden');
+      revealWithChildren(elements); // Apply directly if it's a single element
     }
   }
 };

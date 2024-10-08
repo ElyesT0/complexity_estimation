@@ -24,7 +24,6 @@ const init = function (element_selectors) {
 
   // Make the NEXT button lead to next trial
   element_selectors.btn_next.addEventListener(keyEvent, () => {
-    console.log('pushed button next');
     runTrial();
   });
 };
@@ -32,8 +31,6 @@ const init = function (element_selectors) {
 // -------------------------------------------------------------------------------------------
 
 const runTrial = function () {
-  console.log('Trial Start');
-
   var sequence = sequences[counter_presentation];
   // 0 - Clean the screen
   clearScreen();
@@ -70,8 +67,6 @@ function response(participant_input) {
   presentation_time = false;
   // update the progression bar
   //   update_progression(completion);
-
-  console.log('response is given');
   // - Hide answer buttons
   clearScreen();
 

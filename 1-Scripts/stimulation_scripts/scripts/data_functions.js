@@ -10,6 +10,19 @@ Here we define the functions used to prepare the experiment. Typically, function
 ======================================================
 */
 
+// -------------------------------------------------------------------------------------------
+
+function handleEvent(event) {
+  if (event.type === 'click') {
+    console.log('Click event detected');
+    // Handle click-specific logic here
+  } else if (event.type === 'touchend') {
+    console.log('Touchend event detected');
+    // Handle touchend-specific logic here
+  }
+  // Common logic for both events
+}
+
 const shuffle = function (seq) {
   // purpose: shuffle the sequences by switching positions of the sequences in the array several times
 
@@ -35,7 +48,6 @@ const makeId = function () {
   }
   return participant_ID;
 };
-
 
 // -------------------------------------------------------------------------------------------
 

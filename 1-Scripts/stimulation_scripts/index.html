@@ -4,30 +4,202 @@
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
-    <link href="css/style_animation_sequence.css" rel="stylesheet" />
-    <!-- Include Axios via CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <title>Experiment Started</title>
-  </head>
-  <body class="no--zoom">
-    <div class="container-figure">
-      <div class="text-container"></div>
-      <div class="hidden" id="progression--bar">
-        <div class="chart">
-          <div class="bar"></div>
+    <title>Welcome to the Experiment</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="css/style.css" rel="stylesheet" />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-          <span id="value1">0</span>
-        </div>
+      body {
+        font-family: 'Roboto', sans-serif;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f8ff;
+        margin: 0;
+        padding: 0;
+      }
+
+      h1 {
+        font-size: 2rem;
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+        padding: 0 15px;
+      }
+
+      .language-selection {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+
+      .flag {
+        width: 80px;
+        height: auto;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .flag:hover {
+        transform: scale(1.1);
+      }
+
+      .consent-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        justify-content: center;
+        align-items: center;
+      }
+
+      .consent-box {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        max-width: 90%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .consent-box h2 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+      }
+
+      .consent-box p {
+        font-size: 1rem;
+        margin-bottom: 20px;
+      }
+
+      .btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #4caf50;
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        background-color: #45a049;
+      }
+
+      @media (min-width: 768px) {
+        h1 {
+          font-size: 2.5rem;
+        }
+
+        .flag {
+          width: 100px;
+        }
+
+        .consent-box {
+          max-width: 500px;
+        }
+
+        .btn {
+          font-size: 1.2rem;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        h1 {
+          font-size: 3rem;
+        }
+
+        .flag {
+          width: 120px;
+        }
+
+        .consent-box {
+          max-width: 600px;
+        }
+
+        .btn {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Welcome to the Experiment</h1>
+    <p style="text-align: center; padding: 0 15px">
+      Please select your preferred language:
+    </p>
+    <div class="language-selection">
+      <img src="images/flag_eng.png" alt="English" class="flag" id="eng-flag" />
+      <img src="images/flag_fr.png" alt="Français" class="flag" id="fr-flag" />
+    </div>
+
+    <div class="consent-modal" id="consent-modal">
+      <div class="consent-box">
+        <h2>Consent Form</h2>
+        <p>
+          By proceeding with this experiment, you consent to the use of your
+          data for research purposes. All data will be anonymous.
+        </p>
+        <button class="btn" id="consent-ok">I Agree</button>
       </div>
     </div>
-    <script src="scripts/data_functions.js"></script>
-    <script src="scripts/participantData_class.js"></script>
-    <script src="scripts/data_sequences.js"></script>
-    <script src="scripts/visual_design_functions.js"></script>
-    <script src="scripts/game_dynamics_functions.js"></script>
-    <script src="scripts/run_experiment.js"></script>
-    <script src="scripts/send_post.js"></script>
+    <script>
+      document
+        .getElementById('eng-flag')
+        .addEventListener('click', function () {
+          showConsent();
+          localStorage.setItem('event_type', 'click');
+          localStorage.setItem('lan_clicked', 'eng');
+        });
+
+      document.getElementById('fr-flag').addEventListener('click', function () {
+        showConsent();
+        localStorage.setItem('event_type', 'click');
+        localStorage.setItem('lan_clicked', 'Fr');
+      });
+
+      document
+        .getElementById('eng-flag')
+        .addEventListener('touchend', function () {
+          showConsent();
+          localStorage.setItem('event_type', 'touchend');
+          localStorage.setItem('lan_clicked', 'eng');
+        });
+
+      document
+        .getElementById('fr-flag')
+        .addEventListener('touchend', function () {
+          showConsent();
+          localStorage.setItem('event_type', 'touchend');
+          localStorage.setItem('lan_clicked', 'Fr');
+        });
+
+      function showConsent() {
+        document.getElementById('consent-modal').style.display = 'flex';
+      }
+
+      document
+        .getElementById('consent-ok')
+        .addEventListener('click', function () {
+          // You can retrieve lan_selected for your variable and use it later
+          window.location.href = 'main_experiment.html';
+        });
+    </script>
   </body>
 </html>

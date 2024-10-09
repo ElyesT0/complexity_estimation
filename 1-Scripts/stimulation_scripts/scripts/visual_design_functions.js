@@ -141,9 +141,18 @@ const draw_figure = function () {
   );
   containerFigureElement.appendChild(container_estimation_complexity);
   // -- Center the estimation_complexity buttons
-  container_estimation_complexity.style.left =
-    centerX_containerFigure / 5 + 'px';
-  container_estimation_complexity.style.width = `${screen_size_width / 1.25}px`;
+
+  if (eventType == 'click') {
+    container_estimation_complexity.style.left =
+      centerX_containerFigure / 2 + 'px';
+    container_estimation_complexity.style.width = '50%';
+  } else {
+    container_estimation_complexity.style.left =
+      centerX_containerFigure / 5 + 'px';
+    container_estimation_complexity.style.width = `${
+      screen_size_width / 1.25
+    }px`;
+  }
 
   // -- Create estimation_complexity buttons and add them to the array of selectors
   for (let i = 1; i < range_estimation_complexity + 1; i++) {
@@ -173,7 +182,11 @@ const draw_figure = function () {
   btn_ok.style.top = `${screen_size_height - translate_up * 2 - 30}px`;
   containerFigureElement.appendChild(btn_ok);
   btn_ok.style.left = '50%';
-  btn_ok.style.transform = `translate(-50%,-200%)`;
+  if (eventType == 'click') {
+    btn_ok.style.transform = `translate(-50%,-400%)`;
+  } else {
+    btn_ok.style.transform = `translate(-50%,-200%)`;
+  }
 
   // Create the Next button and place it
   let btn_next = document.createElement('div');
@@ -182,7 +195,11 @@ const draw_figure = function () {
   containerFigureElement.appendChild(btn_next);
   btn_next.style.top = `${screen_size_height - translate_up * 2 - 30}px`;
   btn_next.style.left = '50%';
-  btn_next.style.transform = 'translate(-50%,-200%)';
+  if (eventType == 'click') {
+    btn_next.style.transform = `translate(-50%,-400%)`;
+  } else {
+    btn_next.style.transform = 'translate(-50%,-200%)';
+  }
   btn_next.classList.add('hidden');
 
   //style Text container
@@ -195,7 +212,12 @@ const draw_figure = function () {
   // Manage the size (1) and (2) location of the progression bar
   // (1) Manage size
   var chart = document.querySelector('.chart');
-  var chart_width = screen_size_width / 1.5;
+  let chart_width;
+  if (eventType == 'click') {
+    chart_width = document.documentElement.clientWidth / 2;
+  } else {
+    chart_width = screen_size_width / 1.5;
+  }
   chart.style.width = `${chart_width}px`;
   chart.style.height = `${screen_size_height / 100}px`;
   var bar = document.querySelector('.bar');
@@ -210,7 +232,12 @@ const draw_figure = function () {
   containerFigureElement.appendChild(prompt);
   prompt.classList.add('hidden');
 
-  chart.style.left = `${screen_size_width / 2 - chart_width / 2}px`;
+  if (eventType == 'click') {
+    chart.style.left = `${containerFigureElement.offsetWidth / 4}px`;
+  } else {
+    chart.style.left = `${screen_size_width / 2 - chart_width / 2}px`;
+  }
+
   const progression_bar = document.getElementById('progression--bar');
 
   /* --- Add created elements to the object element_selectors ---

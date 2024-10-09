@@ -1,9 +1,10 @@
 'use strict';
 
 // -- Temporary variables
-const lan_selected = 'Fr';
+const lan_selected = localStorage.getItem('lan_clicked');
+const eventType = localStorage.getItem('event_type');
 const debbug = false; // FIXME This should ALWAYS BE FALSE before using the code. Change the id of participant to test-id
-const post_meg = true; // This parameter is false for the online experiment and true for the post-meg experiment
+const post_meg = false; // This parameter is false for the online experiment and true for the post-meg experiment
 
 /* 
 ============================================================
@@ -13,7 +14,7 @@ const post_meg = true; // This parameter is false for the online experiment and 
 
 const bodyElement = document.body;
 const containerFigureElement = document.querySelector('.container-figure');
-const keyEvent = 'touchend'; //'touchend' (smartphone) or 'click' (computer) depending on the device
+const keyEvent = 'click'; //'touchend' (smartphone) or 'click' (computer) depending on the device
 
 /* 
 ============================================================
@@ -114,7 +115,7 @@ const instruction_training_end_fr = [
   'Vous allez observer des séquences de points et évaluer leur difficulté.',
   "Donnez un jugement à chaque essai, même si vous n'êtes pas sûr.",
   "L'échelle de notation est la suivante <br><br>1 : très facile <br>... <br>7 : presque impossible à mémoriser.",
-  "Vos évaluations nous aideront à mieux comprendre la mémoire et l'apprentissage chez l'humain.",
+  "Vos évaluations nous aideront à mieux comprendre la mémoire <br>et l'apprentissage chez l'humain.",
 ];
 
 const prompt_txt_eng =

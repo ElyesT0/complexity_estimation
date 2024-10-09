@@ -88,22 +88,31 @@ const draw_figure = function () {
   //Arange the circles in an hexagonal shape
   // %%Defining key variables
   let circle_radius = document.querySelector('.circle').offsetHeight;
+  let shift_circles;
+  if (post_meg) {
+    shift_circles = Math.PI / 6; // Shift parameter: using it to match the MEG experiment display
+  } else {
+    shift_circles = 0; // Shift parameter: using it to match the MEG experiment display
+  }
+
+  // Updated angles with shift_circles
   let circle_coordinates_top = [
-    Math.sin(-Math.PI / 2),
-    Math.sin(-Math.PI / 6),
-    Math.sin(Math.PI / 6),
-    Math.sin(Math.PI / 2),
-    Math.sin((5 * Math.PI) / 6),
-    Math.sin((-5 * Math.PI) / 6),
+    Math.sin(-Math.PI / 2 + shift_circles),
+    Math.sin(-Math.PI / 6 + shift_circles),
+    Math.sin(Math.PI / 6 + shift_circles),
+    Math.sin(Math.PI / 2 + shift_circles),
+    Math.sin((5 * Math.PI) / 6 + shift_circles),
+    Math.sin((-5 * Math.PI) / 6 + shift_circles),
   ];
   let circle_coordinates_left = [
-    Math.cos(-Math.PI / 2),
-    Math.cos(-Math.PI / 6),
-    Math.cos(Math.PI / 6),
-    Math.cos(Math.PI / 2),
-    Math.cos((5 * Math.PI) / 6),
-    Math.cos((-5 * Math.PI) / 6),
+    Math.cos(-Math.PI / 2 + shift_circles),
+    Math.cos(-Math.PI / 6 + shift_circles),
+    Math.cos(Math.PI / 6 + shift_circles),
+    Math.cos(Math.PI / 2 + shift_circles),
+    Math.cos((5 * Math.PI) / 6 + shift_circles),
+    Math.cos((-5 * Math.PI) / 6 + shift_circles),
   ];
+
   circle_coordinates_top = circle_coordinates_top.map(
     (coord) =>
       figure_radius * coord + centerY_containerFigure - circle_radius / 2

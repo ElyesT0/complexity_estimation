@@ -18,7 +18,7 @@ const keyEvent = 'touchend'; //'touchend' (smartphone) or 'click' (computer) dep
 +++++++++++++++++++ Game dynamics Variables +++++++++++++++++
 ============================================================
 */
-
+const post_meg = false; // This parameter is false for the online experiment and true for the post-meg experiment
 const instruction_elements = ['btn_ok', 'txt_container']; // Elements to be displayed to read the instructions.
 const experimental_elements = ['circles', 'fixation']; // Elements to be displayed all throughout presentation and response phase.
 const page_next_elements = ['txt_container', 'btn_next']; // Elements that needs to be displayed during the presentation phase.
@@ -28,15 +28,6 @@ const response_phase_elements = [
   'prompt',
 ]; // Elements that needs to be displayed during the response phase.
 var counter_presentation = 0;
-var block_counter = 0;
-
-/* 
-============================================================
-+++++++++++++++++ Participant Data Variables +++++++++++++++
-============================================================
-*/
-
-var participantData = new ParticipantCl();
 
 /* 
 ============================================================
@@ -57,34 +48,52 @@ var txt_counter = 0;
 ++++++++++++++++ Data of the Sequences +++++++++++++++
 ======================================================
 */
+let sequences;
 
-const sequences = [
-  [0, 1, 0, 2, 0, 3, 0, 1, 0, 2, 0, 3], // Play 4 Tokens
-  [0, 1, 0, 2, 1, 3, 0, 1, 0, 2, 1, 3], // Contrôle Play-4 Tokens
-  [0, 1, 2, 3, 0, 1, 2, 1, 0, 1, 2, 0], // Sub-programs 1
-  [0, 1, 2, 3, 0, 2, 1, 2, 0, 1, 2, 0], // Contrôle sub-programs 1
-  [0, 1, 2, 3, 0, 1, 2, 4, 0, 1, 2, 5], // Sub-programs 2
-  [0, 1, 2, 3, 0, 2, 1, 4, 0, 1, 2, 5], // Contrôle sub-programs 2
-  [0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1], // Indice i
-  [0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1], // Contrôle indice i
-  [0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 3], // Play
-  [0, 0, 0, 1, 0, 0, 2, 0, 0, 0, 0, 3], // Contrôle play
-  [0, 1, 2, 0, 1, 2, 3, 0, 1, 2, 3, 4], // Insertion
-  [0, 1, 2, 3, 4, 0, 1, 2, 3, 0, 1, 2], // Suppression (contrôle insertion)
-  [0, 1, 2, 3, 3, 2, 1, 0, 0, 1, 2, 3], // Miroir 1
-  [0, 1, 2, 3, 3, 1, 2, 0, 0, 1, 2, 3], // Contrôle Miroir 1
-  [0, 1, 2, 3, 2, 1, 0, 3, 0, 1, 2, 3], // Miroir 2
-  [0, 1, 2, 3, 2, 0, 1, 3, 0, 1, 2, 3], // Contrôle Miroir 2
-  [1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2], // token:2 ; repetition: 6
-  [1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3], // token:3 ; repetition: 4
-  [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4], // token:4 ; repetition: 3
-  [1, 1, 2, 2, 3, 3, 1, 1, 2, 2, 3, 3], // token:3 ; repetition: 2levels/nested
-  [1, 2, 2, 2, 2, 1, 1, 2, 1, 1, 1, 2], // token:2 ; repetition: 6; control
-  [1, 2, 3, 1, 3, 2, 2, 3, 1, 2, 1, 3], // token:3 ; repetition: 4; control; no structure
-  [1, 2, 3, 4, 3, 2, 4, 1, 1, 4, 2, 3], // token:4 ; repetition: 3; control
-  [1, 2, 3, 1, 3, 2, 1, 2, 3, 1, 3, 2], // token:3 ; repetition: 2levels/nested; control 1 global repetition but not local
-  [1, 1, 2, 2, 3, 3, 1, 1, 3, 3, 2, 2], // token:3 ; repetition: 2levels/nested; control 2 local repetition but not global
-];
+if (post_meg) {
+  sequences = Object.freeze([
+    //Experiment 1
+    [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1], // REP2
+    [0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2], // REP3
+    [0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3], // REP4
+    [0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2], // REP-Nested
+    [0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1], // CREP2
+    [0, 1, 2, 0, 2, 1, 1, 2, 0, 1, 0, 2], // CREP3
+    [0, 1, 2, 3, 2, 1, 3, 0, 0, 3, 1, 2], // CREP4
+    [0, 1, 2, 0, 2, 1, 0, 1, 2, 0, 2, 1], // REP-Global
+    [0, 0, 1, 1, 2, 2, 0, 0, 2, 2, 1, 1], // REP-Local
+  ]);
+} else {
+  sequences = Object.freeze([
+    //Experiment 1
+    [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1], // REP2
+    [0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2], // REP3
+    [0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3], // REP4
+    [0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2], // REP-Nested
+    [0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1], // CREP2
+    [0, 1, 2, 0, 2, 1, 1, 2, 0, 1, 0, 2], // CREP3
+    [0, 1, 2, 3, 2, 1, 3, 0, 0, 3, 1, 2], // CREP4
+    [0, 1, 2, 0, 2, 1, 0, 1, 2, 0, 2, 1], // REP-Global
+    [0, 0, 1, 1, 2, 2, 0, 0, 2, 2, 1, 1], // REP-Local
+    //Experiment 2
+    [0, 1, 0, 2, 0, 3, 0, 1, 0, 2, 0, 3], // Play 4 Tokens
+    [0, 1, 0, 2, 1, 3, 0, 1, 0, 2, 1, 3], // Contrôle Play-4 Tokens
+    [0, 1, 2, 3, 0, 1, 2, 1, 0, 1, 2, 0], // Sub-programs 1
+    [0, 1, 2, 3, 0, 2, 1, 2, 0, 1, 2, 0], // Contrôle sub-programs 1
+    [0, 1, 2, 3, 0, 1, 2, 4, 0, 1, 2, 5], // Sub-programs 2
+    [0, 1, 2, 3, 0, 2, 1, 4, 0, 1, 2, 5], // Contrôle sub-programs 2
+    [0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1], // Indice i
+    [0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1], // Contrôle indice i
+    [0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 3], // Play
+    [0, 0, 0, 1, 0, 0, 2, 0, 0, 0, 0, 3], // Contrôle play
+    [0, 1, 2, 0, 1, 2, 3, 0, 1, 2, 3, 4], // Insertion
+    [0, 1, 2, 3, 4, 0, 1, 2, 3, 0, 1, 2], // Suppression (contrôle insertion)
+    [0, 1, 2, 3, 3, 2, 1, 0, 0, 1, 2, 3], // Miroir 1
+    [0, 1, 2, 3, 3, 1, 2, 0, 0, 1, 2, 3], // Contrôle Miroir 1
+    [0, 1, 2, 3, 2, 1, 0, 3, 0, 1, 2, 3], // Miroir 2
+    [0, 1, 2, 3, 2, 0, 1, 3, 0, 1, 2, 3], // Contrôle Miroir 2
+  ]);
+}
 
 /* 
 ======================================================
@@ -134,3 +143,32 @@ if (lan_selected === 'Fr') {
   var instruction_training_end = instruction_training_end_eng;
   var prompt_txt = prompt_txt_eng;
 }
+
+/* 
+============================================================
+++++++++++++++ Building the stimuli collection +++++++++++++
+============================================================
+*/
+
+const presentation_number = 2; // Define how many times each sequence is presented
+const shuffled_sequences = Array(presentation_number)
+  .fill() // Create an array with 'presentation_number' undefined elements
+  .flatMap(() => shuffle(sequences.slice())); // Shuffle and flatten the array
+const randomized_sequences = randomize_points(shuffled_sequences);
+
+/* 
+============================================================
++++++++++++++++++ Participant Data Variables +++++++++++++++
+============================================================
+*/
+
+var participantData = new ParticipantCl();
+participantData.participant_id = makeId();
+participantData.sequences_structure = shuffled_sequences;
+participantData.sequences_shown = randomized_sequences;
+participantData.startTime = Date.now();
+participantData.participant_language = lan_selected;
+participantData.experiment_SOA = SOA;
+participantData.experiment_blink = blink;
+participantData.experiment_rangeEstimationComplexity =
+  range_estimation_complexity;

@@ -320,7 +320,11 @@ function increase() {
 }
 
 function update_progression(percent) {
+  let round_percent = Math.trunc(percent);
   // >purpose: Visually Update the progression Bar
-  document.documentElement.style.setProperty('--my-end-width', `${percent}%`);
-  value1.textContent = `${percent}%`;
+  document.documentElement.style.setProperty(
+    '--my-end-width',
+    `${round_percent}%`
+  );
+  value1.textContent = `${round_percent}%`;
 }

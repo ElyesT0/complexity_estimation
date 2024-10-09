@@ -53,7 +53,7 @@ const runTrial = function () {
     // 4 - Send partial data
     saveParticipantData(
       post_meg,
-      participantData.participant_id,
+      participantData.participant_id[0],
       participantData
     );
   } else {

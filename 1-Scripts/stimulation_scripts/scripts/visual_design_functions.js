@@ -300,3 +300,27 @@ const activate_point = function (circleElement) {
     circleElement.classList.remove('circle--active');
   }, blink);
 };
+
+// -------------------------------------------------------------------------------------------
+// Progression Bar
+//
+
+function increase() {
+  // >purpose: make a more dynamic progression update
+  // Change the variable to modify the speed of the number increasing from 0 to (ms)
+  let SPEED = 15;
+  // Retrieve the percentage value
+  let limit = parseInt(document.getElementById('value1').innerHTML, 0);
+
+  for (let i = 0; i <= limit; i++) {
+    setTimeout(function () {
+      document.getElementById('value1').innerHTML = i + '%';
+    }, SPEED * i);
+  }
+}
+
+function update_progression(percent) {
+  // >purpose: Visually Update the progression Bar
+  document.documentElement.style.setProperty('--my-end-width', `${percent}%`);
+  value1.textContent = `${percent}%`;
+}

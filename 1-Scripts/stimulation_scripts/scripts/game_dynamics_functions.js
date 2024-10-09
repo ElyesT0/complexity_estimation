@@ -35,6 +35,11 @@ const runTrial = function () {
   // 0 - Clean the screen
   clearScreen();
 
+  // -- Update progression bar
+  let percentage_progression =
+    100 * (counter_presentation / randomized_sequences.length);
+  update_progression(percentage_progression);
+
   // -- Check if there are still sequences to show
   if (counter_presentation < randomized_sequences.length) {
     // 1 - Show the Sequence
@@ -42,6 +47,7 @@ const runTrial = function () {
     // 2 - Make the response buttons appear (complexity estimation)
 
     // 3 - Register the response to the participant's Object
+
     // 4 - Send partial data
   } else {
     // Show end screen

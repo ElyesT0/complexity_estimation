@@ -3,8 +3,8 @@
 const init = function (element_selectors) {
   // Make the OK button skip through instructions
   element_selectors['btn_ok'].addEventListener(keyEvent, () => {
-    if (txt_counter < instruction_training_start.length) {
-      element_selectors.txt_container.textContent =
+    if (txt_counter < instruction_training_end.length) {
+      element_selectors.txt_container.innerHTML =
         instruction_training_end[txt_counter];
       txt_counter += 1;
     } else {

@@ -189,7 +189,7 @@ const draw_figure = function () {
   let txt_container = document.querySelector('.text-container');
   txt_container.style.height = screen_size_height / 2 + 'px';
   txt_container.style.width = `${screen_size_width - 50}px`;
-  txt_container.textContent = instruction_training_start[txt_counter];
+  txt_container.textContent = instruction_training_end[txt_counter];
   txt_counter += 1;
 
   // Manage the size (1) and (2) location of the progression bar

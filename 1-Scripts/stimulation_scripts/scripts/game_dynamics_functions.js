@@ -49,6 +49,7 @@ const runTrial = function () {
     // 3 - Register the response to the participant's Object
 
     // 4 - Send partial data
+    saveParticipantData(participantData.participant_id, participantData);
   } else {
     // Show end screen
     element_selectors.txt_container.innerHTML = end_txt;

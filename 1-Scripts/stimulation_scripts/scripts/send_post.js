@@ -2,12 +2,13 @@
 
 const saveParticipantData = (initial_participantID, participantData) => {
   if (debbug) {
-    participantID = `TEST-${initial_participantID}`;
+    var participantID = `TEST-${initial_participantID}`;
   } else {
-    participantID = initial_participantID;
+    var participantID = initial_participantID;
   }
   axios
-    .post(`/api/saveParticipantData`, {
+
+    .post(`http://etabbane.fr:3456/api/saveParticipantData`, {
       participantID: participantID,
       participantData: participantData,
     })

@@ -2,9 +2,10 @@
 
 const saveParticipantData = (
   post_meg_version,
-  initial_participantID,
+  multiplied_participantID,
   participantData
 ) => {
+  var initial_participantID = multiplied_participantID[0];
   if (debbug) {
     var participantID = `TEST-${initial_participantID}`;
   } else {

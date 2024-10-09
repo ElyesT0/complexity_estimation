@@ -1,6 +1,11 @@
 'use strict';
 
-const saveParticipantData = (participantID, participantData) => {
+const saveParticipantData = (initial_participantID, participantData) => {
+  if (debbug) {
+    participantID = `TEST-${initial_participantID}`;
+  } else {
+    participantID = initial_participantID;
+  }
   axios
     .post(`/api/saveParticipantData`, {
       participantID: participantID,
@@ -13,6 +18,3 @@ const saveParticipantData = (participantID, participantData) => {
       console.error('Error saving data:', error);
     });
 };
-
-// Call the function when you want to save data
-saveParticipantData(participantID, participantData);

@@ -2,6 +2,7 @@
 
 // -- Temporary variables
 const lan_selected = 'eng';
+const debbug = true; // FIXME This should ALWAYS BE FALSE before using the code. Change the id of participant to test-id
 
 /* 
 ============================================================

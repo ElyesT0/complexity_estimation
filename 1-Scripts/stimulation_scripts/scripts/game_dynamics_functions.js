@@ -62,7 +62,7 @@ const runTrial = function () {
     revealElements(['txt_container'], element_selectors);
     saveParticipantData(
       post_meg,
-      participantData.participant_id,
+      participantData.participant_id[0],
       participantData
     );
   }

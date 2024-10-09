@@ -13,6 +13,7 @@ class ParticipantCl {
     this.participant_screenHeight = 'toFill';
     this.participant_language = 'toFill';
     this.participant_trialCounter = 'toFill';
+    this.last_click = 'toFill';
 
     this.experiment_SOA = 'toFill';
     this.experiment_blink = 'toFill';

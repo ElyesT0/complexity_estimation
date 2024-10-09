@@ -31,16 +31,23 @@ const init = function (element_selectors) {
 // -------------------------------------------------------------------------------------------
 
 const runTrial = function () {
-  var sequence = sequences[counter_presentation];
+  var sequence = randomized_sequences[counter_presentation];
   // 0 - Clean the screen
   clearScreen();
 
-  // 1 - Show the Sequence
-  presentation(sequence, element_selectors);
-  // 2 - Make the response buttons appear (complexity estimation)
+  // -- Check if there are still sequences to show
+  if (counter_presentation < randomized_sequences.length) {
+    // 1 - Show the Sequence
+    presentation(sequence, element_selectors);
+    // 2 - Make the response buttons appear (complexity estimation)
 
-  // 3 - Register the response to the participant's Object
-  // 4 - Send partial data
+    // 3 - Register the response to the participant's Object
+    // 4 - Send partial data
+  } else {
+    // Show end screen
+    element_selectors.txt_container.innerHTML = end_txt;
+    revealElements(['txt_container'], element_selectors);
+  }
 };
 
 // -------------------------------------------------------------------------------------------
@@ -75,6 +82,10 @@ function response(participant_input) {
 
   // - Record participant's answer
   participantData.participant_response.push(participant_input);
+  participantData.participant_timings.push(
+    Date.now() - participantData.last_click
+  );
+  participantData.last_click = Date.now();
   participantData.participant_trialCounter = counter_presentation;
 
   // - Go to Next page

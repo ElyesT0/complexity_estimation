@@ -134,14 +134,20 @@ const prompt_txt_eng =
 const prompt_txt_fr =
   'Quelle est le niveau de difficulté de mémorisation de cette séquence ?<br> 1 : Très facile [...] 7 : Impossible';
 
+const end_txt_fr = "L'expérience est terminée. Merci d'avoir participé !";
+const end_txt_eng =
+  'You successfully completed the experiment. Thank you for your efforts !';
+
 if (lan_selected === 'Fr') {
   var instruction_training_start = instruction_training_start_fr;
   var instruction_training_end = instruction_training_end_fr;
   var prompt_txt = prompt_txt_fr;
+  var end_txt = `<div style="font-size:35px">${end_txt_fr}</div>`;
 } else {
   var instruction_training_start = instruction_training_start_eng;
   var instruction_training_end = instruction_training_end_eng;
   var prompt_txt = prompt_txt_eng;
+  var end_txt = `<div style="font-size:35px">${end_txt_eng}</div>`;
 }
 
 /* 
@@ -166,9 +172,13 @@ var participantData = new ParticipantCl();
 participantData.participant_id = makeId();
 participantData.sequences_structure = shuffled_sequences;
 participantData.sequences_shown = randomized_sequences;
-participantData.startTime = Date.now();
+participantData.participant_startTime = Date.now();
 participantData.participant_language = lan_selected;
 participantData.experiment_SOA = SOA;
 participantData.experiment_blink = blink;
 participantData.experiment_rangeEstimationComplexity =
   range_estimation_complexity;
+participantData.participant_timings = [];
+participantData.last_click = Date.now();
+participantData.participant_screenHeight = window.screen.height;
+participantData.participant_screenWidth = window.screen.width;

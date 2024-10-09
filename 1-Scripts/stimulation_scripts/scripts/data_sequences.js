@@ -2,7 +2,7 @@
 
 // -- Temporary variables
 const lan_selected = 'Fr';
-const debbug = true; // FIXME This should ALWAYS BE FALSE before using the code. Change the id of participant to test-id
+const debbug = false; // FIXME This should ALWAYS BE FALSE before using the code. Change the id of participant to test-id
 const post_meg = true; // This parameter is false for the online experiment and true for the post-meg experiment
 
 /* 
@@ -29,6 +29,7 @@ const response_phase_elements = [
   'prompt',
 ]; // Elements that needs to be displayed during the response phase.
 var counter_presentation = 0;
+var last_click = Date.now();
 
 /* 
 ============================================================
@@ -168,18 +169,36 @@ const randomized_sequences = randomize_points(shuffled_sequences);
 +++++++++++++++++ Participant Data Variables +++++++++++++++
 ============================================================
 */
+const participant_id = makeId();
 
 var participantData = new ParticipantCl();
-participantData.participant_id = makeId();
+participantData.participant_id = Array(randomized_sequences.length).fill(
+  participant_id
+);
 participantData.sequences_structure = shuffled_sequences;
 participantData.sequences_shown = randomized_sequences;
-participantData.participant_startTime = Date.now();
-participantData.participant_language = lan_selected;
-participantData.experiment_SOA = SOA;
-participantData.experiment_blink = blink;
-participantData.experiment_rangeEstimationComplexity =
-  range_estimation_complexity;
-participantData.participant_timings = [];
-participantData.last_click = Date.now();
-participantData.participant_screenHeight = window.screen.height;
-participantData.participant_screenWidth = window.screen.width;
+participantData.participant_startTime = Array(randomized_sequences.length).fill(
+  Date.now()
+);
+participantData.participant_language = Array(randomized_sequences.length).fill(
+  lan_selected
+);
+participantData.experiment_SOA = Array(randomized_sequences.length).fill(SOA);
+participantData.experiment_blink = Array(randomized_sequences.length).fill(
+  blink
+);
+participantData.experiment_rangeEstimationComplexity = Array(
+  randomized_sequences.length
+).fill(range_estimation_complexity);
+participantData.participant_timings = Array(randomized_sequences.length).fill(
+  -1
+);
+participantData.participant_response = Array(randomized_sequences.length).fill(
+  -1
+);
+participantData.participant_screenHeight = Array(
+  randomized_sequences.length
+).fill(window.screen.height);
+participantData.participant_screenWidth = Array(
+  randomized_sequences.length
+).fill(window.screen.width);

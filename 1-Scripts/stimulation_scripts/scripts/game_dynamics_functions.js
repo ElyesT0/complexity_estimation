@@ -39,7 +39,9 @@ const runTrial = function () {
   let percentage_progression =
     100 * (counter_presentation / randomized_sequences.length);
   update_progression(percentage_progression);
-
+  participantData.last_click = Array(randomized_sequences.length).fill(
+    last_click
+  );
   // -- Check if there are still sequences to show
   if (counter_presentation < randomized_sequences.length) {
     // 1 - Show the Sequence
@@ -49,11 +51,20 @@ const runTrial = function () {
     // 3 - Register the response to the participant's Object
 
     // 4 - Send partial data
-    saveParticipantData(participantData.participant_id, participantData);
+    saveParticipantData(
+      post_meg,
+      participantData.participant_id,
+      participantData
+    );
   } else {
     // Show end screen
     element_selectors.txt_container.innerHTML = end_txt;
     revealElements(['txt_container'], element_selectors);
+    saveParticipantData(
+      post_meg,
+      participantData.participant_id,
+      participantData
+    );
   }
 };
 
@@ -88,12 +99,14 @@ function response(participant_input) {
   counter_presentation += 1;
 
   // - Record participant's answer
-  participantData.participant_response.push(participant_input);
-  participantData.participant_timings.push(
-    Date.now() - participantData.last_click
-  );
-  participantData.last_click = Date.now();
-  participantData.participant_trialCounter = counter_presentation;
+  participantData.participant_response[counter_presentation - 1] =
+    participant_input;
+  participantData.participant_timings[counter_presentation - 1] =
+    Date.now() - last_click;
+  last_click = Date.now();
+  participantData.participant_trialCounter = Array(
+    randomized_sequences.length
+  ).fill(counter_presentation);
 
   // - Go to Next page
   display_pageNext(participant_input);

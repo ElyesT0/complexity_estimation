@@ -1,6 +1,10 @@
 'use strict';
 
-const saveParticipantData = (initial_participantID, participantData) => {
+const saveParticipantData = (
+  post_meg_version,
+  initial_participantID,
+  participantData
+) => {
   if (debbug) {
     var participantID = `TEST-${initial_participantID}`;
   } else {
@@ -9,6 +13,7 @@ const saveParticipantData = (initial_participantID, participantData) => {
   axios
 
     .post(`http://etabbane.fr:3456/api/saveParticipantData`, {
+      post_meg_version: post_meg_version,
       participantID: participantID,
       participantData: participantData,
     })

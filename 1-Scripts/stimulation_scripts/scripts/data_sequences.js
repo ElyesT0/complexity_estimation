@@ -127,14 +127,19 @@ const end_txt_fr = "L'expérience est terminée. Merci d'avoir participé !";
 const end_txt_eng =
   'You successfully completed the experiment. Thank you for your efforts !';
 
+const next_txt_fr = 'Vous avez répondu';
+const next_txt_eng = 'You responded';
+
 if (lan_selected === 'Fr') {
   var instruction_training_end = instruction_training_end_fr;
   var prompt_txt = prompt_txt_fr;
   var end_txt = `<div style="font-size:35px">${end_txt_fr}</div>`;
+  var next_txt = next_txt_fr;
 } else {
   var instruction_training_end = instruction_training_end_eng;
   var prompt_txt = prompt_txt_eng;
   var end_txt = `<div style="font-size:35px">${end_txt_eng}</div>`;
+  var next_txt = next_txt_eng;
 }
 
 /* 

@@ -118,7 +118,7 @@ function display_pageNext(participant_input) {
   // - Display a page as an attentional buffer. Remind participant of their response.
   element_selectors.txt_container.innerHTML = `
   <div style="font-size: 36px; text-align: center; justify-content: center; font-family:'Bungee',sans-serif; height: 100%;">
-    You responded <br><br><br> <div style="font-size:100px;transform: translate(0%, -30%)">${participant_input}</div>
+    ${next_txt} <br><br><br> <div style="font-size:100px;transform: translate(0%, -30%)">${participant_input}</div>
   </div>`;
   clearScreen();
   revealElements(page_next_elements, element_selectors);

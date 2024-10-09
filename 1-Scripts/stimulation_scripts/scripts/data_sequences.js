@@ -1,8 +1,9 @@
 'use strict';
 
 // -- Temporary variables
-const lan_selected = 'eng';
+const lan_selected = 'Fr';
 const debbug = true; // FIXME This should ALWAYS BE FALSE before using the code. Change the id of participant to test-id
+const post_meg = true; // This parameter is false for the online experiment and true for the post-meg experiment
 
 /* 
 ============================================================
@@ -19,7 +20,6 @@ const keyEvent = 'touchend'; //'touchend' (smartphone) or 'click' (computer) dep
 +++++++++++++++++++ Game dynamics Variables +++++++++++++++++
 ============================================================
 */
-const post_meg = false; // This parameter is false for the online experiment and true for the post-meg experiment
 const instruction_elements = ['btn_ok', 'txt_container']; // Elements to be displayed to read the instructions.
 const experimental_elements = ['circles', 'fixation']; // Elements to be displayed all throughout presentation and response phase.
 const page_next_elements = ['txt_container', 'btn_next']; // Elements that needs to be displayed during the presentation phase.

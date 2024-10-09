@@ -2,31 +2,30 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="style_welcome.css" rel="stylesheet" />
-    <title>MemoCrush</title>
+    <meta
+      name="viewport"
+      content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <link href="css/style_animation_sequence.css" rel="stylesheet" />
+    <title>Experiment Started</title>
   </head>
-  <body>
-    <div class="container">
-      <div class="title--container">
-        <h1 class="title--language">MemoCrush</h1>
+  <body class="no--zoom">
+    <div class="container-figure">
+      <div class="text-container"></div>
+      <div class="hidden" id="progression--bar">
+        <div class="chart">
+          <div class="bar"></div>
+
+          <span id="value1">0</span>
+        </div>
       </div>
-      <button
-        class="btn lan"
-        id="languageEng"
-        onclick="window.location.href='WelcomePage_EN.html'"
-      >
-        English<img id="frImg" src="lanENG.jpg" />
-      </button>
-      <button
-        class="btn lan"
-        id="languageFr"
-        onclick="window.location.href='WelcomePage.html'"
-      >
-        Français<img id="frImg" src="lanFR.jpg" />
-      </button>
     </div>
-    <script src="script_language.js"></script>
+    <script src="scripts/data_functions.js"></script>
+    <script src="scripts/participantData_class.js"></script>
+    <script src="scripts/data_sequences.js"></script>
+    <script src="scripts/visual_design_functions.js"></script>
+    <script src="scripts/game_dynamics_functions.js"></script>
+    <script src="scripts/run_experiment.js"></script>
+    <script src="scripts/post_data.js"></script>
   </body>
 </html>

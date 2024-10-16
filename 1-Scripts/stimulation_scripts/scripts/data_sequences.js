@@ -3,7 +3,7 @@
 // -- Temporary variables
 const lan_selected = 'Fr';
 const debbug = false; // FIXME This should ALWAYS BE FALSE before using the code. Change the id of participant to test-id
-const post_meg = true; // This parameter is false for the online experiment and true for the post-meg experiment
+const post_meg = false; // This parameter is false for the online experiment and true for the post-meg experiment
 
 /* 
 ============================================================

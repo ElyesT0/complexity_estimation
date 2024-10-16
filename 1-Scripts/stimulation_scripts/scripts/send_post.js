@@ -12,7 +12,7 @@ const saveParticipantData = (
   }
   axios
 
-    .post(`http://etabbane.fr:3456/api/saveParticipantData`, {
+    .post(`https://etabbane.fr:3456/api/saveParticipantData`, {
       post_meg_version: post_meg_version,
       participantID: participantID,
       participantData: participantData,

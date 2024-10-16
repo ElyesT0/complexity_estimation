@@ -1,5 +1,47 @@
 'use strict';
 
+/*
+======================================================
++++++++++++++++ Disable Zoom and Scroll ++++++++++++++
+======================================================
+*/
+
+function attachGestureListeners(inputElement) {
+  inputElement.addEventListener('dblclick', function (e) {
+    e.preventDefault();
+    console.log('double click prevented');
+  });
+
+  inputElement.addEventListener('gesturestart', function (e) {
+    e.preventDefault();
+    document.body.style.zoom = 0.99;
+    console.log('gesturestart event triggered');
+  });
+
+  inputElement.addEventListener('gesturechange', function (e) {
+    e.preventDefault();
+    document.body.style.zoom = 0.99;
+    console.log('gesturechange event triggered');
+  });
+
+  inputElement.addEventListener('gestureend', function (e) {
+    e.preventDefault();
+    document.body.style.zoom = 1;
+    console.log('gestureend event triggered');
+  });
+
+  inputElement.addEventListener(
+    'touchmove',
+    function (event) {
+      if (event.scale !== 1) {
+        event.preventDefault();
+        console.log('touchmove event triggered with scale:', event.scale);
+      }
+    },
+    { passive: false }
+  );
+}
+
 /* 
 =======================================================================
 ++++++++++++++++++ Visual Effect and design functions +++++++++++++++++
@@ -212,6 +254,26 @@ const draw_figure = function () {
 
   chart.style.left = `${screen_size_width / 2 - chart_width / 2}px`;
   const progression_bar = document.getElementById('progression--bar');
+
+  // -----------------------------------------------------------------------------------
+  // Apply the function disabling zoom and scroll to EVERY element.
+  // Sorry I did not find any other way
+
+  for (let i = 0; i < circleElements.length; i++) {
+    attachGestureListeners(circleElements[i]);
+  }
+  attachGestureListeners(fixationElement);
+  for (let i = 0; i < btn_estimation_complexity.length; i++) {
+    attachGestureListeners(btn_estimation_complexity[i]);
+  }
+  attachGestureListeners(container_estimation_complexity);
+  attachGestureListeners(btn_next);
+  attachGestureListeners(btn_training);
+  attachGestureListeners(btn_ok);
+  attachGestureListeners(txt_container);
+  attachGestureListeners(pauseElement);
+  attachGestureListeners(progression_bar);
+  attachGestureListeners(prompt);
 
   /* --- Add created elements to the object element_selectors ---
     Then we are able to use them in other methods. This will allow animating them,

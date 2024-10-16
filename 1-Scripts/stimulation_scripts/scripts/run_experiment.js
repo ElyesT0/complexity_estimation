@@ -9,3 +9,4 @@ const element_selectors = draw_figure();
 
 // -- Add the game dynamic to the elements
 init(element_selectors);
+

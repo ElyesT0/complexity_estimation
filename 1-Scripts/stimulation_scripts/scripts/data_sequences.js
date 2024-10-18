@@ -22,7 +22,7 @@ if (surveyResults) {
 
 const bodyElement = document.body;
 const containerFigureElement = document.querySelector('.container-figure');
-const keyEvent = 'touchend'; //'touchend' (smartphone) or 'click' (computer) depending on the device
+const keyEvent = 'click'; //'touchend' (smartphone) or 'click' (computer) depending on the device
 
 /* 
 ============================================================
@@ -221,5 +221,3 @@ participantData.instrumentProficiency = Array(randomized_sequences.length).fill(
 participantData.mathExp = Array(randomized_sequences.length).fill(
   surveyResults['mathExp']
 );
-
-

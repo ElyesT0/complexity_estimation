@@ -52,23 +52,9 @@ function attachGestureListeners(inputElement) {
 
 const draw_figure = function () {
   /* Purpose: This method will draw the figure on the screen */
-  function getSizeOfBrowserBars() {
-    const windowHeight = window.innerHeight;
-    const documentHeight = document.documentElement.clientHeight;
-    const urlBarHeight = window.outerHeight - windowHeight;
-    const bottomBarHeight = documentHeight - windowHeight - urlBarHeight;
-
-    return {
-      urlBarHeight: urlBarHeight,
-      bottomBarHeight: bottomBarHeight,
-    };
-  }
-  let sizeBrowserBars = getSizeOfBrowserBars();
   //Get measurements of the screen and log them in local variables
-  let screen_size_height = window.screen.height;
-  let screen_size_width = window.screen.width;
-  let urlBarHeight = sizeBrowserBars.urlBarHeight;
-  let bottomBarHeight = sizeBrowserBars.bottomBarHeight;
+  let displayport_size_height = window.innerHeight;
+  let displayport_size_width = window.innerWidth;
 
   /* --- Styling the body ---*/
   //Define desired constant styling values (in pixels)
@@ -82,7 +68,9 @@ const draw_figure = function () {
   bodyElement.style.margin = `${marginBody_topBottom}px ${marginBody_leftRight}px`;
   bodyElement.style.padding = `${paddingBody_topBottom}px ${paddingBody_leftRight}px`;
   bodyElement.style.height = `${
-    screen_size_height - marginBody_topBottom * 2 - paddingBody_topBottom * 2
+    displayport_size_height -
+    marginBody_topBottom * 2 -
+    paddingBody_topBottom * 2
   }px`;
 
   /* --- Styling the figure container ---*/
@@ -185,7 +173,9 @@ const draw_figure = function () {
   // -- Center the estimation_complexity buttons
   container_estimation_complexity.style.left =
     centerX_containerFigure / 5 + 'px';
-  container_estimation_complexity.style.width = `${screen_size_width / 1.25}px`;
+  container_estimation_complexity.style.width = `${
+    displayport_size_width / 1.25
+  }px`;
 
   // -- Create estimation_complexity buttons and add them to the array of selectors
   for (let i = 1; i < range_estimation_complexity + 1; i++) {
@@ -212,7 +202,7 @@ const draw_figure = function () {
   let btn_ok = document.createElement('div');
   btn_ok.textContent = 'OK';
   btn_ok.classList.add('btn--ok', 'no--zoom');
-  btn_ok.style.top = `${screen_size_height - translate_up * 2 - 30}px`;
+  btn_ok.style.top = `${displayport_size_height - translate_up}px`;
   containerFigureElement.appendChild(btn_ok);
   btn_ok.style.left = '50%';
   btn_ok.style.transform = `translate(-50%,-200%)`;
@@ -222,27 +212,27 @@ const draw_figure = function () {
   btn_next.textContent = 'NEXT';
   btn_next.classList.add('btn--next', 'no--zoom');
   containerFigureElement.appendChild(btn_next);
-  btn_next.style.top = `${screen_size_height - translate_up * 2 - 30}px`;
+  btn_next.style.top = `${displayport_size_height - translate_up * 2 - 30}px`;
   btn_next.style.left = '50%';
   btn_next.style.transform = 'translate(-50%,-200%)';
   btn_next.classList.add('hidden');
 
   //style Text container
   let txt_container = document.querySelector('.text-container');
-  txt_container.style.height = screen_size_height / 2 + 'px';
-  txt_container.style.width = `${screen_size_width - 50}px`;
+  txt_container.style.height = displayport_size_height + 'px';
+  txt_container.style.width = `${displayport_size_width - 50}px`;
   txt_container.textContent = instruction_training_end[txt_counter];
   txt_counter += 1;
 
   // Manage the size (1) and (2) location of the progression bar
   // (1) Manage size
   var chart = document.querySelector('.chart');
-  var chart_width = screen_size_width / 1.5;
+  var chart_width = displayport_size_width / 1.5;
   chart.style.width = `${chart_width}px`;
-  chart.style.height = `${screen_size_height / 100}px`;
+  chart.style.height = `${displayport_size_height / 100}px`;
   var bar = document.querySelector('.bar');
-  bar.style.width = `${chart_width}px`;
-  bar.style.height = `${screen_size_height / 100}px`;
+  bar.style.width = `${displayport_size_width}px`;
+  bar.style.height = `${displayport_size_height / 100}px`;
   // (2) Manage location
 
   // Add a prompt element for the response phase
@@ -252,7 +242,7 @@ const draw_figure = function () {
   containerFigureElement.appendChild(prompt);
   prompt.classList.add('hidden');
 
-  chart.style.left = `${screen_size_width / 2 - chart_width / 2}px`;
+  chart.style.left = `${displayport_size_width / 2 - chart_width / 2}px`;
   const progression_bar = document.getElementById('progression--bar');
 
   // -----------------------------------------------------------------------------------

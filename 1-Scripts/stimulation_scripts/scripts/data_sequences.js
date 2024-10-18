@@ -59,6 +59,10 @@ var txt_counter = 0;
 ++++++++++++++++ Data of the Sequences +++++++++++++++
 ======================================================
 */
+
+// ---------------------------------------------------
+// -- Sequence expressions
+//
 let sequences;
 
 if (post_meg) {
@@ -106,32 +110,113 @@ if (post_meg) {
   ]);
 }
 
+const training_sequences = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 3, 5, 1, 4, 3, 3, 2, 0, 5, 3, 0],
+  [0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3],
+  [1, 4, 5, 2, 5, 2, 3, 0, 0, 4, 1, 3],
+];
+
+// ---------------------------------------------------
+// -- Sequence Names / Tags / Dictionary
+//
+
+const sequences_tags = {
+  'training-1': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  'training-2': [0, 3, 5, 1, 4, 3, 3, 2, 0, 5, 3, 0],
+  'training-3': [0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3],
+  'training-4': [1, 4, 5, 2, 5, 2, 3, 0, 0, 4, 1, 3],
+
+  'Rep-2': [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1], // REP2
+  'Rep-3': [0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2], // REP3
+  'Rep-4': [0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3], // REP4
+  'Rep-Nested': [0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2], // REP-Nested
+  'CRep-2': [0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1], // CREP2
+  'CRep-3': [0, 1, 2, 0, 2, 1, 1, 2, 0, 1, 0, 2], // CREP3
+  'CRep-4': [0, 1, 2, 3, 2, 1, 3, 0, 0, 3, 1, 2], // CREP4
+  'CRep-Nested-Global': [0, 1, 2, 0, 2, 1, 0, 1, 2, 0, 2, 1], // REP-Global
+  'CRep-Nested-Local': [0, 0, 1, 1, 2, 2, 0, 0, 2, 2, 1, 1], // REP-Local
+
+  'Play-4': [0, 1, 0, 2, 0, 3, 0, 1, 0, 2, 0, 3], // Play 4 Tokens
+  'CPlay-4': [0, 1, 0, 2, 1, 3, 0, 1, 0, 2, 1, 3], // Contrôle Play-4 Tokens
+  'Sub-1': [0, 1, 2, 3, 0, 1, 2, 1, 0, 1, 2, 0], // Sub-programs 1
+  'CSub-1': [0, 1, 2, 3, 0, 2, 1, 2, 0, 1, 2, 0], // Contrôle sub-programs 1
+  'Sub-2': [0, 1, 2, 3, 0, 1, 2, 4, 0, 1, 2, 5], // Sub-programs 2
+  'CSub-2': [0, 1, 2, 3, 0, 2, 1, 4, 0, 1, 2, 5], // Contrôle sub-programs 2
+  Index: [0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1], // Indice i
+  CIndex: [0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1], // Contrôle indice i
+  Play: [0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 3], // Play
+  CPlay: [0, 0, 0, 1, 0, 0, 2, 0, 0, 0, 0, 3], // Contrôle play
+  Insertion: [0, 1, 2, 0, 1, 2, 3, 0, 1, 2, 3, 4], // Insertion
+  Suppression: [0, 1, 2, 3, 4, 0, 1, 2, 3, 0, 1, 2], // Suppression (contrôle insertion)
+  'Mirror-1': [0, 1, 2, 3, 3, 2, 1, 0, 0, 1, 2, 3], // Miroir 1
+  'CMirro-1': [0, 1, 2, 3, 3, 1, 2, 0, 0, 1, 2, 3], // Contrôle Miroir 1
+  'Mirror-2': [0, 1, 2, 3, 2, 1, 0, 3, 0, 1, 2, 3], // Miroir 2
+  'CMirror-2': [0, 1, 2, 3, 2, 0, 1, 3, 0, 1, 2, 3], // Contrôle Miroir 2
+};
+
+// -- Reverse dictionary. Associates the sequences expressions to the tags.
+const reverse_sequences_tags = Object.fromEntries(
+  Object.entries(sequences_tags).map(([key, value]) => [value, key])
+);
+
 /* 
 ======================================================
-++++++++++++++++++++ Instructions ++++++++++++++++++++
+++++++++++++++++++++ Text holders ++++++++++++++++++++
 ======================================================
 */
-
+// --------------------------------------------------------------
+// -- Instructions
+//
 const instruction_training_end_eng = [
-  'You will observe sequences of points and rate their difficulty.',
-  'Please provide a judgment on each trial, even if you are unsure.',
-  'The rating scale is the following <br><br>1: very easy <br>... to <br>7: nearly impossible to remember.',
-  'Your ratings will help us better understand human memory and learning.',
+  'Sequences of dots will be presented to you.',
+  'Please rate their complexity.',
+  'Please maintain your gaze on the fixation cross at the center of the screen',
+  'The rating scale is the following <br><br>1: very simple <br>... to <br>7: very complex.',
 ];
 
 const instruction_training_end_fr = [
-  'Vous allez observer des séquences de points et évaluer leur difficulté.',
-  "Donnez un jugement à chaque essai, même si vous n'êtes pas sûr.",
-  "L'échelle de notation est la suivante <br><br>1 : très facile <br>... <br>7 : presque impossible à mémoriser.",
-  "Vos évaluations nous aideront à mieux comprendre la mémoire et l'apprentissage chez l'humain.",
+  'Des séquences de points vont vous être présentées.',
+  'Veuillez évaluer leur complexité.',
+  "Veuillez maintenir votre regard sur la croix de fixation au centre de l'écran.",
+  "L'échelle d'évaluation est la suivante <br><br>1 : très simple <br>... à <br>7 : très complexe.",
 ];
 
+// --------------------------------------------------------------
+// -- Trial Prompts
+//
 const prompt_txt_eng =
-  'How difficult was that sequence to memorize ?<br> 1: Very Easy [...] 7: Impossible';
+  'How difficult was that sequence to memorize ?<br> 1: Very Simple [...] 7: Very Complex';
 
 const prompt_txt_fr =
   'Quelle est le niveau de difficulté de mémorisation de cette séquence ?<br> 1 : Très facile [...] 7 : Impossible';
 
+// --------------------------------------------------------------
+// -- Training Text
+//
+
+const training_prompt_txt_eng = [
+  'This sequence was really simple ! <br>So you should click 1.',
+  'This sequence was super complex ! <br>So you should click 7.',
+  "Now it's your turn ! What was the complexity of this sequence?",
+];
+const training_prompt_txt_fr = [
+  'Cette séquence était vraiment simple ! <br>Donc vous devez cliquer sur 1.',
+  'Cette séquence était vraiment complexe ! <br>Donc vous devez cliquer sur 7.',
+  'A vous de jouer ! Quelle était la complexité de cette séquence ?',
+];
+
+const training_feedback_eng = ['The right answer was :'];
+const training_feedback_fr = ['La bonne réponse était :'];
+
+const transition_instructions_eng =
+  '<div>The experiment will now start.<br>Stay focused!<br>At the end of the experiment you will get a rating of how close you are to the optimal guesser.</div>';
+const transition_instructions_fr =
+  "<div>L'expérience va maintenant commencer.<br>Restez concentré.e !<br>À la fin de l'expérience, vous recevrez une évaluation de votre proximité avec l'estimateur idéal.</div>";
+
+// --------------------------------------------------------------
+// -- Ending Text
+//
 const end_txt_fr = "L'expérience est terminée. Merci d'avoir participé !";
 const end_txt_eng =
   'You successfully completed the experiment. Thank you for your efforts !';
@@ -139,16 +224,26 @@ const end_txt_eng =
 const next_txt_fr = 'Vous avez répondu';
 const next_txt_eng = 'You responded';
 
+// --------------------------------------------------------------
+// -- Language selection
+//
+
 if (lan_selected === 'fr') {
   var instruction_training_end = instruction_training_end_fr;
   var prompt_txt = prompt_txt_fr;
   var end_txt = `<div style="font-size:35px">${end_txt_fr}</div>`;
   var next_txt = next_txt_fr;
+  var training_prompt_txt = training_prompt_txt_fr;
+  var training_feedback_txt = training_feedback_fr;
+  var transition_instructions = transition_instructions_fr;
 } else {
   var instruction_training_end = instruction_training_end_eng;
   var prompt_txt = prompt_txt_eng;
   var end_txt = `<div style="font-size:35px">${end_txt_eng}</div>`;
   var next_txt = next_txt_eng;
+  var training_prompt_txt = training_prompt_txt_eng;
+  var training_feedback_txt = training_feedback_eng;
+  var transition_instructions = transition_instructions_eng;
 }
 
 /* 
@@ -157,11 +252,27 @@ if (lan_selected === 'fr') {
 ============================================================
 */
 
-const presentation_number = 2; // Define how many times each sequence is presented
+// Define training 'right answers'
+const training_answer_examples = [1, 7, 1, 7];
+// Define how many times each sequence is presented.
+const presentation_number = 2;
+
+// Sequences need to be presented in random order.
 const shuffled_sequences = Array(presentation_number)
   .fill() // Create an array with 'presentation_number' undefined elements
   .flatMap(() => shuffle(sequences.slice())); // Shuffle and flatten the array
+
+// Keep temporal structure but randomize the points.
 const randomized_sequences = randomize_points(shuffled_sequences);
+
+// We put training sequences and testing sequences with preserved structure in a same object. Used to tag sequences and to keep the original structure.
+const original_sequence_train_test = [
+  ...training_sequences,
+  ...shuffled_sequences,
+];
+
+// We put training sequences and testing sequences (already randomized and shuffled) in a same object. Used to present stimuli to participants.
+const sequence_train_test = [...training_sequences, ...randomized_sequences];
 
 /* 
 ============================================================
@@ -170,54 +281,58 @@ const randomized_sequences = randomize_points(shuffled_sequences);
 */
 const participant_id = makeId();
 
+// Fill the participantData object which will be sent to the server.
 var participantData = new ParticipantCl();
-participantData.participant_id = Array(randomized_sequences.length).fill(
+participantData.participant_id = Array(sequence_train_test.length).fill(
   participant_id
 );
-participantData.sequences_structure = shuffled_sequences;
-participantData.sequences_shown = randomized_sequences;
-participantData.participant_startTime = Array(randomized_sequences.length).fill(
+participantData.sequences_tags = original_sequence_train_test.map(
+  (seq_exp) => reverse_sequences_tags[seq_exp.join(',')]
+);
+participantData.sequences_structure = original_sequence_train_test;
+participantData.sequences_shown = sequence_train_test;
+participantData.participant_startTime = Array(sequence_train_test.length).fill(
   Date.now()
 );
-participantData.participant_language = Array(randomized_sequences.length).fill(
+participantData.participant_language = Array(sequence_train_test.length).fill(
   lan_selected
 );
-participantData.experiment_SOA = Array(randomized_sequences.length).fill(SOA);
-participantData.experiment_blink = Array(randomized_sequences.length).fill(
+participantData.experiment_SOA = Array(sequence_train_test.length).fill(SOA);
+participantData.experiment_blink = Array(sequence_train_test.length).fill(
   blink
 );
 participantData.experiment_rangeEstimationComplexity = Array(
-  randomized_sequences.length
+  sequence_train_test.length
 ).fill(range_estimation_complexity);
-participantData.participant_timings = Array(randomized_sequences.length).fill(
+participantData.participant_timings = Array(sequence_train_test.length).fill(
   -1
 );
-participantData.participant_response = Array(randomized_sequences.length).fill(
+participantData.participant_response = Array(sequence_train_test.length).fill(
   -1
 );
 participantData.participant_screenHeight = Array(
-  randomized_sequences.length
+  sequence_train_test.length
 ).fill(window.screen.height);
 participantData.participant_screenWidth = Array(
-  randomized_sequences.length
+  sequence_train_test.length
 ).fill(window.screen.width);
 
 // -- Fill survey results
-participantData.age = Array(randomized_sequences.length).fill(
+participantData.age = Array(sequence_train_test.length).fill(
   surveyResults['age']
 );
-participantData.diplome = Array(randomized_sequences.length).fill(
+participantData.diplome = Array(sequence_train_test.length).fill(
   surveyResults['diplome']
 );
-participantData.musicExp = Array(randomized_sequences.length).fill(
+participantData.musicExp = Array(sequence_train_test.length).fill(
   surveyResults['musicExp']
 );
-participantData.musicScoreReading = Array(randomized_sequences.length).fill(
+participantData.musicScoreReading = Array(sequence_train_test.length).fill(
   surveyResults['musicScoreReading']
 );
-participantData.instrumentProficiency = Array(randomized_sequences.length).fill(
+participantData.instrumentProficiency = Array(sequence_train_test.length).fill(
   surveyResults['instrumentProficiency']
 );
-participantData.mathExp = Array(randomized_sequences.length).fill(
+participantData.mathExp = Array(sequence_train_test.length).fill(
   surveyResults['mathExp']
 );

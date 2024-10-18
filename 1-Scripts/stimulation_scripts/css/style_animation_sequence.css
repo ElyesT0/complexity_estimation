@@ -12,6 +12,10 @@ body {
   /* touch-action: manipulation; */
 }
 
+/* ==========================================================================
+   Container Styles
+   ========================================================================== */
+
 .container-figure {
   position: relative;
   overflow: hidden;
@@ -27,12 +31,45 @@ body {
   height: 50vh; /* Adjust this value as needed */
   width: calc(100% - 50px); /* Adjust this value as needed */
   color: white;
-  font-size: 20px;
+  font-size: 26px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
 }
+
+.container-estimation_complexity {
+  display: grid;
+  grid-template-rows: repeat(1, 1fr);
+  grid-template-columns: repeat(7, 1fr);
+  justify-content: center;
+  row-gap: 10px;
+  column-gap: 10px;
+  position: absolute;
+  bottom: 10vh;
+  transform: translate(5px);
+  margin-bottom: 2vh;
+}
+
+.container-chevron {
+  display: flex;
+  justify-content: center;
+  align-items: top;
+  width: 10vw;
+  height: 10vh;
+
+  background-color: black;
+  border-radius: 10%;
+  opacity: 0.7;
+  box-shadow: rgba(184, 134, 11, 0.2) 0 -25px 18px -14px inset,
+    rgba(184, 134, 11, 0.15) 0 1px 2px, rgba(184, 134, 11, 0.15) 0 2px 4px,
+    rgba(184, 134, 11, 0.15) 0 4px 8px, rgba(184, 134, 11, 0.15) 0 8px 16px,
+    rgba(184, 134, 11, 0.15) 0 16px 32px;
+}
+
+/* ==========================================================================
+   Experiment Figure Styles
+   ========================================================================== */
 
 .prompt-txt {
   position: absolute;
@@ -61,13 +98,6 @@ body {
   position: 'relative';
 }
 
-.pause {
-  color: orangered;
-  transform: translate(-45%, -10%);
-  font-size: 30px;
-  position: absolute;
-}
-
 .circle {
   position: absolute;
   height: 50px;
@@ -79,18 +109,9 @@ body {
   transform: translate(-33px, -24px);
 }
 
-.container-estimation_complexity {
-  display: grid;
-  grid-template-rows: repeat(1, 1fr);
-  grid-template-columns: repeat(7, 1fr);
-  justify-content: center;
-  row-gap: 10px;
-  column-gap: 10px;
-  position: absolute;
-  bottom: 10vh;
-  transform: translate(5px);
-  margin-bottom: 2vh;
-}
+/* ==========================================================================
+   Buttons Styles
+   ========================================================================== */
 
 .btn-estimation_complexity {
   /* width: 80px;
@@ -211,28 +232,11 @@ body {
   transform: translate(-50px, -50px);
 }
 
-/* Game logic classes */
+/* ==========================================================================
+   Visual Help and Interactives Styles
+   ========================================================================== */
 
-.success {
-  /* background: #065535; */
-  background: linear-gradient(to top left, #065535, rgb(26, 10, 10));
-}
-
-.fail {
-  /* background: linear-gradient(to top left, #065535, #7dd56f); */
-  background: linear-gradient(to top left, #400000, #000000);
-}
-
-.moderate--failure {
-  /* background: linear-gradient(to top left, #065535, #7dd56f); */
-  background: linear-gradient(to top left, #8c5702, #000000);
-}
-
-/* 
-===========================================
---------------Progression bar--------------
-===========================================
-*/
+/* -- Progression Bar -- */
 
 .chart {
   background: rgba(255, 255, 255, 0.1);
@@ -267,19 +271,64 @@ body {
   width: 0;
 }
 
-:root {
-  --my-start-width: 0%;
-  --my-end-width: 100%;
+/* -- Indicator Arrows -- */
+
+.chevron {
+  position: absolute;
+  width: calc(1.2rem * 3.5);
+  height: calc(0.6rem * 0.8);
+  opacity: 0; /* This will change during animation */
+  transform: scale(0.3);
+  animation: move-chevron 3s ease-out infinite;
+  filter: brightness(1.8); /* Increase brightness */
 }
-@keyframes load {
-  0% {
-    width: var(--my-start-width);
-  }
-  100% {
-    /* You need to change the percentage below to match the value in the corresponding <span> */
-    width: var(--my-end-width);
-  }
+
+.chevron:first-child {
+  animation: move-chevron 3s ease-out 1s infinite;
 }
+
+.chevron:nth-child(2) {
+  animation: move-chevron 3s ease-out 2s infinite;
+}
+
+.chevron:before,
+.chevron:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  background: #ffffff;
+  filter: brightness(2);
+}
+
+.chevron:before {
+  left: 0;
+  transform: skewY(30deg);
+}
+
+.chevron:after {
+  right: 0;
+  width: 50%;
+  transform: skewY(-30deg);
+}
+
+.container-chevron::before {
+  content: 'Click me !';
+  position: absolute;
+  top: -20px; /* Position text above the chevron */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 25px; /* Adjust font size */
+  color: #fff; /* Make the text white or adjust as needed */
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+/* ==========================================================================
+   Utility Styles
+   ========================================================================== */
 
 .no--zoom {
   /* disable double tap zoom on smartphones*/
@@ -297,4 +346,73 @@ body {
 
 .hidden {
   display: none;
+}
+
+/* ==========================================================================
+   Responsive Styles
+   ========================================================================== */
+
+/* Progression Bar style */
+/* ========================================================================= */
+
+:root {
+  --my-start-width: 0%;
+  --my-end-width: 100%;
+}
+@keyframes load {
+  0% {
+    width: var(--my-start-width);
+  }
+  100% {
+    /* You need to change the percentage below to match the value in the corresponding <span> */
+    width: var(--my-end-width);
+  }
+}
+
+/* Moving Arrows style */
+/* ========================================================================= */
+
+@keyframes move-chevron {
+  25% {
+    opacity: 1;
+  }
+  33.3% {
+    opacity: 1;
+    transform: translateY(calc(0.6rem * 3.8));
+  }
+  66.6% {
+    opacity: 1;
+    transform: translateY(calc(0.6rem * 5.2));
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(calc(0.6rem * 8)) scale(0.5);
+  }
+}
+
+/* ==========================================================================
+   Deprecated Styles
+   ========================================================================== */
+/* Game logic classes */
+
+.success {
+  /* background: #065535; */
+  background: linear-gradient(to top left, #065535, rgb(26, 10, 10));
+}
+
+.fail {
+  /* background: linear-gradient(to top left, #065535, #7dd56f); */
+  background: linear-gradient(to top left, #400000, #000000);
+}
+
+.moderate--failure {
+  /* background: linear-gradient(to top left, #065535, #7dd56f); */
+  background: linear-gradient(to top left, #8c5702, #000000);
+}
+
+.pause {
+  color: orangered;
+  transform: translate(-45%, -10%);
+  font-size: 30px;
+  position: absolute;
 }

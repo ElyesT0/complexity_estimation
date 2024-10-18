@@ -44,7 +44,7 @@ function attachGestureListeners(inputElement) {
 
 /* 
 =======================================================================
-++++++++++++++++++ Visual Effect and design functions +++++++++++++++++
+++++++++++++++++ Visual Elements creation functions +++++++++++++++++
 =======================================================================
 */
 
@@ -246,11 +246,29 @@ const draw_figure = function () {
   const progression_bar = document.getElementById('progression--bar');
 
   // -----------------------------------------------------------------------------------
+  // -- Guiding Arrows for the training phase
+  //
+  // -- Container
+  const container_chevron = document.querySelector('.container-chevron');
+
+  // -- Individual arrows (the animation needs 3 arrows)
+  var all_chevron_selectors = [];
+  for (let i = 0; i < 3; i++) {
+    var div = document.createElement('div');
+    div.classList.add('chevron', 'no--zoom');
+    container_chevron.appendChild(div);
+    all_chevron_selectors.push(div);
+  }
+
+  // -----------------------------------------------------------------------------------
   // Apply the function disabling zoom and scroll to EVERY element.
   // Sorry I did not find any other way
 
   for (let i = 0; i < circleElements.length; i++) {
     attachGestureListeners(circleElements[i]);
+  }
+  for (let i = 0; i < all_chevron_selectors.length; i++) {
+    attachGestureListeners(all_chevron_selectors[i]);
   }
   attachGestureListeners(fixationElement);
   for (let i = 0; i < btn_estimation_complexity.length; i++) {
@@ -264,8 +282,10 @@ const draw_figure = function () {
   attachGestureListeners(pauseElement);
   attachGestureListeners(progression_bar);
   attachGestureListeners(prompt);
+  attachGestureListeners(container_chevron);
 
-  /* --- Add created elements to the object element_selectors ---
+  // -----------------------------------------------------------------------------------
+  /*--- Add created elements to the object element_selectors ---
     Then we are able to use them in other methods. This will allow animating them,
     making them appear/disappear, linking event listeners to them without
     creating unwanted interactions */
@@ -282,6 +302,36 @@ const draw_figure = function () {
   element_selectors.pauseElement = pauseElement;
   element_selectors.progression_bar = progression_bar;
   element_selectors.prompt = prompt;
+  element_selectors.container_chevron = container_chevron;
+
+  // -----------------------------------------------------------------------------------
+  // -- Move Arrow function
+  //
+
+  const move_arrow = function (target, sequence) {
+    setTimeout(() => {
+      // target (num): digit of the complexity button (for example: 3) over which the arrow should be placed
+      let target_element = element_selectors.estimation_complexity[target - 1];
+
+      // Get the bounding box of the target element
+      let rect = target_element.getBoundingClientRect();
+      let height = target_element.offsetHeight;
+
+      // Extract the left and top positions
+      let target_left = rect.left + window.scrollX; // Accounts for horizontal scroll
+      let target_top = rect.top + window.scrollY; // Accounts for vertical scroll
+
+      // moving the arrow
+      element_selectors.container_chevron.style.position = 'absolute';
+      element_selectors.container_chevron.style.left = `${target_left}px`;
+      element_selectors.container_chevron.style.top = `${
+        target_top - height * 3
+      }px`;
+      element_selectors.container_chevron.classList.remove('hidden');
+    }, sequence.length * SOA + set_delay * 4);
+  };
+  // Expose the move_arrow function globally by attaching it to the window object
+  window.move_arrow = move_arrow;
 
   return element_selectors;
 };
@@ -301,24 +351,15 @@ const hideElements = function (my_elements, element_selectors) {
   }
 };
 
-// const clearScreen = function () {
-//   for (let i = 0; i < Object.keys(element_selectors).length; i++) {
-//     const my_key = Object.keys(element_selectors)[i];
-//     const elements = element_selectors[my_key];
-//     //check if elements is an array or a single element
-//     if (Array.isArray(elements)) {
-//       elements.forEach((element) => element.classList.add('hidden'));
-//     } else {
-//       elements.classList.add('hidden');
-//     }
-//   }
-// };
-
 function clearScreen() {
   hideElements(Object.keys(element_selectors), element_selectors);
 }
 
-// -------------------------------------------------------------------------------------------
+/* 
+======================================================
+++++++++++++++++ Animation functions +++++++++++++++++
+======================================================
+*/
 
 const revealElements = function (my_elements, element_selectors) {
   for (let i = 0; i < my_elements.length; i++) {

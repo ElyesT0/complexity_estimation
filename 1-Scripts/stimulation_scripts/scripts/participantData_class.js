@@ -2,6 +2,7 @@
 
 class ParticipantCl {
   constructor() {
+    this.sequences_tags = 'toFill';
     this.sequences_structure = 'toFill';
     this.sequences_shown = 'toFill';
 

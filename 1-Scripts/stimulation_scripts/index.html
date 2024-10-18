@@ -2,32 +2,391 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-    />
-    <link href="css/style_animation_sequence.css" rel="stylesheet" />
-    <!-- Include Axios via CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <title>Experiment Started</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style_welcome.css" />
+    <title>Experiment Welcome</title>
   </head>
-  <body class="no--zoom">
-    <div class="container-figure no--zoom">
-      <div class="text-container no--zoom"></div>
-      <div class="hidden" id="progression--bar">
-        <div class="chart">
-          <div class="bar"></div>
-
-          <span id="value1">0</span>
-        </div>
-      </div>
+  <body>
+    <div class="container" id="language-selection">
+      <h2>Select your language / Choisissez votre langue :</h2>
+      <button onclick="setLanguage('en')" class="btn">English</button>
+      <button onclick="setLanguage('fr')" class="btn">Français</button>
     </div>
-    <script src="scripts/data_functions.js"></script>
-    <script src="scripts/participantData_class.js"></script>
-    <script src="scripts/data_sequences.js"></script>
-    <script src="scripts/visual_design_functions.js"></script>
-    <script src="scripts/game_dynamics_functions.js"></script>
-    <script src="scripts/run_experiment.js"></script>
-    <script src="scripts/send_post.js"></script>
+
+    <div class="container hidden" id="presentation">
+      <h2
+        class="lang"
+        data-en="Welcome to the experiment!"
+        data-fr="Merci de participer à notre expérience!"
+      ></h2>
+      <div class="experimenters">
+        <p
+          class="lang"
+          data-en="Experimenters: Elyès TABBANE"
+          data-fr="Expérimentateurs : Elyès TABBANE"
+        ></p>
+        <p
+          class="lang"
+          data-en="Supervision: Fosca AL ROUMI"
+          data-fr="Supervision : Fosca AL ROUMI"
+        ></p>
+      </div>
+      <p
+        class="lang textLeft"
+        data-en="Our team is conducting research on spatial sequence complexity estimation. Thank you for participating in our research work."
+        data-fr="Notre équipe mène une recherche sur l'estimation de la complexité de séquences spatiales. Merci de participer à notre travail de recherche."
+      ></p>
+      <p
+        class="lang textLeft"
+        data-en="In a moment you will be faced with the task of judging the complexity of sequences."
+        data-fr="Dans un instant, vous serez confronté à une tâche de jugement de complexité de séquences."
+      ></p>
+      <p
+        class="lang textLeft"
+        data-en="Stay focused, there will be trick sequences! Accumulate too many mistakes on those trials and the experiment will stop."
+        data-fr="Restez concentré.e, il y aura des séquences pièges. Si vous commettez trop d'erreurs, l'expérience sera interrompue."
+      ></p>
+      <strong
+        class="lang"
+        data-en="But first, please read and sign our consent form."
+        data-fr="Mais d'abord, veuillez lire et signer notre formulaire de consentement."
+      ></strong
+      ><br />
+      <button class="btn" onclick="showConsent()">
+        <span class="lang" data-en="Continue" data-fr="Continuer"></span>
+      </button>
+    </div>
+
+    <div class="container hidden" id="consent-form">
+      <h3
+        class="lang"
+        data-en="Consent Form"
+        data-fr="Formulaire de Consentement"
+      ></h3>
+      <p
+        class="lang"
+        data-en="Participation in a cognitive science experiment"
+        data-fr="Participation à une expérience en sciences cognitives."
+      ></p>
+      <strong
+        class="lang textLeft"
+        data-en="Please do not participate if you are a minor."
+        data-fr="Veuillez ne pas participer si vous êtes mineur."
+      ></strong>
+      <p
+        class="lang textLeft"
+        data-en="You will participate in a short demographic questionnaire, followed by a cognitive science experiment. This experiment takes about 20 minutes."
+        data-fr="Vous participerez à un court questionnaire démographique, suivi d'une expérience en sciences cognitives. Cette expérience dure environ 20 minutes."
+      ></p>
+      <p
+        class="lang textLeft"
+        data-en="Try to do it in a single block, alone, in a quiet place, staying focused."
+        data-fr="Essayez de la faire en une seule fois, seul(e), dans un endroit calme, en restant concentré(e)."
+      ></p>
+      <p
+        class="lang textLeft"
+        data-en="Only your responses and response times will be analyzed and stored. You may stop at any time by leaving the page."
+        data-fr="Seules vos réponses et vos temps de réponse seront analysés et stockés. Vous pouvez arrêter à tout moment en quittant la page."
+      ></p>
+      <p
+        class="lang textLeft"
+        data-en="Your participation is voluntary, and you can stop at any time by simply leaving this page. However, if you stop before the end, the data will not be usable, and no data will be retained. In this case, we will not be able to compensate you."
+        data-fr="Cependant, si vous vous arrêtez avant la fin, les données ne seront pas utilisables et aucune donnée ne sera conservée. Dans ce cas, nous ne pourrons pas vous compenser."
+      ></p>
+      <p
+        class="lang textLeft"
+        data-en="The results of this experiment may be used in scientific publications or presentations. This study poses no risk or discomfort beyond those encountered in daily life. You may ask questions about this research at any time by contacting the experimenter. This project has been approved by the Research Ethics Committee (CER) of the University of Paris-Saclay, reference CER-Paris-Saclay-2019-063/A3."
+        data-fr="Les résultats de cette expérience sont susceptibles d'être utilisés lors de publications ou de présentations scientifiques. Cette étude ne comporte aucun risque ou inconfort autre que ceux de la vie quotidienne. Vous pouvez poser des questions au sujet de cette recherche à tout moment en contactant l'expérimentateur. Ce projet a été approuvé par le Comité d'Éthique pour la Recherche (CER) de l'Université Paris-Saclay, référence CER-Paris-Saclay-2019-063/A3."
+      ></p>
+
+      <button class="btn" onclick="acceptConsent()">
+        <span class="lang" data-en="Accept" data-fr="Accepter"></span>
+      </button>
+      <button class="btn" onclick="declineConsent()">
+        <span class="lang" data-en="Decline" data-fr="Refuser"></span>
+      </button>
+    </div>
+
+    <div class="container hidden" id="survey">
+      <h3
+        class="lang"
+        data-en="Demographic Survey"
+        data-fr="Enquête Démographique"
+      ></h3>
+      <form id="surveyForm">
+        <!-- Age Question -->
+        <div class="dropdown--list">
+          <label class="lang" data-en="Age" data-fr="Âge"></label>
+          <select id="age">
+            <option
+              value=""
+              class="lang"
+              data-en="Select your age range"
+              data-fr="Sélectionnez votre groupe d'âge"
+            ></option>
+            <option value="18_25">18-25</option>
+            <option value="25_35">25-35</option>
+            <option value="35_50">35-50</option>
+            <option value="50_">>50</option>
+          </select>
+        </div>
+
+        <!-- Education Level Question -->
+        <div class="dropdown--list">
+          <label
+            class="lang"
+            data-en="Education Level"
+            data-fr="Niveau d'Éducation"
+          ></label>
+          <select id="diplome">
+            <option
+              value=""
+              class="lang"
+              data-en="Highest Degree obtained"
+              data-fr="Niveau d'études le plus élevé"
+            ></option>
+            <option
+              value="no_diplome"
+              class="lang"
+              data-en="Primary School"
+              data-fr="École Primaire"
+            ></option>
+            <option
+              value="brevet"
+              class="lang"
+              data-en="Middle School"
+              data-fr="Collège"
+            ></option>
+            <option
+              value="BAC"
+              class="lang"
+              data-en="High School"
+              data-fr="Lycée"
+            ></option>
+            <option
+              value="BAC_3"
+              class="lang"
+              data-en="Bachelor"
+              data-fr="Licence"
+            ></option>
+            <option
+              value="BAC_5"
+              class="lang"
+              data-en="Master"
+              data-fr="Master"
+            ></option>
+            <option
+              value="BAC_7"
+              class="lang"
+              data-en="PhD"
+              data-fr="Doctorat"
+            ></option>
+          </select>
+        </div>
+
+        <!-- Musical Experience Question -->
+        <div class="dropdown--list">
+          <label
+            class="lang"
+            data-en="Musical Experience"
+            data-fr="Expérience Musicale"
+          ></label>
+          <select id="musicExp">
+            <option
+              value=""
+              class="lang"
+              data-en="Describe your Musical experience"
+              data-fr="Décrivez votre expérience musicale"
+            ></option>
+            <option
+              value="noExp"
+              class="lang"
+              data-en="No experience"
+              data-fr="Pas d'expérience"
+            ></option>
+            <option
+              value="self_less_1"
+              class="lang"
+              data-en="Self-learning for less than 1 year"
+              data-fr="Apprentissage autodidacte depuis moins d'un an"
+            ></option>
+            <option
+              value="self_more_1"
+              class="lang"
+              data-en="Self-learning for more than 1 year"
+              data-fr="Apprentissage autodidacte depuis plus d'un an"
+            ></option>
+            <option
+              value="formal_less_1"
+              class="lang"
+              data-en="Formal classes for less than 1 year"
+              data-fr="Cours formels depuis moins d'un an"
+            ></option>
+            <option
+              value="formal_1_3"
+              class="lang"
+              data-en="Formal classes for 1 to 3 years"
+              data-fr="Cours formels pendant 1 à 3 ans"
+            ></option>
+            <option
+              value="formal_more_3"
+              class="lang"
+              data-en="Formal classes for more than 3 years"
+              data-fr="Cours formels depuis plus de 3 ans"
+            ></option>
+            <option
+              value="pro"
+              class="lang"
+              data-en="Professional musician"
+              data-fr="Musicien professionnel"
+            ></option>
+          </select>
+        </div>
+
+        <!-- Music Score Reading Question -->
+        <div class="dropdown--list">
+          <label
+            class="lang"
+            data-en="How familiar are you with music score reading?"
+            data-fr="Quelle est votre familiarité avec la lecture de partitions musicales ?"
+          ></label>
+          <select id="musicScoreReading">
+            <option
+              value=""
+              class="lang"
+              data-en="Select your level"
+              data-fr="Sélectionnez votre niveau"
+            ></option>
+            <option
+              value="level_1"
+              class="lang"
+              data-en="Beginner: I can recognize basic musical symbols but struggle with complete scores."
+              data-fr="Débutant : Je reconnais les symboles musicaux de base, mais j'ai du mal à lire une partition complète."
+            ></option>
+            <option
+              value="level_2"
+              class="lang"
+              data-en="Basic Understanding: I can read simple melodies but need guidance for complex scores."
+              data-fr="Connaissances de base : Je peux lire des mélodies simples mais j'ai besoin d'aide pour des partitions complexes."
+            ></option>
+            <option
+              value="level_3"
+              class="lang"
+              data-en="Intermediate: I can read most scores with some fluency."
+              data-fr="Intermédiaire : Je peux lire la plupart des partitions avec une certaine fluidité."
+            ></option>
+            <option
+              value="level_4"
+              class="lang"
+              data-en="Advanced: I can confidently read complex scores."
+              data-fr="Avancé : Je peux lire des partitions complexes en toute confiance."
+            ></option>
+          </select>
+        </div>
+
+        <!-- Instrument Proficiency Question -->
+        <div class="dropdown--list">
+          <label
+            class="lang"
+            data-en="How proficient are you in playing a musical instrument?"
+            data-fr="Quel est votre niveau de compétence en jeu d'instrument de musique ?"
+          ></label>
+          <select id="instrumentProficiency">
+            <option
+              value=""
+              class="lang"
+              data-en="Select your level"
+              data-fr="Sélectionnez votre niveau"
+            ></option>
+            <option
+              value="no_experience"
+              class="lang"
+              data-en="No Experience: I don't play any musical instrument."
+              data-fr="Aucune expérience : Je ne joue d'aucun instrument de musique."
+            ></option>
+            <option
+              value="beginner"
+              class="lang"
+              data-en="Beginner: I am just starting to learn or can play a few simple tunes."
+              data-fr="Débutant : Je commence tout juste ou je peux jouer quelques morceaux simples."
+            ></option>
+            <option
+              value="intermediate"
+              class="lang"
+              data-en="Intermediate: I can play with some fluency and follow sheet music."
+              data-fr="Intermédiaire : Je peux jouer avec une certaine aisance et suivre une partition."
+            ></option>
+            <option
+              value="advanced"
+              class="lang"
+              data-en="Advanced: I can confidently play complex pieces."
+              data-fr="Avancé : Je peux jouer des morceaux complexes avec confiance."
+            ></option>
+          </select>
+        </div>
+
+        <!-- Last Math Lessons Received Question -->
+        <div class="dropdown--list">
+          <label
+            class="lang"
+            data-en="Last Math lessons received"
+            data-fr="Derniers cours de mathématiques suivis"
+          ></label>
+          <select id="mathExp">
+            <option
+              value=""
+              class="lang"
+              data-en="Select your level"
+              data-fr="Sélectionnez votre niveau"
+            ></option>
+            <option
+              value="lycee"
+              class="lang"
+              data-en="Highschool"
+              data-fr="Lycée"
+            ></option>
+            <option
+              value="BAC_2/3"
+              class="lang"
+              data-en="Bachelor"
+              data-fr="Licence"
+            ></option>
+            <option
+              value="BAC_5"
+              class="lang"
+              data-en="Master"
+              data-fr="Master"
+            ></option>
+            <option
+              value="BAC_5plus"
+              class="lang"
+              data-en="PhD"
+              data-fr="Doctorat"
+            ></option>
+          </select>
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          class="btn"
+          id="submitBtn"
+          type="button"
+          onclick="submitSurvey()"
+        >
+          <span class="lang" data-en="Submit" data-fr="Soumettre"></span>
+        </button>
+      </form>
+
+      <button class="btn hidden" id="goToTraining">
+        <span
+          class="lang"
+          data-en="Go to Training"
+          data-fr="Aller à l'Entraînement"
+        ></span>
+      </button>
+    </div>
+
+    <script src="scripts/welcome_script.js"></script>
   </body>
 </html>

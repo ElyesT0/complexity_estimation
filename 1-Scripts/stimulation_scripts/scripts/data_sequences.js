@@ -5,6 +5,15 @@ const lan_selected = 'Fr';
 const debbug = false; // FIXME This should ALWAYS BE FALSE before using the code. Change the id of participant to test-id
 const post_meg = false; // This parameter is false for the online experiment and true for the post-meg experiment
 
+// -- Retrieve survey results
+let surveyResults = sessionStorage.getItem('surveyChoices');
+if (surveyResults) {
+  // Parse the JSON string back into an object
+  surveyResults = JSON.parse(surveyResults);
+} else {
+  console.log('No survey data found in sessionStorage.');
+}
+
 /* 
 ============================================================
 +++++++++++++++ Participant Device Parameters ++++++++++++++
@@ -192,3 +201,25 @@ participantData.participant_screenHeight = Array(
 participantData.participant_screenWidth = Array(
   randomized_sequences.length
 ).fill(window.screen.width);
+
+// -- Fill survey results
+participantData.age = Array(randomized_sequences.length).fill(
+  surveyResults['age']
+);
+participantData.diplome = Array(randomized_sequences.length).fill(
+  surveyResults['diplome']
+);
+participantData.musicExp = Array(randomized_sequences.length).fill(
+  surveyResults['musicExp']
+);
+participantData.musicScoreReading = Array(randomized_sequences.length).fill(
+  surveyResults['musicScoreReading']
+);
+participantData.instrumentProficiency = Array(randomized_sequences.length).fill(
+  surveyResults['instrumentProficiency']
+);
+participantData.mathExp = Array(randomized_sequences.length).fill(
+  surveyResults['mathExp']
+);
+
+

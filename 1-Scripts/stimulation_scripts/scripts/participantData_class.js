@@ -18,5 +18,13 @@ class ParticipantCl {
     this.experiment_SOA = 'toFill';
     this.experiment_blink = 'toFill';
     this.experiment_rangeEstimationComplexity = 'toFill';
+
+    //survey Results
+    this.age = 'toFill';
+    this.diplome = 'toFill';
+    this.musicExp = 'toFill';
+    this.musicScoreReading = 'toFill';
+    this.instrumentProficiency = 'toFill';
+    this.mathExp = 'toFill';
   }
 }

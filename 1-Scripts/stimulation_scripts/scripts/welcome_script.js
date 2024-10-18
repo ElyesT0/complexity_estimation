@@ -5,6 +5,7 @@ function setLanguage(language) {
   });
   document.getElementById('language-selection').classList.add('hidden');
   document.getElementById('presentation').classList.remove('hidden');
+  sessionStorage.setItem('language-selected', language);
 }
 
 function showConsent() {
@@ -92,5 +93,3 @@ document.getElementById('goToTraining').addEventListener('click', () => {
   // sends to the experiment
   window.location.href = 'main.html';
 });
-
-

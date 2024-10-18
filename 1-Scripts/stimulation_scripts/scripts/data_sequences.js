@@ -1,7 +1,7 @@
 'use strict';
 
-// -- Temporary variables
-const lan_selected = 'Fr';
+// -- Get language of participant
+const lan_selected = sessionStorage.getItem('language-selected') || 'en';
 const debbug = false; // FIXME This should ALWAYS BE FALSE before using the code. Change the id of participant to test-id
 const post_meg = false; // This parameter is false for the online experiment and true for the post-meg experiment
 
@@ -139,7 +139,7 @@ const end_txt_eng =
 const next_txt_fr = 'Vous avez répondu';
 const next_txt_eng = 'You responded';
 
-if (lan_selected === 'Fr') {
+if (lan_selected === 'fr') {
   var instruction_training_end = instruction_training_end_fr;
   var prompt_txt = prompt_txt_fr;
   var end_txt = `<div style="font-size:35px">${end_txt_fr}</div>`;

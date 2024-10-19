@@ -80,36 +80,152 @@ if (post_meg) {
   ]);
 } else {
   sequences = Object.freeze([
-    //Experiment 1
-    [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1], // REP2
-    [0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2], // REP3
-    [0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3], // REP4
-    [0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2], // REP-Nested
+    // +++++++++++++++++
+    //+++++ Experiment 1
+    //
+    // ----- REP2
+    // - distance between two points = 1
+    [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1],
     [0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1], // CREP2
+
+    // - distance between two points = 2
+    [0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0, 2],
+    [0, 2, 2, 2, 2, 0, 0, 2, 0, 0, 0, 2], // CREP2
+
+    // - distance between two points = 3
+    [0, 3, 0, 3, 0, 3, 0, 3, 0, 3, 0, 3],
+    [0, 3, 3, 3, 3, 0, 0, 3, 0, 0, 0, 3], // CREP2
+
+    // ----- REP3
+    // Rotation cluster form
+    [0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2], // REP3
     [0, 1, 2, 0, 2, 1, 1, 2, 0, 1, 0, 2], // CREP3
+
+    // Triangle + rotation form
+    [0, 2, 4, 0, 2, 4, 0, 2, 4, 0, 2, 4], // REP3
+    [0, 2, 4, 0, 4, 2, 2, 4, 0, 2, 0, 4], // CREP3
+
+    // 2 groups
+    [0, 5, 3, 0, 5, 3, 0, 5, 3, 0, 5, 3], // REP3
+    [0, 5, 3, 0, 3, 5, 5, 3, 0, 5, 0, 3], // CREP3
+
+    // ----- REP4
+    // Rotation +1
+    [0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3], // REP4
     [0, 1, 2, 3, 2, 1, 3, 0, 0, 3, 1, 2], // CREP4
+
+    // Zhang geometrical shape-23
+    [0, 2, 5, 3, 0, 2, 5, 3, 0, 2, 5, 3], // REP4
+    [0, 2, 5, 3, 5, 2, 3, 0, 0, 3, 2, 5], // CREP4
+
+    // Zhang geometrical shape-30
+    [0, 3, 2, 5, 0, 3, 2, 5, 0, 3, 2, 5], // REP4
+    [0, 3, 2, 5, 2, 3, 5, 0, 0, 5, 3, 2], // CREP4
+
+    // ---- REP-Nested
+    // Rotation +1
+    [0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2], // REP-Nested
     [0, 1, 2, 0, 2, 1, 0, 1, 2, 0, 2, 1], // REP-Global
     [0, 0, 1, 1, 2, 2, 0, 0, 2, 2, 1, 1], // REP-Local
-    //Experiment 2
+
+    // Triangle + rotation form
+    [0, 0, 2, 2, 4, 4, 0, 0, 2, 2, 4, 4], // REP-Nested
+    [0, 2, 4, 0, 4, 2, 0, 2, 4, 0, 4, 2], // REP-Global
+    [0, 0, 2, 2, 4, 4, 0, 0, 4, 4, 2, 2], // REP-Local
+
+    // 2 groups
+    [0, 0, 5, 5, 3, 3, 0, 0, 5, 5, 3, 3], // REP-Nested
+    [0, 5, 3, 0, 3, 5, 0, 5, 3, 0, 3, 5], // REP-Global
+    [0, 0, 5, 5, 3, 3, 0, 0, 3, 3, 5, 5], // REP-Local
+
+    // +++++++++++++++++
+    //+++++ Experiment 2
+    //
+    // ----- 4 Tokens
+    // Rotation +1 [0,1,2,3]
+    // Zhang geometrical shape-23 [0,2,5,3]
+    // Zhang geometrical shape-30 [0,3,5,2]
+
+    // ----- Play 4 Tokens
+    // Rotation +1 [0,1,2,3]
     [0, 1, 0, 2, 0, 3, 0, 1, 0, 2, 0, 3], // Play 4 Tokens
     [0, 1, 0, 2, 1, 3, 0, 1, 0, 2, 1, 3], // Contrôle Play-4 Tokens
+
+    // Zhang geometrical shape-23 [0,2,5,3]
+    [0, 1, 0, 2, 0, 3, 0, 1, 0, 2, 0, 3], // Play 4 Tokens
+    [0, 1, 0, 2, 1, 3, 0, 1, 0, 2, 1, 3], // Contrôle Play-4 Tokens
+
+    // Zhang geometrical shape-30 [0,3,5,2]
+    [0, 1, 0, 2, 0, 3, 0, 1, 0, 2, 0, 3], // Play 4 Tokens
+    [0, 1, 0, 2, 1, 3, 0, 1, 0, 2, 1, 3], // Contrôle Play-4 Tokens
+
+    // ----- 4 Tokens
+    // Rotation +1 [0,1,2,3]
+    // Zhang geometrical shape-23 [0,2,5,3]
+    // Zhang geometrical shape-30 [0,3,5,2]
     [0, 1, 2, 3, 0, 1, 2, 1, 0, 1, 2, 0], // Sub-programs 1
     [0, 1, 2, 3, 0, 2, 1, 2, 0, 1, 2, 0], // Contrôle sub-programs 1
+
+    // ----- 6 Tokens
     [0, 1, 2, 3, 0, 1, 2, 4, 0, 1, 2, 5], // Sub-programs 2
     [0, 1, 2, 3, 0, 2, 1, 4, 0, 1, 2, 5], // Contrôle sub-programs 2
+
+    // ----- Indice i (2tokens)
+    // - distance between two points = 1
     [0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1], // Indice i
     [0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1], // Contrôle indice i
+
+    // - distance between two points = 2
+    [0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1], // Indice i
+    [0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1], // Contrôle indice i
+    // - distance between two points = 3
+    [0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1], // Indice i
+    [0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1], // Contrôle indice i
+
+    // ----- 4 Tokens
+    // Rotation +1 [0,1,2,3]
     [0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 3], // Play
     [0, 0, 0, 1, 0, 0, 2, 0, 0, 0, 0, 3], // Contrôle play
+    // Zhang geometrical shape-23 [0,2,5,3]
+    [0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 3], // Play
+    [0, 0, 0, 1, 0, 0, 2, 0, 0, 0, 0, 3], // Contrôle play
+    // Zhang geometrical shape-30 [0,3,5,2]
+    [0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 3], // Play
+    [0, 0, 0, 1, 0, 0, 2, 0, 0, 0, 0, 3], // Contrôle play
+
+    // 5 Tokens
     [0, 1, 2, 0, 1, 2, 3, 0, 1, 2, 3, 4], // Insertion
     [0, 1, 2, 3, 4, 0, 1, 2, 3, 0, 1, 2], // Suppression (contrôle insertion)
+
+    // ----- 4 Tokens
+    // Rotation +1 [0,1,2,3]
     [0, 1, 2, 3, 3, 2, 1, 0, 0, 1, 2, 3], // Miroir 1
     [0, 1, 2, 3, 3, 1, 2, 0, 0, 1, 2, 3], // Contrôle Miroir 1
+    // Zhang geometrical shape-23 [0,2,5,3]
+    [0, 1, 2, 3, 3, 2, 1, 0, 0, 1, 2, 3], // Miroir 1
+    [0, 1, 2, 3, 3, 1, 2, 0, 0, 1, 2, 3], // Contrôle Miroir 1
+    // Zhang geometrical shape-30 [0,3,5,2]
+    [0, 1, 2, 3, 3, 2, 1, 0, 0, 1, 2, 3], // Miroir 1
+    [0, 1, 2, 3, 3, 1, 2, 0, 0, 1, 2, 3], // Contrôle Miroir 1
+
+    // ----- 4 Tokens
+    // Rotation +1 [0,1,2,3]
+    [0, 1, 2, 3, 2, 1, 0, 3, 0, 1, 2, 3], // Miroir 2
+    [0, 1, 2, 3, 2, 0, 1, 3, 0, 1, 2, 3], // Contrôle Miroir 2
+    // Zhang geometrical shape-23 [0,2,5,3]
+    [0, 1, 2, 3, 2, 1, 0, 3, 0, 1, 2, 3], // Miroir 2
+    [0, 1, 2, 3, 2, 0, 1, 3, 0, 1, 2, 3], // Contrôle Miroir 2
+    // Zhang geometrical shape-30 [0,3,5,2]
     [0, 1, 2, 3, 2, 1, 0, 3, 0, 1, 2, 3], // Miroir 2
     [0, 1, 2, 3, 2, 0, 1, 3, 0, 1, 2, 3], // Contrôle Miroir 2
 
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], //probe-easy
-    [0, 3, 4, 1, 4, 1, 2, 5, 5, 3, 0, 2], //probe-hard
+    // ----- 6 Tokens
+    [0, 3, 4, 1, 4, 1, 2, 5, 5, 3, 0, 2], //probe-hard, version 1
+    [0, 1, 2, 3, 2, 3, 4, 5, 5, 1, 0, 4], //probe-hard, version 2
+    [1, 2, 3, 4, 3, 4, 5, 0, 0, 2, 1, 5], //probe-hard, version 3
+    [0, 1, 5], //probe-hard, version 4
+    [0, 1, 2, 3, 2, 3, 4, 5, 5, 1, 0, 4], //probe-hard, version 5
   ]);
 }
 

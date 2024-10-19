@@ -259,45 +259,7 @@ const training_sequences = [
   [1, 4, 5, 2, 5, 2, 3, 0, 0, 4, 1, 3],
 ];
 
-// ---------------------------------------------------
-// -- Sequence Names / Tags / Dictionary
-//
 
-const reverse_sequences_tags = {
-  'training-1': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  'training-2': [0, 3, 5, 1, 4, 3, 3, 2, 0, 5, 3, 0],
-  'training-3': [0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3],
-  'training-4': [1, 4, 5, 2, 5, 2, 3, 0, 0, 4, 1, 3],
-  'probe-easy': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], //probe-easy
-  'probe-hard': [0, 3, 4, 1, 4, 1, 2, 5, 5, 3, 0, 2], //probe-hard
-
-  'Rep-2': [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1], // REP2
-  'Rep-3': [0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2], // REP3
-  'Rep-4': [0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3], // REP4
-  'Rep-Nested': [0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2], // REP-Nested
-  'CRep-2': [0, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1], // CREP2
-  'CRep-3': [0, 1, 2, 0, 2, 1, 1, 2, 0, 1, 0, 2], // CREP3
-  'CRep-4': [0, 1, 2, 3, 2, 1, 3, 0, 0, 3, 1, 2], // CREP4
-  'CRep-Nested-Global': [0, 1, 2, 0, 2, 1, 0, 1, 2, 0, 2, 1], // REP-Global
-  'CRep-Nested-Local': [0, 0, 1, 1, 2, 2, 0, 0, 2, 2, 1, 1], // REP-Local
-
-  'Play-4': [0, 1, 0, 2, 0, 3, 0, 1, 0, 2, 0, 3], // Play 4 Tokens
-  'CPlay-4': [0, 1, 0, 2, 1, 3, 0, 1, 0, 2, 1, 3], // Contrôle Play-4 Tokens
-  'Sub-1': [0, 1, 2, 3, 0, 1, 2, 1, 0, 1, 2, 0], // Sub-programs 1
-  'CSub-1': [0, 1, 2, 3, 0, 2, 1, 2, 0, 1, 2, 0], // Contrôle sub-programs 1
-  'Sub-2': [0, 1, 2, 3, 0, 1, 2, 4, 0, 1, 2, 5], // Sub-programs 2
-  'CSub-2': [0, 1, 2, 3, 0, 2, 1, 4, 0, 1, 2, 5], // Contrôle sub-programs 2
-  Index: [0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1], // Indice i
-  CIndex: [0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1], // Contrôle indice i
-  Play: [0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 3], // Play
-  CPlay: [0, 0, 0, 1, 0, 0, 2, 0, 0, 0, 0, 3], // Contrôle play
-  Insertion: [0, 1, 2, 0, 1, 2, 3, 0, 1, 2, 3, 4], // Insertion
-  Suppression: [0, 1, 2, 3, 4, 0, 1, 2, 3, 0, 1, 2], // Suppression (contrôle insertion)
-  'Mirror-1': [0, 1, 2, 3, 3, 2, 1, 0, 0, 1, 2, 3], // Miroir 1
-  'CMirror-1': [0, 1, 2, 3, 3, 1, 2, 0, 0, 1, 2, 3], // Contrôle Miroir 1
-  'Mirror-2': [0, 1, 2, 3, 2, 1, 0, 3, 0, 1, 2, 3], // Miroir 2
-  'CMirror-2': [0, 1, 2, 3, 2, 0, 1, 3, 0, 1, 2, 3], // Contrôle Miroir 2
-};
 
 /* 
 ======================================================

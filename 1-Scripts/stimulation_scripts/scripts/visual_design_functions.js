@@ -122,7 +122,7 @@ const draw_figure = function () {
   if (post_meg) {
     shift_circles = Math.PI / 6; // Shift parameter: using it to match the MEG experiment display
   } else {
-    shift_circles = 0; // Shift parameter: using it to match the MEG experiment display
+    shift_circles = Math.PI / 6; // Shift parameter: using it to match the MEG experiment display
   }
 
   // Updated angles with shift_circles

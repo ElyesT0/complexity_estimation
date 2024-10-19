@@ -152,23 +152,34 @@ if (post_meg) {
     [0, 1, 0, 2, 1, 3, 0, 1, 0, 2, 1, 3], // Contrôle Play-4 Tokens
 
     // Zhang geometrical shape-23 [0,2,5,3]
-    [0, 1, 0, 2, 0, 3, 0, 1, 0, 2, 0, 3], // Play 4 Tokens
-    [0, 1, 0, 2, 1, 3, 0, 1, 0, 2, 1, 3], // Contrôle Play-4 Tokens
+    [0, 2, 0, 5, 0, 3, 0, 2, 0, 5, 0, 3], // Play 4 Tokens
+    [0, 2, 0, 5, 2, 3, 0, 2, 0, 5, 2, 3], // Contrôle Play-4 Tokens
 
-    // Zhang geometrical shape-30 [0,3,5,2]
-    [0, 1, 0, 2, 0, 3, 0, 1, 0, 2, 0, 3], // Play 4 Tokens
-    [0, 1, 0, 2, 1, 3, 0, 1, 0, 2, 1, 3], // Contrôle Play-4 Tokens
+    // Zhang geometrical shape-30 [0,3,2,5]
+    [0, 3, 0, 2, 0, 5, 0, 3, 0, 2, 0, 5], // Play 4 Tokens
+    [0, 3, 0, 2, 3, 5, 0, 3, 0, 2, 3, 5], // Contrôle Play-4 Tokens
 
-    // ----- 4 Tokens
+    // ----- Sub-programs 2 (6 Tokens): treat it as 3 tokens
     // Rotation +1 [0,1,2,3]
-    // Zhang geometrical shape-23 [0,2,5,3]
-    // Zhang geometrical shape-30 [0,3,5,2]
     [0, 1, 2, 3, 0, 1, 2, 1, 0, 1, 2, 0], // Sub-programs 1
     [0, 1, 2, 3, 0, 2, 1, 2, 0, 1, 2, 0], // Contrôle sub-programs 1
+    // Triangle + rotation [0,2,4] + [1,3,5]
+    [0, 2, 4, 1, 0, 2, 4, 3, 0, 2, 4, 5], // Sub-programs 1
+    [0, 2, 4, 1, 0, 4, 2, 3, 0, 2, 4, 5], // Contrôle sub-programs 1
+    // Separated groups [0,5,3]+[1,2,4]
+    [0, 5, 3, 1, 0, 5, 3, 2, 0, 5, 3, 4], // Sub-programs 1
+    [0, 5, 3, 1, 0, 3, 5, 2, 0, 5, 3, 4], // Contrôle sub-programs 1
 
-    // ----- 6 Tokens
+    // ----- Sub-programs 2 (6 Tokens): treat it as 3 tokens
+    // Rotation +1
     [0, 1, 2, 3, 0, 1, 2, 4, 0, 1, 2, 5], // Sub-programs 2
     [0, 1, 2, 3, 0, 2, 1, 4, 0, 1, 2, 5], // Contrôle sub-programs 2
+    // Triangle + rotation [0,2,4] + [1,3,5]
+    [0, 2, 4, 1, 0, 2, 4, 3, 0, 2, 4, 5], // Sub-programs 2
+    [0, 2, 4, 1, 0, 4, 2, 3, 0, 2, 4, 5], // Contrôle sub-programs 2
+    // Separated groups [0,5,3]+[1,2,4]
+    [0, 5, 3, 1, 0, 5, 3, 2, 0, 5, 3, 4], // Sub-programs 2
+    [0, 5, 3, 1, 0, 3, 5, 2, 0, 5, 3, 4], // Contrôle sub-programs 2
 
     // ----- Indice i (2tokens)
     // - distance between two points = 1
@@ -176,56 +187,68 @@ if (post_meg) {
     [0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1], // Contrôle indice i
 
     // - distance between two points = 2
-    [0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1], // Indice i
-    [0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1], // Contrôle indice i
+    [0, 2, 0, 0, 2, 2, 0, 0, 0, 2, 2, 2], // Indice i
+    [0, 0, 0, 2, 2, 2, 0, 2, 0, 0, 2, 2], // Contrôle indice i
     // - distance between two points = 3
-    [0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1], // Indice i
-    [0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 1, 1], // Contrôle indice i
+    [0, 3, 0, 0, 3, 3, 0, 0, 0, 3, 3, 3], // Indice i
+    [0, 0, 0, 3, 3, 3, 0, 3, 0, 0, 3, 3], // Contrôle indice i
 
-    // ----- 4 Tokens
+    // ----- Play
     // Rotation +1 [0,1,2,3]
     [0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 3], // Play
     [0, 0, 0, 1, 0, 0, 2, 0, 0, 0, 0, 3], // Contrôle play
     // Zhang geometrical shape-23 [0,2,5,3]
-    [0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 3], // Play
-    [0, 0, 0, 1, 0, 0, 2, 0, 0, 0, 0, 3], // Contrôle play
-    // Zhang geometrical shape-30 [0,3,5,2]
-    [0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 3], // Play
-    [0, 0, 0, 1, 0, 0, 2, 0, 0, 0, 0, 3], // Contrôle play
+    [0, 0, 0, 2, 0, 0, 0, 5, 0, 0, 0, 3], // Play
+    [0, 0, 0, 2, 0, 0, 5, 0, 0, 0, 0, 3], // Contrôle play
+    // Zhang geometrical shape-30 [0,3,2,5]
+    [0, 0, 0, 3, 0, 0, 0, 2, 0, 0, 0, 5], // Play
+    [0, 0, 0, 3, 0, 0, 2, 0, 0, 0, 0, 5], // Contrôle play
 
-    // 5 Tokens
+    // Insertion/Suppression (5 Tokens): treat it as 3 +2
+    // -- Rotation +1
     [0, 1, 2, 0, 1, 2, 3, 0, 1, 2, 3, 4], // Insertion
     [0, 1, 2, 3, 4, 0, 1, 2, 3, 0, 1, 2], // Suppression (contrôle insertion)
+    // -- Triangle + rotation [0,2,4] + [1,3]
+    [0, 2, 4, 0, 2, 4, 1, 0, 2, 4, 1, 3], // Insertion
+    [0, 2, 4, 1, 3, 0, 2, 4, 1, 0, 2, 4], // Suppression (contrôle insertion)
+    // -- 2 Groups [0,5,3]+[1,4]
+    [0, 5, 3, 0, 5, 3, 1, 0, 5, 3, 1, 4], // Insertion
+    [0, 5, 3, 1, 4, 0, 5, 3, 1, 0, 5, 3], // Suppression (contrôle insertion)
 
-    // ----- 4 Tokens
+    // ----- Mirror 1
     // Rotation +1 [0,1,2,3]
-    [0, 1, 2, 3, 3, 2, 1, 0, 0, 1, 2, 3], // Miroir 1
-    [0, 1, 2, 3, 3, 1, 2, 0, 0, 1, 2, 3], // Contrôle Miroir 1
+    [0, 1, 2, 3, 3, 2, 1, 0, 0, 1, 2, 3], // Mirror 1
+    [0, 1, 2, 3, 3, 1, 2, 0, 0, 1, 2, 3], // Contrôle Mirror 1
     // Zhang geometrical shape-23 [0,2,5,3]
-    [0, 1, 2, 3, 3, 2, 1, 0, 0, 1, 2, 3], // Miroir 1
-    [0, 1, 2, 3, 3, 1, 2, 0, 0, 1, 2, 3], // Contrôle Miroir 1
-    // Zhang geometrical shape-30 [0,3,5,2]
-    [0, 1, 2, 3, 3, 2, 1, 0, 0, 1, 2, 3], // Miroir 1
-    [0, 1, 2, 3, 3, 1, 2, 0, 0, 1, 2, 3], // Contrôle Miroir 1
+    [0, 2, 5, 3, 3, 5, 2, 0, 0, 2, 5, 3], // Mirror 1
+    [0, 2, 5, 3, 3, 2, 5, 0, 0, 2, 5, 3], // Contrôle Mirror 1
+    // Zhang geometrical shape-30 [0,3,2,5]
+    [0, 3, 2, 5, 5, 2, 3, 0, 0, 3, 2, 5], // Mirror 1
+    [0, 3, 2, 5, 5, 3, 2, 0, 0, 3, 2, 5], // Contrôle Mirror 1
 
-    // ----- 4 Tokens
+    // ----- Mirror 2
     // Rotation +1 [0,1,2,3]
-    [0, 1, 2, 3, 2, 1, 0, 3, 0, 1, 2, 3], // Miroir 2
-    [0, 1, 2, 3, 2, 0, 1, 3, 0, 1, 2, 3], // Contrôle Miroir 2
+    [0, 1, 2, 3, 2, 1, 0, 3, 0, 1, 2, 3], // Mirror 2
+    [0, 1, 2, 3, 2, 0, 1, 3, 0, 1, 2, 3], // Contrôle Mirror 2
     // Zhang geometrical shape-23 [0,2,5,3]
-    [0, 1, 2, 3, 2, 1, 0, 3, 0, 1, 2, 3], // Miroir 2
-    [0, 1, 2, 3, 2, 0, 1, 3, 0, 1, 2, 3], // Contrôle Miroir 2
-    // Zhang geometrical shape-30 [0,3,5,2]
-    [0, 1, 2, 3, 2, 1, 0, 3, 0, 1, 2, 3], // Miroir 2
-    [0, 1, 2, 3, 2, 0, 1, 3, 0, 1, 2, 3], // Contrôle Miroir 2
+    [0, 2, 5, 3, 5, 2, 0, 3, 0, 2, 5, 3], // Mirror 2
+    [0, 2, 5, 3, 5, 0, 2, 3, 0, 2, 5, 3], // Contrôle Mirror 2
+    // Zhang geometrical shape-30 [0,3,2,5]
+    [0, 3, 2, 5, 2, 3, 0, 5, 0, 3, 2, 5], // Mirror 2
+    [0, 3, 2, 5, 2, 0, 3, 5, 0, 3, 2, 5], // Contrôle Mirror 2
 
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], //probe-easy
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], //probe-easy
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], //probe-easy
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], //probe-easy
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], //probe-easy
+
     // ----- 6 Tokens
     [0, 3, 4, 1, 4, 1, 2, 5, 5, 3, 0, 2], //probe-hard, version 1
     [0, 1, 2, 3, 2, 3, 4, 5, 5, 1, 0, 4], //probe-hard, version 2
     [1, 2, 3, 4, 3, 4, 5, 0, 0, 2, 1, 5], //probe-hard, version 3
-    [0, 1, 5], //probe-hard, version 4
-    [0, 1, 2, 3, 2, 3, 4, 5, 5, 1, 0, 4], //probe-hard, version 5
+    [0, 1, 5, 2, 5, 2, 4, 3, 3, 1, 0, 4], //probe-hard, version 4
+    [0, 1, 3, 4, 3, 4, 2, 5, 5, 1, 0, 2], //probe-hard, version 5
   ]);
 }
 
@@ -240,7 +263,7 @@ const training_sequences = [
 // -- Sequence Names / Tags / Dictionary
 //
 
-const sequences_tags = {
+const reverse_sequences_tags = {
   'training-1': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   'training-2': [0, 3, 5, 1, 4, 3, 3, 2, 0, 5, 3, 0],
   'training-3': [0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3],
@@ -271,15 +294,10 @@ const sequences_tags = {
   Insertion: [0, 1, 2, 0, 1, 2, 3, 0, 1, 2, 3, 4], // Insertion
   Suppression: [0, 1, 2, 3, 4, 0, 1, 2, 3, 0, 1, 2], // Suppression (contrôle insertion)
   'Mirror-1': [0, 1, 2, 3, 3, 2, 1, 0, 0, 1, 2, 3], // Miroir 1
-  'CMirro-1': [0, 1, 2, 3, 3, 1, 2, 0, 0, 1, 2, 3], // Contrôle Miroir 1
+  'CMirror-1': [0, 1, 2, 3, 3, 1, 2, 0, 0, 1, 2, 3], // Contrôle Miroir 1
   'Mirror-2': [0, 1, 2, 3, 2, 1, 0, 3, 0, 1, 2, 3], // Miroir 2
   'CMirror-2': [0, 1, 2, 3, 2, 0, 1, 3, 0, 1, 2, 3], // Contrôle Miroir 2
 };
-
-// -- Reverse dictionary. Associates the sequences expressions to the tags.
-const reverse_sequences_tags = Object.fromEntries(
-  Object.entries(sequences_tags).map(([key, value]) => [value, key])
-);
 
 /* 
 ======================================================

@@ -12,6 +12,7 @@ if (surveyResults) {
   surveyResults = JSON.parse(surveyResults);
 } else {
   console.log('No survey data found in sessionStorage.');
+  surveyResults = default_survey_results;
 }
 
 /* 
@@ -66,7 +67,7 @@ var txt_counter = 0;
 let sequences;
 
 if (post_meg) {
-  sequences = Object.freeze([
+  sequences = [
     //Experiment 1
     [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1], // REP2
     [0, 1, 2, 0, 1, 2, 0, 1, 2, 0, 1, 2], // REP3
@@ -77,9 +78,9 @@ if (post_meg) {
     [0, 1, 2, 3, 2, 1, 3, 0, 0, 3, 1, 2], // CREP4
     [0, 1, 2, 0, 2, 1, 0, 1, 2, 0, 2, 1], // REP-Global
     [0, 0, 1, 1, 2, 2, 0, 0, 2, 2, 1, 1], // REP-Local
-  ]);
+  ];
 } else {
-  sequences = Object.freeze([
+  sequences = [
     // +++++++++++++++++
     //+++++ Experiment 1
     //
@@ -249,7 +250,7 @@ if (post_meg) {
     [1, 2, 3, 4, 3, 4, 5, 0, 0, 2, 1, 5], //probe-hard, version 3
     [0, 1, 5, 2, 5, 2, 4, 3, 3, 1, 0, 4], //probe-hard, version 4
     [0, 1, 3, 4, 3, 4, 2, 5, 5, 1, 0, 2], //probe-hard, version 5
-  ]);
+  ];
 }
 
 const training_sequences = [
@@ -258,8 +259,6 @@ const training_sequences = [
   [0, 0, 0, 1, 1, 1, 2, 2, 2, 3, 3, 3],
   [1, 4, 5, 2, 5, 2, 3, 0, 0, 4, 1, 3],
 ];
-
-
 
 /* 
 ======================================================
@@ -355,16 +354,14 @@ if (lan_selected === 'fr') {
 
 // Define training 'right answers'
 const training_answer_examples = [1, 7, 1, 7];
-// Define how many times each sequence is presented.
-const presentation_number = 2;
 
 // Sequences need to be presented in random order.
-const shuffled_sequences = Array(presentation_number)
-  .fill() // Create an array with 'presentation_number' undefined elements
-  .flatMap(() => shuffle(sequences.slice())); // Shuffle and flatten the array
+const shuffled_sequences = shuffle_seq(sequences);
 
-// Keep temporal structure but randomize the points.
-const randomized_sequences = randomize_points(shuffled_sequences);
+// Keep temporal structure but randomize the starting points.
+const randomized_sequences = shuffled_sequences.map((seq) =>
+  randomizeStartingPoint(seq)
+);
 
 // We put training sequences and testing sequences with preserved structure in a same object. Used to tag sequences and to keep the original structure.
 const original_sequence_train_test = [
@@ -382,58 +379,110 @@ const sequence_train_test = [...training_sequences, ...randomized_sequences];
 */
 const participant_id = makeId();
 
-// Fill the participantData object which will be sent to the server.
+// ---------------------------------------------------------------------
+// --- Fill the participantData object which will be sent to the server.
+//
 var participantData = new ParticipantCl();
+
+// Participant: ID
 participantData.participant_id = Array(sequence_train_test.length).fill(
   participant_id
 );
-participantData.sequences_tags = original_sequence_train_test.map(
-  (seq_exp) => reverse_sequences_tags[seq_exp.join(',')]
+
+//
+// ** Participant: Survey and Demographics
+//
+// age
+participantData.age = Array(sequence_train_test.length).fill(
+  surveyResults['age']
 );
-participantData.sequences_structure = original_sequence_train_test;
-participantData.sequences_shown = sequence_train_test;
-participantData.participant_startTime = Array(sequence_train_test.length).fill(
-  Date.now()
+// diplome
+participantData.diplome = Array(sequence_train_test.length).fill(
+  surveyResults['diplome']
 );
+// musicExperience
+participantData.musicExp = Array(sequence_train_test.length).fill(
+  surveyResults['musicExp']
+);
+// Level of Score reading ability
+participantData.musicScoreReading = Array(sequence_train_test.length).fill(
+  surveyResults['musicScoreReading']
+);
+// Proficiency at playing an instrument
+participantData.instrumentProficiency = Array(sequence_train_test.length).fill(
+  surveyResults['instrumentProficiency']
+);
+// Experience in Mathematics
+participantData.mathExp = Array(sequence_train_test.length).fill(
+  surveyResults['mathExp']
+);
+// Language chosen
 participantData.participant_language = Array(sequence_train_test.length).fill(
   lan_selected
 );
-participantData.experiment_SOA = Array(sequence_train_test.length).fill(SOA);
-participantData.experiment_blink = Array(sequence_train_test.length).fill(
-  blink
-);
-participantData.experiment_rangeEstimationComplexity = Array(
-  sequence_train_test.length
-).fill(range_estimation_complexity);
-participantData.participant_timings = Array(sequence_train_test.length).fill(
-  -1
-);
-participantData.participant_response = Array(sequence_train_test.length).fill(
-  -1
-);
+//
+// ** Participant: Tech used
+//
+// Screen size
 participantData.participant_screenHeight = Array(
   sequence_train_test.length
 ).fill(window.screen.height);
 participantData.participant_screenWidth = Array(
   sequence_train_test.length
 ).fill(window.screen.width);
+// Start time
+participantData.participant_startTime = Array(sequence_train_test.length).fill(
+  Date.now()
+);
 
-// -- Fill survey results
-participantData.age = Array(sequence_train_test.length).fill(
-  surveyResults['age']
+//
+// Experiment: Parameters
+//
+// SOA
+participantData.experiment_SOA = Array(sequence_train_test.length).fill(SOA);
+// Blink
+participantData.experiment_blink = Array(sequence_train_test.length).fill(
+  blink
 );
-participantData.diplome = Array(sequence_train_test.length).fill(
-  surveyResults['diplome']
+// Range Complexity
+participantData.experiment_rangeEstimationComplexity = Array(
+  sequence_train_test.length
+).fill(range_estimation_complexity);
+
+//
+// ** Sequences and Responses
+//
+// Tags: temporal structure name
+participantData.sequences_temp_tags = original_sequence_train_test.map(
+  (seq_exp) => sequence_tag_temporal[seq_exp.join(', ')]
 );
-participantData.musicExp = Array(sequence_train_test.length).fill(
-  surveyResults['musicExp']
+
+// Tags: Geometrical structure name
+participantData.sequences_geom_tags = original_sequence_train_test.map(
+  (seq_exp) => sequence_tag_geometry[seq_exp.join(', ')]
 );
-participantData.musicScoreReading = Array(sequence_train_test.length).fill(
-  surveyResults['musicScoreReading']
+
+// Structure: pure temporal
+participantData.sequences_original = original_sequence_train_test;
+
+// Sequences shown
+participantData.sequences_shown = sequence_train_test;
+
+// -- Responses
+// Timings
+participantData.participant_timings = Array(sequence_train_test.length).fill(
+  -1
 );
-participantData.instrumentProficiency = Array(sequence_train_test.length).fill(
-  surveyResults['instrumentProficiency']
+// Ratings
+participantData.participant_response = Array(sequence_train_test.length).fill(
+  -1
 );
-participantData.mathExp = Array(sequence_train_test.length).fill(
-  surveyResults['mathExp']
-);
+
+//
+// ** Initializing counters
+// Last Click
+participantData.last_click = Array(sequence_train_test.length).fill(-1);
+// Trial counter
+participantData.participant_trialCounter = Array(
+  sequence_train_test.length
+).fill(-1);

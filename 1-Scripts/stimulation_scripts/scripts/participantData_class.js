@@ -2,8 +2,10 @@
 
 class ParticipantCl {
   constructor() {
-    this.sequences_tags = 'toFill';
-    this.sequences_structure = 'toFill';
+    this.sequences_temp_tags = 'toFill';
+    this.sequences_geom_tags = 'toFill';
+
+    this.sequences_original = 'toFill';
     this.sequences_shown = 'toFill';
 
     this.participant_id = 'toFill';

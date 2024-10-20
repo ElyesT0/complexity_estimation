@@ -10,9 +10,11 @@ Here we define the functions used to prepare the experiment. Typically, function
 ======================================================
 */
 
-const shuffle = function (seq) {
-  // purpose: shuffle the sequences by switching positions of the sequences in the array several times
+const shuffle_seq = function (seq_original) {
+  // Create a copy of the original array to avoid modifying it
+  let seq = [...seq_original]; // Or you can use seq_original.slice()
 
+  // Shuffle the sequences by switching positions in the array several times
   for (let i = 0; i < seq.length; i++) {
     let rand_1 = Math.trunc(Math.random() * seq.length);
     let rand_2 = Math.trunc(Math.random() * seq.length);
@@ -21,7 +23,7 @@ const shuffle = function (seq) {
     seq[rand_2] = temp;
   }
 
-  return seq;
+  return seq; // Return the shuffled copy
 };
 
 // -------------------------------------------------------------------------------------------
@@ -35,7 +37,6 @@ const makeId = function () {
   }
   return participant_ID;
 };
-
 
 // -------------------------------------------------------------------------------------------
 
@@ -84,4 +85,29 @@ const randomize_points = function (seq) {
     rand_sequence.push(temp);
   }
   return rand_sequence;
+};
+// -------------------------------------------------------------------------------------------
+
+function randomizeStartingPoint(sequence) {
+  const circleSize = 6;
+
+  // Randomize the starting point within the circle
+  const randomStart = Math.floor(Math.random() * circleSize);
+
+  // Map each value in the sequence to its new position based on the random start point
+  const randomizedSequence = sequence.map(
+    (num) => (num + randomStart) % circleSize
+  );
+
+  return randomizedSequence;
+}
+
+// -------------------------------------------------------------------------------------------
+const default_survey_results = {
+  age: 'noData_test',
+  diplome: 'noData_test',
+  instrumentProficiency: 'noData_test',
+  mathExp: 'noData_test',
+  musicExp: 'noData_test',
+  musicScoreReading: 'noData_test',
 };

@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 // -- Adapt figure to size of the screen
 containerFigureElement.style.height = `${document.documentElement.clientHeight}px`;
@@ -9,4 +9,3 @@ const element_selectors = draw_figure();
 
 // -- Add the game dynamic to the elements
 init(element_selectors);
-

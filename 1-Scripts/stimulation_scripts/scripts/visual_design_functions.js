@@ -366,13 +366,17 @@ const revealElements = function (my_elements, element_selectors) {
     const my_key = my_elements[i];
     const elements = element_selectors[my_key];
 
-    // Helper function to reveal child elements recursively
+    // Helper function to reveal child elements recursively if they exist
     const revealWithChildren = (element) => {
+      if (!element) return; // If the element is null or undefined, skip
+
       element.classList.remove('hidden'); // Reveal the current element
 
-      // Check and reveal all children recursively
-      const childElements = element.querySelectorAll('*'); // Select all child elements
-      childElements.forEach((child) => child.classList.remove('hidden'));
+      // Check if the element has child elements
+      if (element.hasChildNodes()) {
+        const childElements = element.querySelectorAll('*'); // Select all child elements
+        childElements.forEach((child) => child.classList.remove('hidden'));
+      }
     };
 
     // Check if 'elements' is an array or a single element

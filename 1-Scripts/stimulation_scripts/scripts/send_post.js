@@ -1,7 +1,7 @@
 'use strict';
 
 const saveParticipantData = (
-  post_meg_version,
+  experiment_name,
   initial_participantID,
   participantData
 ) => {
@@ -13,7 +13,7 @@ const saveParticipantData = (
   axios
 
     .post(`https://etabbane.fr:3456/api/saveParticipantData`, {
-      post_meg_version: post_meg_version,
+      post_meg_version: experiment_name,
       participantID: participantID,
       participantData: participantData,
     })

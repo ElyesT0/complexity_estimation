@@ -4,6 +4,11 @@
 const lan_selected = sessionStorage.getItem('language-selected') || 'en';
 const debbug = false; // FIXME This should ALWAYS BE FALSE before using the code. Change the id of participant to test-id
 const post_meg = false; // This parameter is false for the online experiment and true for the post-meg experiment
+const experiment_name = 'post_meg_version'; // this can have one of several values:
+// post_meg_version : experiment that is given to participant after MEG
+// complexity : online experiment of complexity judgement
+// geom_temp : geometry/temporal LoT experiment
+// deviant_music : LoT music with the deviant detection task.
 
 // -- Retrieve survey results
 let surveyResults = sessionStorage.getItem('surveyChoices');

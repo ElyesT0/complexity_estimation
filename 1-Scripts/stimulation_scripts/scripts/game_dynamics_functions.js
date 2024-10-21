@@ -71,7 +71,7 @@ const runTrial = function () {
 
     // 4 - Send partial data
     saveParticipantData(
-      post_meg,
+      experiment_name,
       participantData.participant_id[0],
       participantData
     );
@@ -80,7 +80,7 @@ const runTrial = function () {
     element_selectors.txt_container.innerHTML = end_txt;
     revealElements(['txt_container'], element_selectors);
     saveParticipantData(
-      post_meg,
+      experiment_name,
       participantData.participant_id[0],
       participantData
     );

@@ -4,7 +4,8 @@
 const lan_selected = sessionStorage.getItem('language-selected') || 'en';
 const debbug = false; // FIXME This should ALWAYS BE FALSE before using the code. Change the id of participant to test-id
 const post_meg = false; // This parameter is false for the online experiment and true for the post-meg experiment
-const experiment_name = 'post_meg_version'; // this can have one of several values:
+const code_prolifics = 'dKfc@4k8@K'; // Code for participant compensation on prolifics
+const experiment_name = 'complexity'; // this can have one of several values:
 // post_meg_version : experiment that is given to participant after MEG
 // complexity : online experiment of complexity judgement
 // geom_temp : geometry/temporal LoT experiment
@@ -279,6 +280,7 @@ const instruction_training_end_eng = [
   'Please rate their complexity.',
   'Please maintain your gaze on the fixation cross at the center of the screen',
   'The rating scale is the following <br><br>1: very simple <br>... to <br>7: very complex.',
+  'At the end of the experiment, your random ID and a code will be displayed <br>Please save these information.<br>You will need to send a screenshot or the information to <br><br>online.psyexp+complexity@gmail.com<br><br> for compensation.',
 ];
 
 const instruction_training_end_fr = [
@@ -286,6 +288,7 @@ const instruction_training_end_fr = [
   'Veuillez évaluer leur complexité.',
   "Veuillez maintenir votre regard sur la croix de fixation au centre de l'écran.",
   "L'échelle d'évaluation est la suivante <br><br>1 : très simple <br>... à <br>7 : très complexe.",
+  "A la fin de l'expérience, votre identifiant et un code seront affichés <br>Veuillez enregistrer ces informations.<br>Il vous faudra envoyer une capture d'écran ou l'information seule à <br><br>online.psyexp+complexity@gmail.com<br><br> pour la compensation.",
 ];
 
 // --------------------------------------------------------------
@@ -323,9 +326,10 @@ const transition_instructions_fr =
 // --------------------------------------------------------------
 // -- Ending Text
 //
-const end_txt_fr = "L'expérience est terminée. Merci d'avoir participé !";
+const end_txt_fr =
+  "L'expérience est terminée. Merci d'avoir participé ! Veuillez envoyer les informations suivantes à l'adresse: online.psyexp+complexity@gmail.com<br>";
 const end_txt_eng =
-  'You successfully completed the experiment. Thank you for your efforts !';
+  'You successfully completed the experiment. Thank you for your efforts ! Please send the information below to the email address:  online.psyexp+complexity@gmail.com<br>';
 
 const next_txt_fr = 'Vous avez répondu';
 const next_txt_eng = 'You responded';

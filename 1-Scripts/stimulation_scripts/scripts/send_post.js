@@ -1,21 +1,27 @@
 'use strict';
 
 const saveParticipantData = (
-  experiment_name,
+  experiment_name_loc,
   initial_participantID,
-  participantData
+  participantData_loc
 ) => {
   if (debbug) {
-    var participantID = `TEST-${initial_participantID}`;
+    var participantID_loc = `TEST-${initial_participantID}`;
   } else {
-    var participantID = initial_participantID;
+    var participantID_loc = initial_participantID;
   }
+  console.log('sending data');
+  console.log('sent object POST : ', {
+    experiment_name: experiment_name_loc,
+    participantID: participantID_loc,
+    participantData: participantData_loc,
+  });
   axios
 
     .post(`https://etabbane.fr:3456/api/saveParticipantData`, {
-      experiment_name: experiment_name,
-      participantID: participantID,
-      participantData: participantData,
+      experiment_name: experiment_name_loc,
+      participantID: participantID_loc,
+      participantData: participantData_loc,
     })
     .then((response) => {
       console.log('Data successfully saved:', response.data);

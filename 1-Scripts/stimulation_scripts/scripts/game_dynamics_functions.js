@@ -177,6 +177,5 @@ function handle_training(counter_presentation, sequence) {
 }
 
 function handle_testing(counter_presentation, sequence) {
-  console.log('this is a Test trial');
-  element_selectors.prompt = prompt_txt;
+  element_selectors.prompt.innerHTML = prompt_txt;
 }

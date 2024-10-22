@@ -383,7 +383,9 @@ const revealElements = function (my_elements, element_selectors) {
 
     // Check if 'elements' is an array or a single element
     if (Array.isArray(elements)) {
-      elements.forEach((element) => revealWithChildren(element)); // Apply to each element in the array
+      elements.forEach((element) => {
+        revealWithChildren(element);
+      }); // Apply to each element in the array
     } else {
       revealWithChildren(elements); // Apply directly if it's a single element
     }

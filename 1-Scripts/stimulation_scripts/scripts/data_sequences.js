@@ -45,6 +45,7 @@ const response_phase_elements = [
 ]; // Elements that needs to be displayed during the response phase.
 var counter_presentation = 0;
 var last_click = Date.now();
+var state = ''; // Tracks the state of the experiment
 
 /* 
 ============================================================

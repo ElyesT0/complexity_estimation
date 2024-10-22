@@ -327,7 +327,9 @@ const draw_figure = function () {
       element_selectors.container_chevron.style.top = `${
         target_top - height * 3
       }px`;
-      element_selectors.container_chevron.classList.remove('hidden');
+      if (state == 'response') {
+        element_selectors.container_chevron.classList.remove('hidden');
+      }
     }, sequence.length * SOA + set_delay * 4);
   };
   // Expose the move_arrow function globally by attaching it to the window object

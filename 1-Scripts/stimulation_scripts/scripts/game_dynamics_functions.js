@@ -91,6 +91,8 @@ const runTrial = function () {
 
 function presentation(sequence, element_selectors) {
   presentation_time = true;
+  // Update State
+  state = 'presentation';
   revealElements(experimental_elements, element_selectors);
 
   for (let i = 0; i < sequence.length; i++) {
@@ -99,18 +101,18 @@ function presentation(sequence, element_selectors) {
       SOA * (i + 1)
     );
   }
-  setTimeout(
-    () => revealElements(response_phase_elements, element_selectors),
-    SOA * sequence.length + set_delay
-  );
+  setTimeout(() => {
+    // Update State
+    state = 'response';
+    revealElements(response_phase_elements, element_selectors);
+  }, SOA * sequence.length + set_delay);
 }
 
 // -------------------------------------------------------------------------------------------
 
 function response(participant_input) {
   presentation_time = false;
-  // update the progression bar
-  //   update_progression(completion);
+
   // - Hide answer buttons
   clearScreen();
 
@@ -137,6 +139,9 @@ function response(participant_input) {
 ======================================================
 */
 function display_pageNext(participant_input) {
+  // Update State
+  state = 'next';
+
   if (counter_presentation == training_sequences.length) {
     element_selectors.txt_container.innerHTML = transition_instructions;
   } else if (counter_presentation < training_sequences.length) {

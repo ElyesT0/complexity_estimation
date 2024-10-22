@@ -363,7 +363,7 @@ if (lan_selected === 'fr') {
 */
 
 // Define training 'right answers'
-const training_answer_examples = [1, 7, 1, 7];
+const training_answer_examples = [1, 7, 3, 7];
 
 // Sequences need to be presented in random order.
 const shuffled_sequences = shuffle_seq(sequences);

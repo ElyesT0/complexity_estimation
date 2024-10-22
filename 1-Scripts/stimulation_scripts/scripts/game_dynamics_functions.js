@@ -143,7 +143,16 @@ function display_pageNext(participant_input) {
   state = 'next';
 
   if (counter_presentation == training_sequences.length) {
-    element_selectors.txt_container.innerHTML = transition_instructions;
+    element_selectors.txt_container.innerHTML = `
+  <div style="font-size: 36px; text-align: center; justify-content: center; font-family:'Bungee',sans-serif;">
+    ${training_feedback_txt} <br><br><br> <div style="font-size:100px;transform: translate(0%, -30%)">${
+      training_answer_examples[counter_presentation - 1]
+    }</div>
+  </div>`;
+    element_selectors.txt_container.innerHTML += transition_instructions;
+    setTimeout(() => {
+      element_selectors.txt_container.innerHTML = transition_instructions;
+    }, 2000);
   } else if (counter_presentation < training_sequences.length) {
     element_selectors.txt_container.innerHTML = `
   <div style="font-size: 36px; text-align: center; justify-content: center; font-family:'Bungee',sans-serif;">

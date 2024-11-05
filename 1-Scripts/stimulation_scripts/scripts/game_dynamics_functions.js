@@ -144,10 +144,8 @@ function display_pageNext(participant_input) {
 
   if (counter_presentation == training_sequences.length) {
     element_selectors.txt_container.innerHTML = `
-  <div style="font-size: 36px; text-align: center; justify-content: center; font-family:'Bungee',sans-serif;">
-    ${training_feedback_txt} <br><br><br> <div style="font-size:100px;transform: translate(0%, -30%)">${
-      training_answer_examples[counter_presentation - 1]
-    }</div>
+  <div style="font-size: 25px; text-align: center; justify-content: center; font-family:sans-serif;">
+    ${training_feedback_txt[counter_presentation - 1]} <br><br>
   </div>`;
     element_selectors.txt_container.innerHTML += transition_instructions;
     setTimeout(() => {
@@ -155,10 +153,8 @@ function display_pageNext(participant_input) {
     }, 2000);
   } else if (counter_presentation < training_sequences.length) {
     element_selectors.txt_container.innerHTML = `
-  <div style="font-size: 36px; text-align: center; justify-content: center; font-family:'Bungee',sans-serif;">
-    ${training_feedback_txt} <br><br><br> <div style="font-size:100px;transform: translate(0%, -30%)">${
-      training_answer_examples[counter_presentation - 1]
-    }</div>
+  <div style="font-size: 25px; text-align: center; justify-content: center; font-family:sans-serif;">
+    ${training_feedback_txt[counter_presentation - 1]} <br><br> 
   </div>`;
   } else {
     // - Display a page as an attentional buffer. Remind participant of their response.

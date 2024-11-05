@@ -281,6 +281,7 @@ const instruction_training_end_eng = [
   'Please maintain your gaze on the fixation cross at the center of the screen',
   'The rating scale is the following <br><br>1: very simple <br>... to <br>7: very complex.',
   'At the end of the experiment, your random ID and a code will be displayed <br>Please save these information.<br>You will need to send a screenshot or the information to <br><br>online.psyexp+complexity@gmail.com<br><br> for compensation.',
+  'As a starter, here is a very simple sequence.',
 ];
 
 const instruction_training_end_fr = [
@@ -289,6 +290,7 @@ const instruction_training_end_fr = [
   "Veuillez maintenir votre regard sur la croix de fixation au centre de l'écran.",
   "L'échelle d'évaluation est la suivante <br><br>1 : très simple <br>... à <br>7 : très complexe.",
   "A la fin de l'expérience, votre identifiant et un code seront affichés <br>Veuillez enregistrer ces informations.<br>Il vous faudra envoyer une capture d'écran ou l'information seule à <br><br>online.psyexp+complexity@gmail.com<br><br> pour la compensation.",
+  'Pour commencer, voici une séquence très facile.',
 ];
 
 // --------------------------------------------------------------
@@ -315,13 +317,23 @@ const training_prompt_txt_fr = [
   'A vous de jouer ! Quelle était la complexité de cette séquence ?',
 ];
 
-const training_feedback_eng = ['The right answer was :'];
-const training_feedback_fr = ['La bonne réponse était :'];
+const training_feedback_eng = [
+  "This sequence was easy. <br> Let's see a very complex one.",
+  'This sequence was difficult. The next one will be simple.',
+  'Well done. The next sequence is the last of the training.<br> It is a complexe one',
+  'The training is over. Good job!',
+];
+const training_feedback_fr = [
+  'Cette séquence était facile. <br> Voyons une très complexe. ',
+  'Cette séquence était difficile. La prochaine sera simple. ',
+  " Bien joué. La prochaine séquence est la dernière de l'entraînement. <br> C'est une séquence complexe. ",
+  "L'entraînement est terminé. Bien joué!",
+];
 
 const transition_instructions_eng =
-  '<div>The experiment will now start.<br>Stay focused!<br>At the end of the experiment you will get a rating of how close you are to the optimal guesser.</div>';
+  '<div>The experiment will now start.<br>Stay focused!</div>';
 const transition_instructions_fr =
-  "<div>L'expérience va maintenant commencer.<br>Restez concentré.e !<br>À la fin de l'expérience, vous recevrez une évaluation de votre proximité avec l'estimateur idéal.</div>";
+  "<div>L'expérience va maintenant commencer.<br>Restez concentré.e !</div>";
 
 // --------------------------------------------------------------
 // -- Ending Text

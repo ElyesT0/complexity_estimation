@@ -1,23 +1,23 @@
-'use strict';
+"use strict";
 
 // -- Get language of participant
-const lan_selected = sessionStorage.getItem('language-selected') || 'en';
+const lan_selected = sessionStorage.getItem("language-selected") || "en";
 const debbug = false; // FIXME This should ALWAYS BE FALSE before using the code. Change the id of participant to test-id
 const post_meg = false; // This parameter is false for the online experiment and true for the post-meg experiment
-const code_prolifics = 'dKfc@4k8@K'; // Code for participant compensation on prolifics
-const experiment_name = 'complexity'; // this can have one of several values:
+const code_prolifics = "dKfc@4k8@K"; // Code for participant compensation on prolifics
+const experiment_name = "complexity"; // this can have one of several values:
 // post_meg_version : experiment that is given to participant after MEG
 // complexity : online experiment of complexity judgement
 // geom_temp : geometry/temporal LoT experiment
 // deviant_music : LoT music with the deviant detection task.
 
 // -- Retrieve survey results
-let surveyResults = sessionStorage.getItem('surveyChoices');
+let surveyResults = sessionStorage.getItem("surveyChoices");
 if (surveyResults) {
   // Parse the JSON string back into an object
   surveyResults = JSON.parse(surveyResults);
 } else {
-  console.log('No survey data found in sessionStorage.');
+  console.log("No survey data found in sessionStorage.");
   surveyResults = default_survey_results;
 }
 
@@ -28,25 +28,25 @@ if (surveyResults) {
 */
 
 const bodyElement = document.body;
-const containerFigureElement = document.querySelector('.container-figure');
-const keyEvent = 'click'; //'touchend' (smartphone) or 'click' (computer) depending on the device
+const containerFigureElement = document.querySelector(".container-figure");
+const keyEvent = "click"; //'touchend' (smartphone) or 'click' (computer) depending on the device
 
 /* 
 ============================================================
 +++++++++++++++++++ Game dynamics Variables +++++++++++++++++
 ============================================================
 */
-const instruction_elements = ['btn_ok', 'txt_container']; // Elements to be displayed to read the instructions.
-const experimental_elements = ['circles', 'fixation']; // Elements to be displayed all throughout presentation and response phase.
-const page_next_elements = ['txt_container', 'btn_next']; // Elements that needs to be displayed during the presentation phase.
+const instruction_elements = ["btn_ok", "txt_container"]; // Elements to be displayed to read the instructions.
+const experimental_elements = ["circles", "fixation"]; // Elements to be displayed all throughout presentation and response phase.
+const page_next_elements = ["txt_container", "btn_next"]; // Elements that needs to be displayed during the presentation phase.
 const response_phase_elements = [
-  'container_estimation_complexity',
-  'progression_bar',
-  'prompt',
+  "container_estimation_complexity",
+  "progression_bar",
+  "prompt",
 ]; // Elements that needs to be displayed during the response phase.
 var counter_presentation = 0;
 var last_click = Date.now();
-var state = ''; // Tracks the state of the experiment
+var state = ""; // Tracks the state of the experiment
 
 /* 
 ============================================================
@@ -276,62 +276,60 @@ const training_sequences = [
 // -- Instructions
 //
 const instruction_training_end_eng = [
-  'Sequences of dots will be presented to you.',
-  'Please rate their complexity.',
-  'Please maintain your gaze on the fixation cross at the center of the screen',
-  'The rating scale is the following <br><br>1: very simple <br>... to <br>7: very complex.',
-  'At the end of the experiment, your random ID and a code will be displayed <br>Please save these information.<br>You will need to send a screenshot or the information to <br><br>online.psyexp+complexity@gmail.com<br><br> for compensation.',
-  'As a starter, here is a very simple sequence.',
+  "Sequences of dots will be presented to you.",
+  "Please rate their complexity.",
+  "Please maintain your gaze on the fixation cross at the center of the screen",
+  "The rating scale is the following <br><br>1: very simple <br>... to <br>7: very complex.",
+  "As a starter, here is a very simple sequence.",
 ];
 
 const instruction_training_end_fr = [
-  'Des séquences de points vont vous être présentées.',
-  'Veuillez évaluer leur complexité.',
+  "Des séquences de points vont vous être présentées.",
+  "Veuillez évaluer leur complexité.",
   "Veuillez maintenir votre regard sur la croix de fixation au centre de l'écran.",
   "L'échelle d'évaluation est la suivante <br><br>1 : très simple <br>... à <br>7 : très complexe.",
-  "A la fin de l'expérience, votre identifiant et un code seront affichés <br>Veuillez enregistrer ces informations.<br>Il vous faudra envoyer une capture d'écran ou l'information seule à <br><br>online.psyexp+complexity@gmail.com<br><br> pour la compensation.",
-  'Pour commencer, voici une séquence très facile.',
+  "Pour commencer, voici une séquence très facile.",
 ];
 
 // --------------------------------------------------------------
 // -- Trial Prompts
 //
 const prompt_txt_eng =
-  'How difficult was that sequence to memorize ?<br> 1: Very Simple [...] 7: Very Complex';
+  "How difficult was that sequence to memorize ?<br> 1: Very Simple [...] 7: Very Complex";
 
 const prompt_txt_fr =
-  'Quelle est le niveau de difficulté de mémorisation de cette séquence ?<br> 1 : Très facile [...] 7 : Impossible';
+  "Quelle est le niveau de difficulté de mémorisation de cette séquence ?<br> 1 : Très facile [...] 7 : Impossible";
 
 // --------------------------------------------------------------
 // -- Training Text
 //
 
 const training_prompt_txt_eng = [
-  'This sequence was really simple ! <br>So you should click 1.',
-  'This sequence was super complex ! <br>So you should click 7.',
+  "This sequence was really simple ! <br>So you should click 1.",
+  "This sequence was super complex ! <br>So you should click 7.",
   "Now it's your turn ! What was the complexity of this sequence?",
 ];
 const training_prompt_txt_fr = [
-  'Cette séquence était vraiment simple ! <br>Donc vous devez cliquer sur 1.',
-  'Cette séquence était vraiment complexe ! <br>Donc vous devez cliquer sur 7.',
-  'A vous de jouer ! Quelle était la complexité de cette séquence ?',
+  "Cette séquence était vraiment simple ! <br>Donc vous devez cliquer sur 1.",
+  "Cette séquence était vraiment complexe ! <br>Donc vous devez cliquer sur 7.",
+  "A vous de jouer ! Quelle était la complexité de cette séquence ?",
 ];
 
 const training_feedback_eng = [
   "This sequence was easy. <br> Let's see a very complex one.",
-  'This sequence was difficult. The next one will be simple.',
-  'Well done. The next sequence is the last of the training.<br> It is a complexe one',
-  'The training is over. Good job!',
+  "This sequence was difficult. The next one will be simple.",
+  "Well done. The next sequence is the last of the training.<br> It is a complexe one",
+  "The training is over. Good job!",
 ];
 const training_feedback_fr = [
-  'Cette séquence était facile. <br> Voyons une très complexe. ',
-  'Cette séquence était difficile. La prochaine sera simple. ',
+  "Cette séquence était facile. <br> Voyons une très complexe. ",
+  "Cette séquence était difficile. La prochaine sera simple. ",
   " Bien joué. La prochaine séquence est la dernière de l'entraînement. <br> C'est une séquence complexe. ",
   "L'entraînement est terminé. Bien joué!",
 ];
 
 const transition_instructions_eng =
-  '<div>The experiment will now start.<br>Stay focused!</div>';
+  "<div>The experiment will now start.<br>Stay focused!</div>";
 const transition_instructions_fr =
   "<div>L'expérience va maintenant commencer.<br>Restez concentré.e !</div>";
 
@@ -339,18 +337,18 @@ const transition_instructions_fr =
 // -- Ending Text
 //
 const end_txt_fr =
-  "L'expérience est terminée. Merci d'avoir participé ! Veuillez envoyer les informations suivantes à l'adresse: online.psyexp+complexity@gmail.com<br>";
+  "L'expérience est terminée. Merci d'avoir participé ! Si vous avez des questions, vous pouvez nous contacter à l'adresse suivantes: online.psyexp+complexity@gmail.com<br>";
 const end_txt_eng =
-  'You successfully completed the experiment. Thank you for your efforts ! Please send the information below to the email address:  online.psyexp+complexity@gmail.com<br>';
+  "You successfully completed the experiment. Thank you for your efforts ! If you have any question, send them to the email address:  online.psyexp+complexity@gmail.com<br>";
 
-const next_txt_fr = 'Vous avez répondu';
-const next_txt_eng = 'You responded';
+const next_txt_fr = "Vous avez répondu";
+const next_txt_eng = "You responded";
 
 // --------------------------------------------------------------
 // -- Language selection
 //
 
-if (lan_selected === 'fr') {
+if (lan_selected === "fr") {
   var instruction_training_end = instruction_training_end_fr;
   var prompt_txt = prompt_txt_fr;
   var end_txt = `<div style="font-size:35px">${end_txt_fr}</div>`;
@@ -416,28 +414,34 @@ participantData.participant_id = Array(sequence_train_test.length).fill(
 //
 // age
 participantData.age = Array(sequence_train_test.length).fill(
-  surveyResults['age']
+  surveyResults["age"]
 );
 // diplome
 participantData.diplome = Array(sequence_train_test.length).fill(
-  surveyResults['diplome']
+  surveyResults["diplome"]
 );
 // musicExperience
 participantData.musicExp = Array(sequence_train_test.length).fill(
-  surveyResults['musicExp']
+  surveyResults["musicExp"]
 );
 // Level of Score reading ability
 participantData.musicScoreReading = Array(sequence_train_test.length).fill(
-  surveyResults['musicScoreReading']
+  surveyResults["musicScoreReading"]
 );
 // Proficiency at playing an instrument
 participantData.instrumentProficiency = Array(sequence_train_test.length).fill(
-  surveyResults['instrumentProficiency']
+  surveyResults["instrumentProficiency"]
 );
 // Experience in Mathematics
 participantData.mathExp = Array(sequence_train_test.length).fill(
-  surveyResults['mathExp']
+  surveyResults["mathExp"]
 );
+
+// Prolific's ID
+participantData.participant_prolific_id = Array(
+  sequence_train_test.length
+).fill(surveyResults["prolificID"]);
+
 // Language chosen
 participantData.participant_language = Array(sequence_train_test.length).fill(
   lan_selected
@@ -476,12 +480,12 @@ participantData.experiment_rangeEstimationComplexity = Array(
 //
 // Tags: temporal structure name
 participantData.sequences_temp_tags = original_sequence_train_test.map(
-  (seq_exp) => sequence_tag_temporal[seq_exp.join(', ')]
+  (seq_exp) => sequence_tag_temporal[seq_exp.join(", ")]
 );
 
 // Tags: Geometrical structure name
 participantData.sequences_geom_tags = original_sequence_train_test.map(
-  (seq_exp) => sequence_tag_geometry[seq_exp.join(', ')]
+  (seq_exp) => sequence_tag_geometry[seq_exp.join(", ")]
 );
 
 // Structure: pure temporal

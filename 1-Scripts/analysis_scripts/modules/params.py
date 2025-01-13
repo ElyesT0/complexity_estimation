@@ -1,33 +1,132 @@
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+import json
 import os
 import datetime
+import scipy.stats as stats
+
+# Exclusion Criteria
+# -----
+min_number_of_trials=80 # If there are less than this number of trials, the dataset is removed from the whole.
+
+# PATHS
+# -----
+root_project_path="/Users/elyestabbane/Documents/UNICOG/2-Experiments/complexity_estimation"
+
+data_path=os.path.join(root_project_path,"2-Data/online_exp_data")
+raw_data_path=os.path.join(data_path,"raw")
+processed_data_path=os.path.join(data_path,"processed")
+
+sanity_checks_plots=os.path.join(root_project_path,'4-Figures/sanity_checks')
+
+# SANITY CHECKS Parameters
+# ---------------------------
+sanity_checks_sequence_names=[
+    "training-1",
+"training-2",
+"training-3",
+"training-4",
+"probe-easy",
+"probe-hard-1",
+"probe-hard-2",
+"probe-hard-3",
+"probe-hard-4",
+"probe-hard-5"
+]
 
 
-real_mapping={'play 4 tokens': '010203010203',
- 'control play 4 tokens': '010213010213',
- 'sub-programs 1': '012301210120',
- 'control sub-programs 1': '012302120120',
- 'sub-programs 2': '012301240125',
- 'control sub-programs 2': '012302140125',
- 'index i': '010011000111',
- 'control index i': '000111010011',
- 'play': '000100020003',
- 'control play': '000100200003',
+# KEY Experimental Parameters
+# ---------------------------
+test_sequences_tempTags=[
+        'Rep2',
+        'CRep2',
+        'Rep3',
+        'CRep3',
+        'Rep4',
+       'CRep4',
+        'Rep-Nested',
+        'Nested-Global-Rep',
+        'Nested-Local-Rep',
+
+        'Play',
+        'CPlay',
+        'Play4',
+        'CPlay4',
+        'Sub-1',
+        'CSub-1',
+
+        'Sub-2',
+        'CSub-2',
+
+       'Mirror-Rep',
+        'CMirror-Rep',
+        'Mirror-NoRep',
+       'CMirror-NoRep',
+       'Index',
+       'CIndex',
+
+       'Suppression',
+       'Insertion',
+
+]
+
+real_mapping={'Play4': '010203010203',
+ 'CPlay4': '010213010213',
+ 'Sub-1': '012301210120',
+ 'CSub-1': '012302120120',
+ 'Sub-2': '012301240125',
+ 'CSub-2': '012302140125',
+ 'Index': '010011000111',
+ 'CIndex': '000111010011',
+ 'Play': '000100020003',
+ 'CPlay': '000100200003',
  'Insertion': '012012301234',
  'Suppression': '012340123012',
  'Mirror-Rep': '012332100123',
- 'control Mirror-Rep': '012331200123',
+ 'CMirror-Rep': '012331200123',
  'Mirror-NoRep': '012321030123',
- 'control Mirror-NoRep': '012320130123',
- 'Repetition-2': '010101010101',
- 'control Repetition-2': '011110010001',
- 'Repetition-3': '012012012012',
- 'control Repetition-3': '012021120102',
- 'Repetition-4': '012301230123',
- 'control Repetition-4': '012321300312',
- 'Repetition-Nested': '001122001122',
- 'control NoLocal nested': '012021012021',
- 'control NoGlobal nested': '001122002211'}
+ 'CMirror-NoRep': '012320130123',
+ 'Rep2': '010101010101',
+ 'CRep2': '011110010001',
+ 'Rep3': '012012012012',
+ 'CRep3': '012021120102',
+ 'Rep4': '012301230123',
+ 'CRep4': '012321300312',
+ 'Rep-Nested': '001122001122',
+ 'Nested-Global-Rep': '012021012021',
+ 'Nested-Local-Rep': '001122002211',
+ 'training-1':'000000000000',
+ 'training-2':'035143320530',
+'training-3':'000111222333',
+'training-4':'145252300413',
+'probe-easy':'111111111111',
+'probe-hard-1':'034141255302',
+'probe-hard-2':'012323455104',
+'probe-hard-3':'123434500215',
+'probe-hard-4':'015252433104',
+'probe-hard-5':'013434255102'
+
+}
 
 reverse_mapping = {value: key for key, value in real_mapping.items()}
+
+
+# ---------------------------------------
+# ************ Plot variables ************
+# ---------------------------------------
+plot_figsize_coef = 0.8
+plot_figsize=(10,10)
+plot_colors=['#03045E', '#03045E', '#0077B6', '#0077B6', '#00B4D8', '#00B4D8', '#ADE8F4', '#ADE8F4','#ADE8F4',
+         '#03045E', '#03045E', '#0077B6', '#0077B6', '#00B4D8', '#00B4D8', '#ADE8F4', '#ADE8F4', 
+         '#03045E', '#03045E', '#0077B6', '#0077B6', '#00B4D8', '#00B4D8', '#ADE8F4', '#ADE8F4']
+title_size=15
+padding_size=10
+# Legend size for the plot_regression function
+legend_size=10
+bar_thickness=0.8
+bar_frame_width=3 # define linewidht parameter in barh plots
+
+# ------------------------------------------------
+# ************ Backward compatibility ************
+# ------------------------------------------------

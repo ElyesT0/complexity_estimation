@@ -1,3 +1,5 @@
+const alertElement = document.querySelector(".alert-text");
+
 function setLanguage(language) {
   const langElements = document.querySelectorAll(".lang");
   langElements.forEach((el) => {
@@ -44,6 +46,7 @@ function submitSurvey() {
   ) {
     document.getElementById("submitBtn").classList.add("hidden");
     document.getElementById("goToTraining").classList.remove("hidden");
+    alertElement.classList.add("hidden");
     saveSurveyData(
       prolificID,
       age,
@@ -54,7 +57,11 @@ function submitSurvey() {
       mathExp
     );
   } else {
-    alert("Please fill out all fields.");
+    if (alertElement) {
+      alertElement.textContent = "Please fill out all fields.";
+    } else {
+      console.error("Element with class 'alert-text' not found.");
+    }
   }
 }
 

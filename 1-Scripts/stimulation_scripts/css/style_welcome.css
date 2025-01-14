@@ -53,6 +53,24 @@ h3 {
   text-align: left;
 }
 
+.alert-text {
+  color: red; /* Set the text color to red */
+  font-weight: bold; /* Make the text bold */
+  font-size: 1.2em; /* Optional: Adjust the font size for better visibility */
+  margin-top: 10px; /* Optional: Add some spacing for aesthetics */
+}
+
+#prolificID {
+  width: 100%; /* Make the input box take full width of its container */
+  padding: 10px; /* Add padding for better usability */
+  font-size: 1.2em; /* Increase font size for better visibility */
+  margin-top: 10px; /* Add spacing above the input box */
+  border: 1px solid #ccc; /* Add a border for clarity */
+  border-radius: 5px; /* Smooth corners */
+  text-align: left; /* Ensure the text is aligned to the left */
+  box-sizing: border-box; /* Include padding and border in width calculation */
+}
+
 #goToTraining {
   background-color: goldenrod;
 }

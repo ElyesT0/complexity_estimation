@@ -4,7 +4,7 @@
 const lan_selected = sessionStorage.getItem("language-selected") || "en";
 const debbug = false; // FIXME This should ALWAYS BE FALSE before using the code. Change the id of participant to test-id
 const post_meg = false; // This parameter is false for the online experiment and true for the post-meg experiment
-const code_prolifics = "dKfc@4k8@K"; // Code for participant compensation on prolifics
+const code_prolifics = "CDJMLRZP"; // Code for participant compensation on prolifics
 const experiment_name = "complexity"; // this can have one of several values:
 // post_meg_version : experiment that is given to participant after MEG
 // complexity : online experiment of complexity judgement
@@ -337,9 +337,9 @@ const transition_instructions_fr =
 // -- Ending Text
 //
 const end_txt_fr =
-  "L'expérience est terminée. Merci d'avoir participé ! Si vous avez des questions, vous pouvez nous contacter à l'adresse suivantes: online.psyexp+complexity@gmail.com<br>";
+  "L'expérience est terminée. Merci d'avoir participé ! Si vous avez des questions, vous pouvez nous contacter à l'adresse suivantes: online.psyexp+complexity@gmail.com<br>. Le code Prolific est le CDJMLRZP";
 const end_txt_eng =
-  "You successfully completed the experiment. Thank you for your efforts ! If you have any question, send them to the email address:  online.psyexp+complexity@gmail.com<br>";
+  "You successfully completed the experiment. Thank you for your efforts ! If you have any question, send them to the email address:  online.psyexp+complexity@gmail.com<br>. The Prolific code is CDJMLRZP";
 
 const next_txt_fr = "Vous avez répondu";
 const next_txt_eng = "You responded";

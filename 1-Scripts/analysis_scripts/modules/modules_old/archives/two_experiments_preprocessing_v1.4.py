@@ -20,7 +20,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 
 from modules.functions import *
 from modules.params import *
-from modules.complexity_measures import *
+from modules_old.complexity_measures import *
 
 
 date='2024-06_18'

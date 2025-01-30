@@ -1,24 +1,64 @@
 
 from modules.params import *
 from modules.stat_functions import *
+from datetime import datetime
 
-def duration_stats(df):
-    
-    holder_duration=[]
-    unique_participants_IDs=[ID for ID in df['participant_ID'].unique()]
-    print(f'There are {len(unique_participants_IDs)} unique datasets of at least {min_number_of_trials} trials')
-    
-    for ID in unique_participants_IDs:
-        holder_duration.append(df[df['participant_ID']==ID]['last_click'].iloc[1]-
-                               df[df['participant_ID']==ID]['participant_startTime'].iloc[1])
-    
-    mean_duration_sec=np.mean(holder_duration)/60000
-    median_duration_sec=np.median(holder_duration)/60000
-    
-    print(f'Mean duration : {mean_duration_sec:.2f}')
-    print(f'Median duration : {median_duration_sec:.2f}')
-    print(f'Max duration : {max(holder_duration)/60000}')
-    print(f'Min duration : {min(holder_duration)/60000}')
+
+
+def duration_stats(df, min_number_of_trials=1):
+    # Generate filename with current date
+    date_str = datetime.today().strftime('%Y-%m-%d')
+    time_str = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
+    output_filename_duration = os.path.join(sanity_checks_plots,f"general_info_complexity_estimation_{date_str}.txt")
+
+    # Prepare data
+    holder_duration = []
+    unique_participants_IDs = df['participant_ID'].unique()
+
+    # Open file for writing
+    with open(output_filename_duration, "w") as f:
+        # Print and write general info
+        header = (
+            "\n" + "="*60 + "\n"
+            " GENERAL INFO: COMPLEXITY ESTIMATION DURATION STATS\n"+
+            "="*60 + "\n"
+            f"📅 Report generated on: {time_str}\n"
+            f"There are {len(unique_participants_IDs)} unique datasets of at least {min_number_of_trials} trials.\n"+
+            "="*60 + "\n\n"
+        )
+        
+        print(header)
+        f.write(header)
+
+        # Compute duration for each participant
+        for ID in unique_participants_IDs:
+            participant_data = df[df['participant_ID'] == ID]
+            if len(participant_data) > 1:  # Ensure there are enough trials
+                duration = participant_data['last_click'].iloc[1] - participant_data['participant_startTime'].iloc[1]
+                holder_duration.append(duration)
+
+        # Compute statistics (only if durations exist)
+        if holder_duration:
+            mean_duration_min = np.mean(holder_duration) / 60000
+            median_duration_min = np.median(holder_duration) / 60000
+            max_duration_min = max(holder_duration) / 60000
+            min_duration_min = min(holder_duration) / 60000
+
+            # Format and print stats
+            stats_text = (
+                f"🔹 Mean duration: {mean_duration_min:.2f} minutes\n"
+                f"🔹 Median duration: {median_duration_min:.2f} minutes\n"
+                f"🔹 Max duration: {max_duration_min:.2f} minutes\n"
+                f"🔹 Min duration: {min_duration_min:.2f} minutes\n"
+            )
+        else:
+            stats_text = "⚠️ No valid durations were found in the dataset.\n"
+
+        print(stats_text)
+        f.write(stats_text)
+
+    # Confirm file creation
+    print(f"\n✅ Results saved to: {output_filename_duration}")
 
 def plot_mean_complexity_estimate(data,sequences,path,print_values=True,seq_expression=True,unfill_controls=False,colors_figure=plot_colors,save=True,file_name='sanity_checks'):
     colors_figure=colors_figure[:len(sequences)]

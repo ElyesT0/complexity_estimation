@@ -1,4 +1,10 @@
-from params import *
+from modules.params import *
+from datetime import datetime  # ✅ Fixes the issue
+
+date_str = datetime.today().strftime('%Y-%m-%d')  # ✅ Works now
+time_str = datetime.today().strftime('%Y-%m-%d %H:%M:%S')  # ✅ Works now
+
+
 
 #####################################
 # ------- Functions -------------

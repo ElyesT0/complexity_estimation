@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /* 
 Here we define the functions used to prepare the experiment. Typically, functions used to randomize the presentation order of the stimuli.
@@ -29,9 +29,9 @@ const shuffle_seq = function (seq_original) {
 // -------------------------------------------------------------------------------------------
 
 const makeId = function () {
-  let participant_ID = '';
+  let participant_ID = "";
   // >purpose: generating a random ID for participant
-  let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   for (var i = 0; i < 12; i++) {
     participant_ID += characters.charAt(Math.floor(Math.random() * 36));
   }
@@ -104,10 +104,10 @@ function randomizeStartingPoint(sequence) {
 
 // -------------------------------------------------------------------------------------------
 const default_survey_results = {
-  age: 'noData_test',
-  diplome: 'noData_test',
-  instrumentProficiency: 'noData_test',
-  mathExp: 'noData_test',
-  musicExp: 'noData_test',
-  musicScoreReading: 'noData_test',
+  age: "noData_test",
+  diplome: "noData_test",
+  instrumentProficiency: "noData_test",
+  mathExp: "noData_test",
+  musicExp: "noData_test",
+  musicScoreReading: "noData_test",
 };

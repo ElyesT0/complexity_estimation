@@ -73,7 +73,6 @@ for sub in list_participants_prolific_ID:
         layer_1_valid.append(sub)
     else:
         layer_1_invalid.append(sub)
-        continue  # If failed Layer 1, no need to check Layer 2
 
     # --- Layer 2: Easy & Hard Probes ---
     responses_probes_easy = subset_data[subset_data['sequences_temp_tags'] == 'probe-easy']['participant_response']

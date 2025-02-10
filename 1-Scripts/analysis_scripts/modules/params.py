@@ -12,6 +12,7 @@ How to use the pipeline and the data analysis modules.
   ii - A report with detailed exclusion criteria and validation for the participants with linked ID. -> layer_1_2_sanity_check_results.txt
   iii - A mean complexity estimation plot for each sequence.
   iv - A mean complexity estimation plot for training and probe sequences.
+use: python -m modules.check_prolific_data
 
 2. Examine the layer_1_2_sanity_check_results.txt report. Select participants you want to remove.
 Copy their Participant ID and paste them in modules>params.py>excluded_participants
@@ -33,7 +34,7 @@ import datetime
 import scipy.stats as stats
 
 # List of excluded participants
-excluded_participants= []
+excluded_participants= ["2JDRETJ36BRR","8FL6B09E7XCY","05QMOPV6L0DN","1KW3C5LZK437","0SBIYS5I6OR7"]
 
 # Exclusion Criteria
 # -----
@@ -43,13 +44,15 @@ min_number_of_trials=80 # If there are less than this number of trials, the data
 # -----
 root_project_path="/Users/elyestabbane/Documents/UNICOG/2-Experiments/complexity_estimation"
 
+
 data_path=os.path.join(root_project_path,"2-Data/online_exp_data")
 raw_data_path=os.path.join(data_path,"raw")
 processed_data_path=os.path.join(data_path,"processed")
 all_data_raw_path=os.path.join(processed_data_path,'aggregated_data.json')
-
+merged_processed_path=os.path.join(processed_data_path,"processed_merged_data.json")
 # For sanity checks
 sanity_checks_plots=os.path.join(root_project_path,'4-Figures/sanity_checks')
+plot_path=os.path.join(root_project_path,'4-Figures/main_plots')
 
 # SANITY CHECKS Parameters
 # ---------------------------
@@ -100,6 +103,58 @@ test_sequences_tempTags=[
        'Suppression',
        'Insertion',
 
+]
+
+test_sequences_geomTag=[
+  # Rep-2
+  ['dist-1','dist-2','dist-3'],
+  ['dist-1','dist-2','dist-3'],
+
+  # Rep-3
+  ['rot-1','triangle','2groups'],
+  ['rot-1','triangle','2groups'],
+
+  #Rep-4
+  ['rot-1','zhang-23','zhang-30'],
+  ['rot-1','zhang-23','zhang-30'],
+
+  #Rep-Nested
+  ['rot-1','triangle','2groups'],
+  ['rot-1','triangle','2groups'],
+  ['rot-1','triangle','2groups'],
+
+  # Play
+  ['dist-1','zhang-23','zhang-30'],
+  ['dist-1','zhang-23','zhang-30'],
+
+  # Play4
+  ['rot-1','zhang-23','zhang-30'],
+  ['rot-1','zhang-23','zhang-30'],
+
+  # Sub-1
+  ['rot-1'],
+  ['rot-1'],
+
+  # Sub-2
+  ['rot-1','triangle','2groups'],
+  ['rot-1','triangle','2groups'],
+
+  # Mirror-Rep
+  ['rot-1','zhang-23','zhang-30'],
+  ['rot-1','zhang-23','zhang-30'],
+
+  # Mirror-NoRep
+  ['rot-1','zhang-23','zhang-30'],
+  ['rot-1','zhang-23','zhang-30'],
+
+  # Index
+  ['dist-1','dist-2','dist-3'],
+  ['dist-1','dist-2','dist-3'],
+
+  # Suppression
+  ['rot-1','triangle','2groups'],
+  # Insertion
+  ['rot-1','triangle','2groups']
 ]
 
 real_mapping={'Play4': '010203010203',
@@ -157,6 +212,7 @@ padding_size=10
 legend_size=10
 bar_thickness=0.8
 bar_frame_width=3 # define linewidht parameter in barh plots
+ticks_fontsize=14
 
 # ------------------------------------------------
 # ************ Backward compatibility ************

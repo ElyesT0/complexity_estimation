@@ -167,16 +167,16 @@ if (post_meg) {
     [0, 3, 0, 2, 0, 5, 0, 3, 0, 2, 0, 5], // Play 4 Tokens
     [0, 3, 0, 2, 3, 5, 0, 3, 0, 2, 3, 5], // Contrôle Play-4 Tokens
 
-    // ----- Sub-programs 2 (6 Tokens): treat it as 3 tokens
+    // ----- Sub-programs 1 (6 Tokens): treat it as 3 tokens
     // Rotation +1 [0,1,2,3]
     [0, 1, 2, 3, 0, 1, 2, 1, 0, 1, 2, 0], // Sub-programs 1
     [0, 1, 2, 3, 0, 2, 1, 2, 0, 1, 2, 0], // Contrôle sub-programs 1
     // Triangle + rotation [0,2,4] + [1,3,5]
-    [0, 2, 4, 1, 0, 2, 4, 3, 0, 2, 4, 5], // Sub-programs 1
-    [0, 2, 4, 1, 0, 4, 2, 3, 0, 2, 4, 5], // Contrôle sub-programs 1
+    [0, 2, 4, 1, 0, 2, 4, 2, 0, 2, 4, 0], // Sub-programs 1
+    [0, 2, 4, 1, 0, 4, 2, 4, 0, 2, 4, 0], // Contrôle sub-programs 1
     // Separated groups [0,5,3]+[1,2,4]
-    [0, 5, 3, 1, 0, 5, 3, 2, 0, 5, 3, 4], // Sub-programs 1
-    [0, 5, 3, 1, 0, 3, 5, 2, 0, 5, 3, 4], // Contrôle sub-programs 1
+    [0, 5, 3, 1, 0, 5, 3, 5, 0, 5, 3, 0], // Sub-programs 1
+    [0, 5, 3, 1, 0, 3, 5, 3, 0, 5, 3, 0], // Contrôle sub-programs 1
 
     // ----- Sub-programs 2 (6 Tokens): treat it as 3 tokens
     // Rotation +1

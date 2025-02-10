@@ -10,6 +10,7 @@ How to use the pipeline and the data analysis modules.
   ii - A report with detailed exclusion criteria and validation for the participants with linked ID. -> layer_1_2_sanity_check_results.txt
   iii - A mean complexity estimation plot for each sequence.
   iv - A mean complexity estimation plot for training and probe sequences.
+use: python -m modules.check_prolific_data
 
 2. Examine the layer_1_2_sanity_check_results.txt report. Select participants you want to remove. 
 Copy their Participant ID and paste them in modules>params.py>excluded_participants

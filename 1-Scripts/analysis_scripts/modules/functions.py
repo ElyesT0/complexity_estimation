@@ -173,3 +173,131 @@ def plot_mean_complexity_estimate(data,sequences,path,print_values=True,seq_expr
                     bbox_inches='tight', dpi=800)
     else:
         plt.show()
+
+def plot_mean_complexity_per_geom(data,path):
+    # Estimated complexity (x-axis) per temporal condition (y-axis) 
+    # with one point per geometrical condition (roughly 3 points per line).
+
+    # 1. List the lines 
+
+
+    # 2. Code the plotting
+    # (v) 2.a. Create test_sequences_geomTag with rightfully ordered arrays
+    # 2.b. For each TempTags: Extract 3 geomTags sub-datasets. Then extract one dataset per participant.
+    # 2.c. Compute average per participants then grand average, with SEM.
+
+    # List unique participants' IDs
+    participant_list=[participant for participant in data['participant_ID'].unique()]
+
+    # Holder objects -- used for ploting
+    meanComp_geom=[]
+    semComp_geom=[]
+    stdComp_geom=[]
+
+    for index in range(len(test_sequences_tempTags)):
+        # Pick one Temporal sequence (example: Rep-3)
+        subset_temp=data[data['sequences_temp_tags']==test_sequences_tempTags[index]]
+
+        # Contains the mean & SEM complexity estimation for each geom tag (example: ['rot-1','triangle','2groups'])
+        holder_meanComp_geom=[0,0,0]
+        holder_semComp_geom=[0,0,0]
+        holder_stdComp_geom=[0,0,0]
+
+        for geom_index in range(len(test_sequences_geomTag[index])):
+            # Pick one subset of temporal sequence based on geometrical tag (example: Rep-3>rot-1)
+            subset_geom=subset_temp[subset_temp['sequences_geom_tags']==test_sequences_geomTag[index][geom_index]]
+
+            # For each participant compute mean
+            holder_participant_mean=[]
+            for participant in participant_list:
+                subset_participant=subset_geom[subset_geom['participant_ID']==participant]
+                holder_participant_mean.append(subset_participant['participant_response'].mean())
+            holder_meanComp_geom[geom_index]=np.mean(holder_participant_mean)
+            holder_semComp_geom[geom_index]=np.std(holder_participant_mean)
+            holder_stdComp_geom[geom_index]=stats.sem(holder_participant_mean)
+
+        # Append to global holder objects -- used for ploting
+        meanComp_geom.append(holder_meanComp_geom)
+        semComp_geom.append(holder_semComp_geom)
+        stdComp_geom.append(holder_stdComp_geom)
+
+    # Ploting part
+
+    # -- Formating
+    plt.rcParams["figure.facecolor"] = "white"
+    fig, ax=plt.subplots(figsize=plot_figsize)
+    plt.subplots_adjust(right=0.8)
+    colors = ['black', 'red', 'forestgreen']
+    grey_background=[0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1]
+    ytick_weight=[]
+
+    # -- Ploting
+    x=np.arange(1,7)
+    sec_axis =ax.secondary_yaxis('right') # Create the second y-axis for legend
+
+    for i in range(len(test_sequences_tempTags)):
+        txt_weight='bold'
+        if grey_background[i]:
+            ax.axhspan(i - 0.5, i + 0.5, facecolor='lightgrey', alpha=0.5)
+            txt_weight=''
+            
+        ytick_weight.append((test_sequences_tempTags[i],txt_weight))
+            
+        for k in range(len(test_sequences_geomTag[i])):
+            color=colors[k]
+            ax.errorbar(meanComp_geom[i][k], i, xerr=stdComp_geom[i][k],fmt='-o', capsize=5, linewidth=bar_frame_width,color=color) 
+
+    # setting x-ticks
+    ax.set_yticks(np.arange(len(test_sequences_tempTags)))
+    ax.set_yticklabels(test_sequences_tempTags, fontsize=ticks_fontsize)
+    ax.set_xticks(x)
+    ax.set_xticklabels(x, fontsize=ticks_fontsize)
+    ax.invert_yaxis()
+
+    # Setting y-ticks for the secondary y-axis
+    yticklabels2 = ["/".join(seq) for seq in test_sequences_geomTag]
+    sec_axis.set_yticks(np.arange(len(test_sequences_tempTags)))
+    sec_axis.set_yticklabels([""] * len(yticklabels2))  # Hide default labels
+
+    # Determine the correct x position for text labels (just outside the secondary axis)
+    x_position = 6.1  # Adjust this to be slightly outside the secondary y-axis
+
+    # Apply colored annotations with correct spacing
+    for y, label in enumerate(yticklabels2):
+        sub_labels = label.split("/")  # Split into parts
+        offset = 0  # Initialize horizontal spacing
+
+        for i, text in enumerate(sub_labels):
+            match i:
+                case 0:
+                    offset=0
+                case 1:
+                    offset=0.5
+                case 2:
+                    offset += 0.8  # Adjust horizontal spacing (increase if still overlapping)
+            color = colors[i % len(colors)]  # Assign colors cyclically
+            ax.text(x_position + offset, y, text, transform=ax.transData,  # Use `ax.transData` for correct alignment
+                    fontsize=ticks_fontsize, color=color, ha='left', va='center')
+            
+    # Remove the frame
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    ax.spines['left'].set_visible(False)
+
+    sec_axis.spines['top'].set_visible(False)
+    sec_axis.spines['right'].set_visible(False)
+    sec_axis.spines['left'].set_visible(False)
+
+    # Make some ticks lighter
+    for tick, (label, weight) in zip(ax.get_yticklabels(), ytick_weight):
+        tick.set_text(label)
+        tick.set_fontsize(14) # Keep fontsize consistent.
+        if weight == 'bold':
+            tick.set_alpha(1.0) #  fully opaque for 'bold'
+        else:
+            tick.set_alpha(0.5) # 50% transparent for lighter text
+        # or you can try this for other option
+        # tick.set_color((0, 0, 0, 0.5))  # RGBA: Black with 50% opacity
+    fig.text(0.5, 0, "Mean Estimated Complexity per Geometry (errBar: std)", ha='center', va='center', fontsize=title_size, fontweight="bold")
+    plt.savefig(f'{path}/mean_comp_TEMP_GEOM.jpg',bbox_inches='tight', dpi=800)
+    print(f"\n✅ Plot saved to {path}/mean_comp_TEMP_GEOM.jpg")

@@ -174,7 +174,7 @@ def plot_mean_complexity_estimate(data,sequences,path,print_values=True,seq_expr
     else:
         plt.show()
 
-def plot_mean_complexity_per_geom(data,path):
+def plot_mean_complexity_per_geom(data,path,save=True):
     # Estimated complexity (x-axis) per temporal condition (y-axis) 
     # with one point per geometrical condition (roughly 3 points per line).
 
@@ -299,5 +299,6 @@ def plot_mean_complexity_per_geom(data,path):
         # or you can try this for other option
         # tick.set_color((0, 0, 0, 0.5))  # RGBA: Black with 50% opacity
     fig.text(0.5, 0, "Mean Estimated Complexity per Geometry (errBar: std)", ha='center', va='center', fontsize=title_size, fontweight="bold")
-    plt.savefig(f'{path}/mean_comp_TEMP_GEOM.jpg',bbox_inches='tight', dpi=800)
-    print(f"\n✅ Plot saved to {path}/mean_comp_TEMP_GEOM.jpg")
+    if save:
+        plt.savefig(f'{path}/mean_comp_TEMP_GEOM.jpg',bbox_inches='tight', dpi=800)
+        print(f"\n✅ Plot saved to {path}/mean_comp_TEMP_GEOM.jpg")

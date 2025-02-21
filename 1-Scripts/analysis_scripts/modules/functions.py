@@ -302,3 +302,120 @@ def plot_mean_complexity_per_geom(data,path,save=True):
     if save:
         plt.savefig(f'{path}/mean_comp_TEMP_GEOM.jpg',bbox_inches='tight', dpi=800)
         print(f"\n✅ Plot saved to {path}/mean_comp_TEMP_GEOM.jpg")
+
+# ------------------------------------------------------------------------
+def plot_mean_estimated_complexity(data,path=plot_path,print_values=True,seq_expression=True,sequences=test_sequences_tempTags,save=True,unfill_controls=True, colors_figure=distinct_colors_all):
+
+    # Participants IDs
+    IDs=[data.iloc[0]["participant_ID"]]
+    for i in range(len(data)-1):
+        if data.iloc[i]["participant_ID"] not in IDs:
+            IDs.append(data.iloc[i]["participant_ID"])
+    
+    # Calculate the mean distance_DL for each sequence per participant
+    temp_distDL_perParticipant = []
+    
+    # Gather sequence_expression
+    sequence_expressions=[real_mapping[key] for key in sequences]
+
+    for name in sequences:
+        new_arr = []
+        for participant in IDs:
+            subset = data[(data["participant_ID"] == participant) & (data["sequences_temp_tags"] == name)]
+            mean_distance_dl = np.nanmean(subset["participant_response"])  # Use np.nanmean to handle NaN values
+            new_arr.append(mean_distance_dl)
+                
+        temp_distDL_perParticipant.append(new_arr)
+
+    # Convert the list of lists into a 2D NumPy array
+    distDL_perParticipant = np.array(temp_distDL_perParticipant)
+
+    # Calculate confidence intervals
+    CI_meanDL = [confidence_interval95(dist) for dist in distDL_perParticipant]
+    all_sem = [stats.sem(dist, nan_policy='omit') for dist in distDL_perParticipant]
+    
+    mean_distDL_perParticipant=[]
+   
+    for i in range(len(all_sem)):
+        # We use np.nanmean because participants from experiment 1 don't have values for sequences tested in experiment 2
+        mean_distDL_perParticipant.append(round(np.nanmean(distDL_perParticipant[i]),2))
+        if print_values:
+            print(f'[{sequences[i]}] mean estimated complexity: {round(np.nanmean(distDL_perParticipant[i]),2)}')
+            print(f'[{sequences[i]}] SEM: {round(all_sem[i],2)}\n')
+        
+
+    # Extract the lower and upper bounds of the confidence interval
+    lower_bound = np.array([item[0] for item in CI_meanDL])
+    upper_bound = np.array([item[1] for item in CI_meanDL])
+
+ 
+    # Plotting
+    plt.rcParams["figure.facecolor"] = "white"
+
+
+    # fig, ax = plt.subplots(figsize=(10,8))
+    plot_figsize_original = (10, len(sequences))
+    plot_figsize_current = (plot_figsize_coef * plot_figsize_original[0], (plot_figsize_coef-0.3) * plot_figsize_original[1])
+
+   
+    fig, ax = plt.subplots(figsize=plot_figsize_current)
+
+    # Alternate colors for y-tick labels based on 'control' keyword
+    yticklabels = []
+    fill_conditions=[]
+    for label in sequences:
+        #color = 'grey' if 'control' in label.lower() else 'black'
+        # yticklabels.append((label, color))
+        weight = 'bold' if not label.lower().startswith('c') else 'skip'
+        yticklabels.append((label, weight))
+        
+    
+    if unfill_controls:
+        for label in sequences:
+            fill_conditions.append(not label.lower().startswith('c'))
+    else:
+        fill_conditions = [True] * len(sequences)
+
+    
+    for i, (filled, color) in enumerate(zip(fill_conditions, colors_figure)):
+        
+        ax.barh(i, mean_distDL_perParticipant[i],
+                xerr=all_sem[i], capsize=5, align="center",
+                edgecolor=color, facecolor=color if filled else 'none',height=bar_thickness,linewidth=bar_frame_width)
+
+    ax.set_yticks(np.arange(len(sequences)))
+    ax.set_yticklabels(sequences, fontsize=14)
+    ax.set_xlim(left=1)  # Set the left limit of the x-axis to 1
+    
+
+    for tick, (label, weight) in zip(ax.get_yticklabels(), yticklabels):
+        # tick.set_color(color)
+        tick.set_text(label)
+        tick.set_fontsize(14)
+        if weight=='bold':
+            tick.set_fontweight('bold')
+
+    ax.invert_yaxis()
+
+    if seq_expression:
+        sec_axis = ax.secondary_yaxis("right")
+        sec_axis.set_yticks(np.arange(len(sequences)))
+        sec_axis.set_yticklabels(sequence_expressions, fontsize=12)
+        
+        # Set colors for secondary y-tick labels
+        sec_yticklabels = sec_axis.get_yticklabels()
+        for tick, (label, weight) in zip(sec_yticklabels, yticklabels):
+            if weight=='bold':
+                tick.set_fontweight('bold')
+    #_-----
+
+    ax.tick_params(axis='x', labelsize=16)
+    ax.tick_params(axis='y', labelsize=16)
+    ax.set_xlabel("Mean Estimated Complexity", fontsize=title_size, labelpad=padding_size)
+
+    if save:
+        plt.savefig(f'{path}/mean_estimatedComplexity_all.jpg', 
+                    bbox_inches='tight', dpi=800)
+        print(f"\n✅ Plot saved to {path}/mean_estimatedComplexity_all.jpg")
+    else:
+        plt.show()

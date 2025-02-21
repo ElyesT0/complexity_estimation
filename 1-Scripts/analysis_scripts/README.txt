@@ -16,3 +16,5 @@ use: python -m modules.check_prolific_data
 Copy their Participant ID and paste them in modules>params.py>excluded_participants
 
 3. Run the process_data.py script. Your processed data is not in /Users/elyestabbane/Documents/UNICOG/2-Experiments/complexity_estimation/2-Data/online_exp_data/processed
+
+4. Use the run_plotting.py to generate the main plots of the experiment.

@@ -214,6 +214,47 @@ bar_thickness=0.8
 bar_frame_width=3 # define linewidht parameter in barh plots
 ticks_fontsize=14
 
+plot_colors2=['#FEC89A', '#FEC89A', # play-4
+              '#fec5bb', '#fec5bb', # sub-programs 1
+              '#d8e2dc', '#d8e2dc', # sub-programs 2
+              '#ECE4DB', '#ECE4DB', # index i
+              '#c997a0','#c997a0', # play
+              '#9d8189', '#9d8189', # insertion - Suppression
+              '#f4acb7', '#f4acb7', # Mirror 1
+              '#ffe5d9', '#ffe5d9'] # Mirror 2
+
+distinct_colors_all=[
+            '#001219','#001219', # Repetition-2
+            '#005F73','#005F73', # Repetition-3
+            '#0A9396','#0A9396', # Repetition-4
+            '#9B2226','#9B2226','#9B2226', # Repetition-Nested
+            
+            '#EE9B00', '#EE9B00', # play-4
+            '#fec5bb', '#fec5bb', # sub-programs 1
+            '#E9D8A6', '#E9D8A6', # sub-programs 2
+            '#ECE4DB', '#ECE4DB', # index i
+            '#0466C8','#0466C8', # play
+            '#33415C', '#33415C', # insertion - Suppression
+            '#9d4edd', '#9d4edd', # Mirror 1
+            '#b76935', '#b76935'] # Mirror 2
+
+distinct_colors_base=[
+            '#9B2226','#9B2226','#9B2226', # Repetition-Nested
+            '#001219','#001219', # Repetition-2
+            '#005F73','#005F73', # Repetition-3
+            '#0A9396','#0A9396', # Repetition-4
+] 
+
+distinct_colors_ext=['#EE9B00', '#EE9B00', # play-4
+            '#fec5bb', '#fec5bb', # sub-programs 1
+            '#E9D8A6', '#E9D8A6', # sub-programs 2
+            '#ECE4DB', '#ECE4DB', # index i
+            '#0466C8','#0466C8', # play
+            '#33415C', '#33415C', # insertion - Suppression
+            '#9d4edd', '#9d4edd', # Mirror 1
+            '#b76935', '#b76935'] # Mirror 2
+
 # ------------------------------------------------
 # ************ Backward compatibility ************
 # ------------------------------------------------
+
